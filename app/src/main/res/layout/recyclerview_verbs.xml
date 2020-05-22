@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/verbTextView"
+        android:paddingEnd="2dp"
+        android:paddingStart="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_width="match_parent"
+        style="@style/verb_tile"
+        android:layout_height="match_parent"/>
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/definitions_recyclerview"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@android:color/white"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        tools:listitem="@layout/recyclerview_definitions" />-->
+
+    <View
+        android:id="@+id/divider"
+        android:padding="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@color/lightGray" />
+
+</LinearLayout>

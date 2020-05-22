@@ -1,0 +1,34 @@
+package com.sid.app.verbpractice
+
+import android.content.Context
+import android.util.Log
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.sid.app.verbpractice.db.dao.EnglishVerbDao
+import com.sid.app.verbpractice.db.dao.PortugueseVerbDao
+import com.sid.app.verbpractice.db.entity.EnglishVerb
+import com.sid.app.verbpractice.db.entity.PortugueseVerb
+import com.sid.app.verbpractice.db.entity.PortugueseVerbDefinition
+
+
+@Database(entities = [EnglishVerb::class, PortugueseVerb::class, PortugueseVerbDefinition::class], version = 1, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun englishVerbDao(): EnglishVerbDao
+    abstract fun portugueseVerbDao(): PortugueseVerbDao
+
+    companion object {
+        private var instance: AppDatabase? = null
+        @Synchronized
+        fun get(context: Context): AppDatabase {
+            if (instance == null) {
+                Log.v("confusion", "started fresh")
+                instance = Room.databaseBuilder(context, AppDatabase::class.java, "verbs.db")
+                    .createFromAsset("databases/verbs.db")
+                    .fallbackToDestructiveMigration()
+                    .build()
+            }
+            return instance!!
+        }
+    }
+}

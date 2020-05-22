@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="8dp"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:stretchColumns="*"
+    android:shrinkColumns="*">
+
+    <TableRow android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/presSubjCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/present_subjunctive" />
+
+        <CheckBox
+            android:id="@+id/impeSubjCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/imperfect_subjunctive" />
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/futuSubjCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/future_subjunctive" />
+
+        <CheckBox
+            android:id="@+id/presPerfSubjCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/present_perfect_subjunctive" />
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/plupSubjCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/pluperfect_subjunctive" />
+
+        <CheckBox
+            android:id="@+id/futuPerfSubjCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/future_perfect_subjunctive" />
+    </TableRow>
+</TableLayout>

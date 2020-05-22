@@ -1,0 +1,142 @@
+<!--
+  ~ Copyright 2019, The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Verb Practice</string>
+    <string name="title_options">Options</string>
+    <string name="title_practice">Practice</string>
+    <string name="title_dictionary">Dictionary</string>
+    <string name="title_results">Results</string>
+
+    <string name="portugal">Portugal</string>
+    <string name="brazil">Brazil</string>
+    <string name="port_or_brazil">Location Settings</string>
+
+    <string name="tense">Tense:</string>
+    <string name="verb">Verb:</string>
+
+    //verb types
+    <string name="verb_types">Verb Types</string>
+    <string name="ar_verbs">-ar Verbs</string>
+    <string name="er_verbs">-er Verbs</string>
+    <string name="ir_verbs">-ir Verbs</string>
+    <string name="irreg_verbs">Irregular Verbs</string>
+
+    // tenses
+    <string name="verb_tenses">Verb Tenses</string>
+    <string name="full_or_partial_conjugations">Full or Partial Conjugations</string>
+    <string name="full_conjugations">Full Conjugations</string>
+    <string name="partial_conjugations">Partial Conjugations</string>
+
+    <string name="indicative_tenses">Indicative Tenses</string>
+    <string name="set_indicative_tenses">Set Indicative Tenses</string>
+    <string name="present">Present</string>
+    <string name="imperfect">Imperfect</string>
+    <string name="preterite">Preterite</string>
+    <string name="simple_pluperfect">Simple Pluperfect</string>
+    <string name="future">Future</string>
+    <string name="simple_future">Simple Future</string>
+    <string name="conditional">Conditional</string>
+
+    <string name="perfect_compound_tenses">Perfect Tenses</string>
+    <string name="set_perfect_compound_tenses">Set Perfect Tenses</string>
+    <string name="present_perfect">Present Perfect</string>
+    <string name="pluperfect">Pluperfect</string>
+    <string name="future_perfect">Future Perfect</string>
+    <string name="conditional_perfect">Conditional Perfect</string>
+
+    <string name="progressive_tenses">Progressive Tenses</string>
+    <string name="set_progressive_tenses">Set Progressive Tenses</string>
+    <string name="present_progressive">Present Progressive</string>
+    <string name="imperfect_progressive">Imperfect Progressive</string>
+    <string name="preterite_progressive">Preterite Progressive</string>
+    <string name="simple_pluperfect_progressive">Simple Pluperfect Progressive</string>
+    <string name="future_progressive">Future Progressive</string>
+    <string name="conditional_progressive">Conditional Progressive</string>
+    <string name="present_perfect_progressive">Present Perfect Progressive</string>
+    <string name="pluperfect_progressive">Pluperfect Progressive</string>
+    <string name="future_perfect_progressive">Future Perfect Progressive</string>
+    <string name="conditional_perfect_progressive">Conditional Perfect Progressive</string>
+
+    <string name="subjunctive_tenses">Subjunctive Tenses</string>
+    <string name="set_subjunctive_tenses">Set Subjunctive Tenses</string>
+    <string name="present_subjunctive">Present Subjunctive</string>
+    <string name="imperfect_subjunctive">Imperfect Subjunctive</string>
+    <string name="future_subjunctive">Future Subjunctive</string>
+    <string name="present_perfect_subjunctive">Present Perfect Subjunctive</string>
+    <string name="pluperfect_subjunctive">Pluperfect Subjunctive</string>
+    <string name="future_perfect_subjunctive">Future Perfect Subjunctive</string>
+
+    <string name="imperative_affirmative">Imperative Affirmative</string>
+    <string name="imperative_negative">Imperative Negative</string>
+    <string name="personal_infinitive">Personal Infinitive</string>
+
+    <string name="search_hint">Search for verb</string>
+
+    <string name="subject_pronoun_frequency">Subject Pronoun Frequency</string>
+    <string name="eu">Eu</string>
+    <string name="tu">Tu</string>
+    <string name="vc_ele_ela">Você/Ele/Ela</string>
+    <string name="nós">Nós</string>
+    <string name="vós">Vós</string>
+    <string name="vcs_eles_elas" tools:ignore="Typos">Vocês/Eles/Elas</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="start">Start</string>
+    <string name="reset">Reset</string>
+    <string name="clear">Clear</string>
+    <string name="next">Next</string>
+    <string name="check">Check</string>
+    <string name="finish">Finish</string>
+    <string name="restart">Restart</string>
+    <string name="show_answers">Show Answers</string>
+    <string name="show_answer">Show</string>
+    <string name="reset_all_words">Reset All Words</string>
+    <string name="filter">Show selected only</string>
+    <string name="unfilter">Show all</string>
+
+
+    <string name="time_and_count_options">Time and Count</string>
+    <string name="time_switch_option">Time</string>
+    <string name="count_switch_option">Count</string>
+    <string name="time_spinner_label">Time:</string>
+    <string name="count_spinner_label">Count:</string>
+
+    <string name="third_person_options">3rd Person Settings</string>
+    <string name="vc_vcs">Você</string>
+    <string name="ele_ela_eles_elas">Ele/Ela</string>
+    <string name="senhor">O senhor/A senhora</string>
+
+    <string-array name="times_array">
+        <item>1:00</item>
+        <item>3:00</item>
+        <item>5:00</item>
+        <item>7:00</item>
+        <item>10:00</item>
+    </string-array>
+
+    <string-array name="counts_array">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+    </string-array>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+</resources>

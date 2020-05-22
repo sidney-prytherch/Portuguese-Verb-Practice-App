@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    tools:context="com.sid.app.verbpractice.ui.OptionsFragment"
+    tools:layout_editor_absoluteY="81dp">
+
+    <ScrollView
+        android:id="@+id/verbFormsScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+                android:id="@+id/verbTypesTable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:padding="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
+
+                <TableRow android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_margin="5dp"
+                        android:layout_span="2"
+                        android:text="@string/verb_types"
+                        style="@style/BiggerText" />
+                </TableRow>
+
+                <TableRow android:layout_height="wrap_content">
+
+                    <CheckBox
+                        style="@style/BigText"
+                        android:id="@+id/arVerbType"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="2dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_span="2"
+                        android:text="@string/ar_verbs" />
+
+                </TableRow>
+
+                <TableRow android:layout_height="wrap_content">
+
+                    <CheckBox
+                        style="@style/BigText"
+                        android:id="@+id/erVerbType"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="2dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_span="2"
+                        android:text="@string/er_verbs" />
+
+                </TableRow>
+
+                <TableRow android:layout_height="wrap_content">
+
+                    <CheckBox
+                        style="@style/BigText"
+                        android:id="@+id/irVerbType"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="2dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_span="2"
+                        android:text="@string/ir_verbs" />
+
+                </TableRow>
+
+                <TableRow android:layout_height="wrap_content">
+
+                    <CheckBox
+                        style="@style/BigText"
+                        android:id="@+id/irregVerbType"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:padding="2dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_span="2"
+                        android:text="@string/irreg_verbs" />
+
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:id="@+id/verbTensesTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/verbTypesTable"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="4dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*">
+
+                <TextView
+                    style="@style/BiggerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="@string/verb_tenses" />
+
+                <Button
+                    android:id="@+id/setIndicativeTensesButton"
+                    style="@style/setter_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_indicative_tenses" />
+
+                <TextView
+                    android:id="@+id/setIndicativeTenses"
+                    style="@style/tensesList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/setPerfectTensesButton"
+                    style="@style/setter_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_perfect_compound_tenses" />
+
+                <TextView
+                    android:id="@+id/setPerfectTenses"
+                    style="@style/tensesList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/setProgressiveTensesButton"
+                    style="@style/setter_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_progressive_tenses" />
+
+                <TextView
+                    android:id="@+id/setProgressiveTenses"
+                    style="@style/tensesList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/setSubjunctiveTensesButton"
+                    style="@style/setter_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_subjunctive_tenses" />
+
+                <TextView
+                    android:id="@+id/setSubjunctiveTenses"
+                    style="@style/tensesList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_below="@+id/verbTensesTable"
+                android:orientation="vertical"
+                android:id="@+id/fullOrPartialConjugations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:padding="4dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                >
+
+                <TextView
+                    style="@style/BiggerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="@string/full_or_partial_conjugations" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/BigText"
+                        android:id="@+id/partialConjugations"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="@string/partial_conjugations" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:theme="@style/conjugations_switch"
+                        android:id="@+id/conjugationsSwitch"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        style="@style/BigText"
+                        android:id="@+id/fullConjugations"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="@string/full_conjugations" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TableLayout
+                android:id="@+id/subjectsTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:padding="4dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:stretchColumns="1"
+                android:layout_below="@+id/fullOrPartialConjugations">
+
+                <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        style="@style/BiggerText"
+                        android:layout_margin="5dp"
+                        android:layout_span="2"
+                        android:text="@string/subject_pronoun_frequency" />
+                </TableRow>
+
+                <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:id="@+id/euSwitch"
+                        android:padding="2dp"
+                        android:text="@string/eu"
+                        android:layout_marginStart="10dp"
+                        android:checked="true"/>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/euBar"
+                        android:layout_height="match_parent"
+                        android:max="10"
+                        android:progress="5"/>
+                </TableRow>
+
+                <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:id="@+id/tuSwitch"
+                        android:padding="2dp"
+                        android:text="@string/tu"
+                        android:layout_marginStart="10dp"
+                        android:checked="true"/>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/tuBar"
+                        android:layout_height="match_parent"
+                        android:max="10"
+                        android:progress="5"/>
+                </TableRow>
+
+
+                <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:id="@+id/vcEleElaSwitch"
+                        android:padding="2dp"
+                        android:text="@string/vc_ele_ela"
+                        android:layout_marginStart="10dp"
+                        android:checked="true"/>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/vcEleElaBar"
+                        android:layout_height="match_parent"
+                        android:max="10"
+                        android:progress="5"/>
+                </TableRow>
+
+                <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:id="@+id/nosSwitch"
+                        android:padding="2dp"
+                        android:text="@string/nós"
+                        android:layout_marginStart="10dp"
+                        android:checked="true"/>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/nosBar"
+                        android:layout_height="match_parent"
+                        android:max="10"
+                        android:progress="5"/>
+                </TableRow>
+
+                <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:id="@+id/vosSwitch"
+                        android:padding="2dp"
+                        android:text="@string/vós"
+                        android:layout_marginStart="10dp"
+                        android:checked="false"/>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/vosBar"
+                        android:layout_height="match_parent"
+                        android:max="10"
+                        android:enabled="false"
+                        android:progress="5"
+                        />
+                </TableRow>
+
+                <TableRow android:layout_height="wrap_content" android:layout_width="match_parent">
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:id="@+id/vcsElesElasSwitch"
+                        android:padding="2dp"
+                        android:text="@string/vcs_eles_elas"
+                        android:layout_marginStart="10dp"
+                        android:checked="true"/>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/vcsElesElasBar"
+                        android:layout_height="match_parent"
+                        android:max="10"
+                        android:progress="5"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <LinearLayout
+                android:id="@+id/thirdPersonSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/subjectsTable"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="4dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*">
+                <TextView
+                    style="@style/BiggerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="@string/third_person_options" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/vcVcsSwitch"
+                        android:padding="2dp"
+                        android:text="@string/vc_vcs"
+                        android:layout_marginStart="10dp"
+                        android:checked="true"/>
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/eleElaElesElasSwitch"
+                        android:padding="2dp"
+                        android:text="@string/ele_ela_eles_elas"
+                        android:layout_marginStart="10dp"
+                        android:checked="true"/>
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/senhorsSwitch"
+                        android:padding="2dp"
+                        android:text="@string/senhor"
+                        android:layout_marginStart="10dp"
+                        android:checked="true"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/timeOrCountSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/thirdPersonSettings"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="4dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*">
+
+                <TextView
+                    style="@style/BiggerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="@string/time_and_count_options" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/BigText"
+                        android:id="@+id/timeSwitchOption"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="@string/time_switch_option" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:theme="@style/conjugations_switch"
+                        android:id="@+id/timeOrCountSwitch"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:id="@+id/countSwitchOption"
+                        style="@style/BigText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:padding="2dp"
+                        android:text="@string/count_switch_option"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/timeOptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/BigText"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:padding="2dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/time_spinner_label"/>
+                    <Spinner
+                        style="@style/BigText"
+                        android:id="@+id/timeSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/countOptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/BigText"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:padding="2dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/count_spinner_label"/>
+                    <Spinner
+                        style="@style/BigText"
+                        android:id="@+id/countSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_below="@+id/timeOrCountSettings"
+                android:orientation="vertical"
+                android:id="@+id/portugalOrBrazil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:padding="4dp"
+                android:layout_margin="10dp">
+
+                <TextView
+                    style="@style/BiggerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="@string/port_or_brazil" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/BigText"
+                        android:id="@+id/brazil"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="@string/brazil" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:theme="@style/conjugations_switch"
+                        android:id="@+id/portugalSwitch"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        style="@style/BigText"
+                        android:id="@+id/portugal"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="@string/portugal" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+<!--    <TextView-->
+<!--        android:id="@+id/avatar_text_label"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="34dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginEnd="34dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:text="@string/select_an_avatar"-->
+<!--        android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/include_avatar_picker"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_chainStyle="packed" />-->
+
+<!--    <include-->
+<!--        android:id="@+id/include_avatar_picker"-->
+<!--        layout="@layout/layout_picker"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginStart="34dp"-->
+<!--        android:layout_marginEnd="34dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/username_text"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/avatar_text_label" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/username_text"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="42dp"-->
+<!--        android:layout_marginStart="34dp"-->
+<!--        android:layout_marginEnd="34dp"-->
+<!--        android:layout_marginBottom="4dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="@string/name"-->
+<!--        android:inputType="textPersonName"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/email_text"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/include_avatar_picker" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/email_text"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="42dp"-->
+<!--        android:layout_marginStart="34dp"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        android:layout_marginEnd="34dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="@string/email"-->
+<!--        android:inputType="textEmailAddress"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/password_text"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/username_text" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/password_text"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="42dp"-->
+<!--        android:layout_marginStart="34dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="34dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="@string/password"-->
+<!--        android:inputType="textPassword"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/email_text" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/signup_btn"-->
+<!--        style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--        android:layout_width="146dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_marginStart="95dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="95dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        android:background="@drawable/rounded_button"-->
+<!--        android:contentDescription="@string/sign_up"-->
+<!--        android:text="@string/sign_up"-->
+<!--        android:textColor="@color/colorAccent"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/password_text" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

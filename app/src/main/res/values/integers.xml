@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="north">450</integer>
+    <integer name="northeast">600</integer>
+    <integer name="east">750</integer>
+    <integer name="southeast">900</integer>
+    <integer name="south">1050</integer>
+    <integer name="southwest">1200</integer>
+    <integer name="west">1350</integer>
+    <integer name="northwest">1500</integer>
+    <integer name="north2">1650</integer>
+    <integer name="loading_animation_duration">400</integer>
+</resources>

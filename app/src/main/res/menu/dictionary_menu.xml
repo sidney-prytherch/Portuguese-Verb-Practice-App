@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/filter"
+        android:contentDescription="@string/filter"
+        android:title="@string/filter"/>
+    <item
+        android:id="@+id/unfilter"
+        android:contentDescription="@string/unfilter"
+        android:title="@string/unfilter"/>
+    <item
+        android:id="@+id/resetAllWords"
+        android:contentDescription="@string/reset_all_words"
+        android:title="@string/reset_all_words"/>
+</menu>

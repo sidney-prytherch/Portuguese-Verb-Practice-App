@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_launcher_foreground">
+    <target
+        android:animation="@xml/animation_north"
+        android:name="north"/>
+    <target
+        android:animation="@xml/animation_northeast"
+        android:name="northeast"/>
+    <target
+        android:animation="@xml/animation_east"
+        android:name="east"/>
+    <target
+        android:animation="@xml/animation_southeast"
+        android:name="southeast"/>
+    <target
+        android:animation="@xml/animation_south"
+        android:name="south"/>
+    <target
+        android:animation="@xml/animation_southwest"
+        android:name="southwest"/>
+    <target
+        android:animation="@xml/animation_west"
+        android:name="west"/>
+    <target
+        android:animation="@xml/animation_northwest"
+        android:name="northwest"/>
+    <target
+        android:animation="@xml/animation_north2"
+        android:name="north"/>
+
+</animated-vector>

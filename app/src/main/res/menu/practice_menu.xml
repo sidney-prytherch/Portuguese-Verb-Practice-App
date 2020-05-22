@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/showAnswers"
+        android:contentDescription="@string/show_answers"
+        android:title="@string/show_answers"/>
+</menu>

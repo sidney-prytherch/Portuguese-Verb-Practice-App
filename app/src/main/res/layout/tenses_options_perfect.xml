@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="8dp"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:stretchColumns="*"
+    android:shrinkColumns="*">
+
+    <TableRow android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/presPerfCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/present_perfect" />
+
+        <CheckBox
+            android:id="@+id/plupPerfCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/pluperfect" />
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/futuPerfCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/future_perfect" />
+
+        <CheckBox
+            android:id="@+id/condPerfCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/conditional_perfect" />
+    </TableRow>
+</TableLayout>

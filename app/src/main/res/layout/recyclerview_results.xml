@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="12"
+    android:layout_marginTop="8dp">
+
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/number"
+        style="@style/BiggerText"
+        android:textAlignment="textEnd"
+        android:paddingEnd="2dp"
+        android:paddingStart="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/resultRows"
+        android:layout_width="0dp"
+        android:layout_weight="10"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/verbInfo"
+            android:paddingEnd="2dp"
+            android:paddingStart="2dp"
+            android:layout_marginStart="4dp"
+            android:layout_width="match_parent"
+            style="@style/BiggerText"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/input"
+            android:paddingEnd="2dp"
+            android:paddingStart="2dp"
+            android:layout_marginStart="4dp"
+            android:layout_width="match_parent"
+            style="@style/BigText"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/correction"
+            android:paddingEnd="2dp"
+            android:paddingStart="2dp"
+            android:layout_marginStart="4dp"
+            android:layout_width="match_parent"
+            style="@style/BigText"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/divider"
+            android:padding="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginEnd="4dp"
+            android:background="@color/lightGray" />
+    </LinearLayout>
+    <View
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" />
+</LinearLayout>
