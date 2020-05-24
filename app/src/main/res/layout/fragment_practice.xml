@@ -101,7 +101,9 @@
                         android:id="@+id/verbDisplay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginTop="4dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -119,6 +121,40 @@
                             android:paddingStart="4dp"
                             android:paddingEnd="4dp"
                             android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/englishVerbDisplay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/BigText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/verb"
+                            android:textStyle="bold"
+                            android:visibility="invisible"/>
+
+                        <TextView
+                            style="@style/BigText"
+                            android:gravity="top"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/enVerb"/>
+
+                        <TextView
+                            android:id="@+id/englishVerbTextView"
+                            style="@style/BigText"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp"/>
                     </LinearLayout>
 
                     <LinearLayout

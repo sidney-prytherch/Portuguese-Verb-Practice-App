@@ -1,12 +1,14 @@
 package com.sid.app.verbpractice.ui
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
@@ -32,6 +34,7 @@ class WordListAdapter(private val context: Context?) : RecyclerView.Adapter<Word
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val wordView: CheckBox = itemView.verbTextView
+        val defView: TextView = itemView.definition
         val divider: View = itemView.divider
     }
 
@@ -43,6 +46,8 @@ class WordListAdapter(private val context: Context?) : RecyclerView.Adapter<Word
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         isBusy = true
         holder.wordView.text = words[position].verb
+        val definition = """- ${words[position].main_def}"""
+        holder.defView.text = definition
         holder.wordView.isChecked = words[position].added == 1
         holder.wordView.setOnCheckedChangeListener { _, isChecked ->
             if (!isBusy) {
@@ -92,9 +97,13 @@ class WordListAdapter(private val context: Context?) : RecyclerView.Adapter<Word
                 filterResults.values = if (queryString==null || queryString.isEmpty()) {
                     preFilteredWords
                 } else {
-                    preFilteredWords.filter {
+                    val orderedSearchedList = preFilteredWords.filter {
                         it.verb.toLowerCase(Locale.ROOT).contains(queryString)
-                    }.sortedBy { !it.verb.startsWith(queryString, true) }
+                    }.sortedBy { !it.verb.startsWith(queryString, true) }.toMutableList()
+                    orderedSearchedList.addAll(preFilteredWords.filter {
+                        it.main_def.toLowerCase(Locale.ROOT).contains(queryString)
+                    })
+                    orderedSearchedList.toList()
                 }
                 return filterResults
             }

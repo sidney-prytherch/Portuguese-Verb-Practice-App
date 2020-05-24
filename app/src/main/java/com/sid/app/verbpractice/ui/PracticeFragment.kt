@@ -36,6 +36,7 @@ class PracticeFragment : Fragment() {
     private lateinit var textCount: TextView
     private lateinit var tenseTextView: TextView
     private lateinit var verbTextView: TextView
+    private lateinit var englishVerbTextView: TextView
     private var conjugationViews: Array<LinearLayout> = arrayOf()
     private var conjugationViewsPersons: Array<Int> = arrayOf()
     private lateinit var conjugationTable: LinearLayout
@@ -93,6 +94,7 @@ class PracticeFragment : Fragment() {
         conjugationTable = view.conjugationTable
         tenseTextView = view.tenseTextView
         verbTextView = view.verbTextView
+        englishVerbTextView = view.englishVerbTextView
         gray = ContextCompat.getColor(view.context, R.color.lightGray)
         val timer = view.timer
         val count = view.count
@@ -317,6 +319,7 @@ class PracticeFragment : Fragment() {
         val verb = StringHelper.capitalize(conjugation.verb)
         tenseTextView.text = ConjugatorPortuguese.getVerbFormString(conjugation.tense, resources)
         verbTextView.text = verb
+        englishVerbTextView.text = StringHelper.capitalize(conjugation.enVerb.split("~")[0])
         for (i in 0 until rowCount) {
             val view = conjugationViews[i]
             val result = results[i + startIndex]

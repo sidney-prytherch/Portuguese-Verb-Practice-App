@@ -14,6 +14,14 @@
         style="@style/verb_tile"
         android:layout_height="match_parent"/>
 
+    <TextView
+        android:id="@+id/definition"
+        style="@style/definition_tile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="2dp"
+        android:paddingStart="2dp"
+        android:layout_marginStart="50dp"/>
 
     <View
         android:id="@+id/divider"
