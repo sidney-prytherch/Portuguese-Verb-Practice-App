@@ -4,7 +4,7 @@ import android.util.Log
 import com.sid.app.verbpractice.enums.Person
 import com.sid.app.verbpractice.enums.VerbForm
 
-class PotentialConjugation(val verb: String, val tense: VerbForm, val personMap: HashMap<Person, String?>) {
+class PotentialConjugation(val verb: String, val enVerb: String, val tense: VerbForm, val personMap: HashMap<Person, String?>) {
     var isValidPick = true
     val selectedPersons = mutableListOf<Person>()
     fun getRandomPerson(

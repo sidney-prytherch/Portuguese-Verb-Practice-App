@@ -8,6 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class ConjugationParcel(
     val verb: String,
+    val enVerb: String,
     val tense: VerbForm,
     val persons: Array<Person>,
     val verbConjugations: Array<String?>,

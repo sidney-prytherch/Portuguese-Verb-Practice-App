@@ -45,6 +45,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
     private lateinit var mContext: MainActivity
     var pages: Array<Array<String>> = arrayOf()
     private var enabledVerbs:Array<String> = arrayOf()
+    private var enabledEnglishVerbs:Array<String> = arrayOf()
     private var enabledTenses: Array<VerbForm> = arrayOf()
     private var isFullConjugation = true
     private var isPortugal = true
@@ -97,6 +98,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
 
             if (enabledVerbs.isEmpty()) {
                 enabledVerbs = arrayOf("ser", "estar", "ter")
+                enabledEnglishVerbs = arrayOf("to be (denotes a permanent quality)~to be", "to be (denotes a transient quality; a quality expected to change)~to be", "to have~to have")
             }
 
             if (enabledTenses.isEmpty()) {
@@ -106,6 +108,8 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             val conjugatedVerbs = enabledVerbs.map { verb ->
                 ConjugatorPortuguese.conjugate(verb, enabledTenses, isPortugal)
             }
+
+            val englishVerbMap = mapOf(*enabledVerbs.zip(enabledEnglishVerbs).toTypedArray())
 
             val conjugatedVerbsMap = hashMapOf(*enabledVerbs.zip(conjugatedVerbs).toTypedArray()).filterValues { verb ->
                 val badTenses = mutableListOf<VerbForm>()
@@ -139,7 +143,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 Log.v("mapStuff", verb)
                 for ((tense, personMap) in tenseMap) {
                     Log.v("mapStuff", """  $tense""")
-                    possibleConjugations += PotentialConjugation(verb, tense, personMap)
+                    possibleConjugations += PotentialConjugation(verb, englishVerbMap[verb] ?: verb, tense, personMap)
                 }
             }
 
@@ -189,6 +193,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 selectedConjugations.map { conjugation ->
                     ConjugationParcel(
                         conjugation.verb,
+                        englishVerbMap[conjugation.verb] ?: conjugation.verb,
                         conjugation.tense,
                         conjugation.personMap.keys.toTypedArray(),
                         conjugation.personMap.values.toTypedArray(),
@@ -209,7 +214,9 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
         val task = async(Dispatchers.IO) {
             mContext.getRandomVerbs()
         }
+        val verbs = task.await()
         enabledVerbs = task.await()?.map { it.verb }?.toTypedArray() ?: arrayOf()
+        enabledEnglishVerbs = verbs?.map { it.main_def + "~" + it.main_def.split(";")[0].split(",")[0].replace(Regex("\\(.*\\)"), "").trim() }?.toTypedArray() ?: arrayOf()
     }
 
 }

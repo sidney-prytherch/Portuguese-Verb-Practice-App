@@ -27,6 +27,7 @@
 
     <string name="tense">Tense:</string>
     <string name="verb">Verb:</string>
+    <string name="enVerb">-</string>
 
     //verb types
     <string name="verb_types">Verb Types</string>
