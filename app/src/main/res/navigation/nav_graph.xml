@@ -57,37 +57,37 @@
         android:label="@string/title_options"
         tools:layout="@layout/fragment_options">
         <action
-            android:id="@+id/action_title_to_set_perfect"
-            app:destination="@id/setPerfectTensesButton"/>
+            android:id="@+id/action_title_to_set_comp_ind"
+            app:destination="@id/setCompIndTensesButton"/>
         <action
-            android:id="@+id/action_title_to_set_indicative"
-            app:destination="@id/setIndicativeTensesButton"/>
+            android:id="@+id/action_title_to_set_simp_ind"
+            app:destination="@id/setSimpIndTensesButton"/>
         <action
-            android:id="@+id/action_title_to_set_progressive"
-            app:destination="@id/setProgressiveTensesButton"/>
+            android:id="@+id/action_title_to_set_prog_ind"
+            app:destination="@id/setProgIndTensesButton"/>
         <action
-            android:id="@+id/action_title_to_set_subjunctive"
-            app:destination="@id/setSubjunctiveTensesButton"/>
+            android:id="@+id/action_title_to_set_subj"
+            app:destination="@id/setSubjTensesButton"/>
     </fragment>
     <dialog
-        android:id="@+id/setPerfectTensesButton"
-        android:name="com.sid.app.verbpractice.ui.SetPerfectTensesFragment"
-        android:label="@string/set_perfect_compound_tenses"
-        tools:layout="@layout/tenses_options_perfect"/>
+        android:id="@+id/setCompIndTensesButton"
+        android:name="com.sid.app.verbpractice.ui.SetCompIndTensesFragment"
+        android:label="@string/set_comp_ind_tenses"
+        tools:layout="@layout/tenses_options_comp_ind"/>
     <dialog
-        android:id="@+id/setIndicativeTensesButton"
-        android:name="com.sid.app.verbpractice.ui.SetIndicativeTensesFragment"
-        android:label="@string/set_indicative_tenses"
-        tools:layout="@layout/tenses_options_indicative"/>
+        android:id="@+id/setSimpIndTensesButton"
+        android:name="com.sid.app.verbpractice.ui.SetSimpIndTensesFragment"
+        android:label="@string/set_simp_ind_tenses"
+        tools:layout="@layout/tenses_options_simp_ind"/>
     <dialog
-        android:id="@+id/setProgressiveTensesButton"
-        android:name="com.sid.app.verbpractice.ui.SetProgressiveTensesFragment"
-        android:label="@string/set_progressive_tenses"
-        tools:layout="@layout/tenses_options_progressive"/>
+        android:id="@+id/setProgIndTensesButton"
+        android:name="com.sid.app.verbpractice.ui.SetProgIndTensesFragment"
+        android:label="@string/set_prog_ind_tenses"
+        tools:layout="@layout/tenses_options_prog_ind"/>
     <dialog
-        android:id="@+id/setSubjunctiveTensesButton"
-        android:name="com.sid.app.verbpractice.ui.SetSubjunctiveTensesFragment"
-        android:label="@string/set_subjunctive_tenses"
-        tools:layout="@layout/tenses_options_subjunctive"/>
+        android:id="@+id/setSubjTensesButton"
+        android:name="com.sid.app.verbpractice.ui.SetSubjTensesFragment"
+        android:label="@string/set_subj_tenses"
+        tools:layout="@layout/tenses_options_subj"/>
 </navigation>
 

@@ -38,7 +38,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 /**
  * An activity that inflates a layout that has a [BottomNavigationView].
  */
-class MainActivity : AppCompatActivity(), SetIndicativeTensesFragment.SetAndGetIndicativeSettings, SetPerfectTensesFragment.SetAndGetPerfectSettings, SetProgressiveTensesFragment.SetAndGetProgressiveSettings, SetSubjunctiveTensesFragment.SetAndGetSubjunctiveSettings {
+class MainActivity : AppCompatActivity(), SetSimpIndTensesFragment.SetAndGetIndicativeSettings, SetCompIndTensesFragment.SetAndGetPerfectSettings, SetProgIndTensesFragment.SetAndGetProgressiveSettings, SetSubjTensesFragment.SetAndGetSubjunctiveSettings {
 
     private lateinit var mWordViewModel: PortugueseVerbViewModel
     private lateinit var verbSettingsManager: VerbSettingsManager
@@ -75,37 +75,37 @@ class MainActivity : AppCompatActivity(), SetIndicativeTensesFragment.SetAndGetI
         return Navigation.findNavController(this, R.id.nav_host_container).navigateUp()//currentNavController?.value?.navigateUp() ?: false
     }
 
-    override fun onSetIndicativeTense(dialog: DialogFragment, result: BooleanArray) {
+    override fun onSetSimpIndTenses(dialog: DialogFragment, result: BooleanArray) {
         verbSettingsManager.setBool(VerbSettingsManager.PRES_IND, result[0])
-        verbSettingsManager.setBool(VerbSettingsManager.IMP_IND, result[1])
-        verbSettingsManager.setBool(VerbSettingsManager.PRET_IND, result[2])
+        verbSettingsManager.setBool(VerbSettingsManager.PRET_IND, result[1])
+        verbSettingsManager.setBool(VerbSettingsManager.IMP_IND, result[2])
         verbSettingsManager.setBool(VerbSettingsManager.SIMP_PLUP_IND, result[3])
-        verbSettingsManager.setBool(VerbSettingsManager.FUT_IND, result[4])
-        verbSettingsManager.setBool(VerbSettingsManager.SIMP_FUT_IND, result[5])
-        verbSettingsManager.setBool(VerbSettingsManager.COND_IND, result[6])
+        verbSettingsManager.setBool(VerbSettingsManager.SIMP_FUT_IND, result[4])
+        verbSettingsManager.setBool(VerbSettingsManager.COND_IND, result[5])
     }
 
-    override fun getIndicativeValues(): BooleanArray {
+    override fun getSimpIndTenses(): BooleanArray {
         return booleanArrayOf(
             verbSettingsManager.getBool(VerbSettingsManager.PRES_IND),
-            verbSettingsManager.getBool(VerbSettingsManager.IMP_IND),
             verbSettingsManager.getBool(VerbSettingsManager.PRET_IND),
+            verbSettingsManager.getBool(VerbSettingsManager.IMP_IND),
             verbSettingsManager.getBool(VerbSettingsManager.SIMP_PLUP_IND),
-            verbSettingsManager.getBool(VerbSettingsManager.FUT_IND),
             verbSettingsManager.getBool(VerbSettingsManager.SIMP_FUT_IND),
             verbSettingsManager.getBool(VerbSettingsManager.COND_IND)
         )
     }
 
-    override fun onSetPerfectTense(dialog: DialogFragment, result: BooleanArray) {
-        verbSettingsManager.setBool(VerbSettingsManager.PRES_PERF, result[0])
-        verbSettingsManager.setBool(VerbSettingsManager.PLUP, result[1])
-        verbSettingsManager.setBool(VerbSettingsManager.FUT_PERF, result[2])
-        verbSettingsManager.setBool(VerbSettingsManager.COND_PERF, result[3])
+    override fun onSetCompIndTenses(dialog: DialogFragment, result: BooleanArray) {
+        verbSettingsManager.setBool(VerbSettingsManager.FUT_IND, result[0])
+        verbSettingsManager.setBool(VerbSettingsManager.PRES_PERF, result[1])
+        verbSettingsManager.setBool(VerbSettingsManager.PLUP, result[2])
+        verbSettingsManager.setBool(VerbSettingsManager.FUT_PERF, result[3])
+        verbSettingsManager.setBool(VerbSettingsManager.COND_PERF, result[4])
     }
 
-    override fun getPerfectValues(): BooleanArray {
+    override fun getCompIndTenses(): BooleanArray {
         return booleanArrayOf(
+            verbSettingsManager.getBool(VerbSettingsManager.FUT_IND),
             verbSettingsManager.getBool(VerbSettingsManager.PRES_PERF),
             verbSettingsManager.getBool(VerbSettingsManager.PLUP),
             verbSettingsManager.getBool(VerbSettingsManager.FUT_PERF),
@@ -113,10 +113,10 @@ class MainActivity : AppCompatActivity(), SetIndicativeTensesFragment.SetAndGetI
         )
     }
 
-    override fun onSetProgressiveTense(dialog: DialogFragment, result: BooleanArray) {
+    override fun onSetProgIndTenses(dialog: DialogFragment, result: BooleanArray) {
         verbSettingsManager.setBool(VerbSettingsManager.PRES_PROG, result[0])
-        verbSettingsManager.setBool(VerbSettingsManager.IMP_PROG, result[1])
-        verbSettingsManager.setBool(VerbSettingsManager.PRET_PROG, result[2])
+        verbSettingsManager.setBool(VerbSettingsManager.PRET_PROG, result[1])
+        verbSettingsManager.setBool(VerbSettingsManager.IMP_PROG, result[2])
         verbSettingsManager.setBool(VerbSettingsManager.SIMP_PLUP_PROG, result[3])
         verbSettingsManager.setBool(VerbSettingsManager.FUT_PROG, result[4])
         verbSettingsManager.setBool(VerbSettingsManager.COND_PROG, result[5])
@@ -126,11 +126,11 @@ class MainActivity : AppCompatActivity(), SetIndicativeTensesFragment.SetAndGetI
         verbSettingsManager.setBool(VerbSettingsManager.COND_PERF_PROG, result[9])
     }
 
-    override fun getProgressiveValues(): BooleanArray {
+    override fun getProgIndTenses(): BooleanArray {
         return booleanArrayOf(
             verbSettingsManager.getBool(VerbSettingsManager.PRES_PROG) ,
-            verbSettingsManager.getBool(VerbSettingsManager.IMP_PROG),
             verbSettingsManager.getBool(VerbSettingsManager.PRET_PROG),
+            verbSettingsManager.getBool(VerbSettingsManager.IMP_PROG),
             verbSettingsManager.getBool(VerbSettingsManager.SIMP_PLUP_PROG),
             verbSettingsManager.getBool(VerbSettingsManager.FUT_PROG),
             verbSettingsManager.getBool(VerbSettingsManager.COND_PROG),
@@ -141,22 +141,22 @@ class MainActivity : AppCompatActivity(), SetIndicativeTensesFragment.SetAndGetI
         )
     }
 
-    override fun onSetSubjunctiveTense(dialog: DialogFragment, result: BooleanArray) {
+    override fun onSetSubjTenses(dialog: DialogFragment, result: BooleanArray) {
         verbSettingsManager.setBool(VerbSettingsManager.PRES_SUBJ, result[0])
-        verbSettingsManager.setBool(VerbSettingsManager.IMP_SUBJ, result[1])
-        verbSettingsManager.setBool(VerbSettingsManager.FUT_SUBJ, result[2])
-        verbSettingsManager.setBool(VerbSettingsManager.PRES_PERF_SUBJ, result[3])
-        verbSettingsManager.setBool(VerbSettingsManager.PLUP_SUBJ, result[4])
+        verbSettingsManager.setBool(VerbSettingsManager.PRES_PERF_SUBJ, result[1])
+        verbSettingsManager.setBool(VerbSettingsManager.IMP_SUBJ, result[2])
+        verbSettingsManager.setBool(VerbSettingsManager.PLUP_SUBJ, result[3])
+        verbSettingsManager.setBool(VerbSettingsManager.FUT_SUBJ, result[4])
         verbSettingsManager.setBool(VerbSettingsManager.FUT_PERF_SUBJ, result[5])
     }
 
-    override fun getSubjunctiveValues(): BooleanArray {
+    override fun getSubjTenses(): BooleanArray {
         return booleanArrayOf(
             verbSettingsManager.getBool(VerbSettingsManager.PRES_SUBJ),
-            verbSettingsManager.getBool(VerbSettingsManager.IMP_SUBJ),
-            verbSettingsManager.getBool(VerbSettingsManager.FUT_SUBJ),
             verbSettingsManager.getBool(VerbSettingsManager.PRES_PERF_SUBJ),
+            verbSettingsManager.getBool(VerbSettingsManager.IMP_SUBJ),
             verbSettingsManager.getBool(VerbSettingsManager.PLUP_SUBJ),
+            verbSettingsManager.getBool(VerbSettingsManager.FUT_SUBJ),
             verbSettingsManager.getBool(VerbSettingsManager.FUT_PERF_SUBJ)
         )
     }
@@ -188,19 +188,19 @@ class MainActivity : AppCompatActivity(), SetIndicativeTensesFragment.SetAndGetI
     fun getAllTenses(): Array<VerbForm> {
         return arrayOf(
             checkTense(VerbSettingsManager.PRES_IND, VerbForm.PRES_IND),
-            checkTense(VerbSettingsManager.IMP_IND, VerbForm.IMP_IND),
             checkTense(VerbSettingsManager.PRET_IND, VerbForm.PRET_IND),
+            checkTense(VerbSettingsManager.IMP_IND, VerbForm.IMP_IND),
             checkTense(VerbSettingsManager.SIMP_PLUP_IND, VerbForm.SIMP_PLUP_IND),
-            checkTense(VerbSettingsManager.FUT_IND, VerbForm.SIMP_FUT_IND),
             checkTense(VerbSettingsManager.SIMP_FUT_IND, VerbForm.FUT_IND),
             checkTense(VerbSettingsManager.COND_IND, VerbForm.COND_IND),
+            checkTense(VerbSettingsManager.FUT_IND, VerbForm.SIMP_FUT_IND),
             checkTense(VerbSettingsManager.PRES_PERF, VerbForm.PRES_PERF),
             checkTense(VerbSettingsManager.PLUP, VerbForm.PLUP),
             checkTense(VerbSettingsManager.FUT_PERF, VerbForm.FUT_PERF),
             checkTense(VerbSettingsManager.COND_PERF, VerbForm.COND_PERF),
             checkTense(VerbSettingsManager.PRES_PROG, VerbForm.PRES_PROG),
-            checkTense(VerbSettingsManager.IMP_PROG, VerbForm.IMP_PROG),
             checkTense(VerbSettingsManager.PRET_PROG, VerbForm.PRET_PROG),
+            checkTense(VerbSettingsManager.IMP_PROG, VerbForm.IMP_PROG),
             checkTense(VerbSettingsManager.SIMP_PLUP_PROG, VerbForm.SIMP_PLUP_PROG),
             checkTense(VerbSettingsManager.FUT_PROG, VerbForm.FUT_PROG),
             checkTense(VerbSettingsManager.COND_PROG, VerbForm.COND_PROG),
@@ -209,10 +209,10 @@ class MainActivity : AppCompatActivity(), SetIndicativeTensesFragment.SetAndGetI
             checkTense(VerbSettingsManager.FUT_PERF_PROG, VerbForm.FUT_PERF_PROG),
             checkTense(VerbSettingsManager.COND_PERF_PROG, VerbForm.COND_PERF_PROG),
             checkTense(VerbSettingsManager.PRES_SUBJ, VerbForm.PRES_SUBJ),
-            checkTense(VerbSettingsManager.IMP_SUBJ, VerbForm.IMP_SUBJ),
-            checkTense(VerbSettingsManager.FUT_SUBJ, VerbForm.FUT_SUBJ),
             checkTense(VerbSettingsManager.PRES_PERF_SUBJ, VerbForm.PRES_PERF_SUBJ),
+            checkTense(VerbSettingsManager.IMP_SUBJ, VerbForm.IMP_SUBJ),
             checkTense(VerbSettingsManager.PLUP_SUBJ, VerbForm.PLUP_SUBJ),
+            checkTense(VerbSettingsManager.FUT_SUBJ, VerbForm.FUT_SUBJ),
             checkTense(VerbSettingsManager.FUT_PERF_SUBJ, VerbForm.FUT_PERF_SUBJ)
         ).filterNotNull().toTypedArray()
     }
@@ -291,7 +291,7 @@ class MainActivity : AppCompatActivity(), SetIndicativeTensesFragment.SetAndGetI
             verbSettingsManager.getInt(VerbSettingsManager.TU_FREQUENCY, 5),
             verbSettingsManager.getInt(VerbSettingsManager.VC_ELE_ELA_FREQUENCY, 5),
             verbSettingsManager.getInt(VerbSettingsManager.NOS_FREQUENCY, 5),
-            verbSettingsManager.getInt(VerbSettingsManager.VOS_FREQUENCY, 5),
+            verbSettingsManager.getInt(VerbSettingsManager.VOS_FREQUENCY, 0),
             verbSettingsManager.getInt(VerbSettingsManager.VCS_ELES_ELAS_FREQUENCY, 5)
         )
     }

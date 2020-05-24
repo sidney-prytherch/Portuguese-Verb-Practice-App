@@ -118,53 +118,53 @@
                     android:text="@string/verb_tenses" />
 
                 <Button
-                    android:id="@+id/setIndicativeTensesButton"
+                    android:id="@+id/setSimpIndTensesButton"
                     style="@style/setter_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/set_indicative_tenses" />
+                    android:text="@string/set_simp_ind_tenses" />
 
                 <TextView
-                    android:id="@+id/setIndicativeTenses"
+                    android:id="@+id/setSimpIndTenses"
                     style="@style/tensesList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <Button
-                    android:id="@+id/setPerfectTensesButton"
+                    android:id="@+id/setCompIndTensesButton"
                     style="@style/setter_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/set_perfect_compound_tenses" />
+                    android:text="@string/set_comp_ind_tenses" />
 
                 <TextView
-                    android:id="@+id/setPerfectTenses"
+                    android:id="@+id/setCompIndTenses"
                     style="@style/tensesList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <Button
-                    android:id="@+id/setProgressiveTensesButton"
+                    android:id="@+id/setProgIndTensesButton"
                     style="@style/setter_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/set_progressive_tenses" />
+                    android:text="@string/set_prog_ind_tenses" />
 
                 <TextView
-                    android:id="@+id/setProgressiveTenses"
+                    android:id="@+id/setProgIndTenses"
                     style="@style/tensesList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <Button
-                    android:id="@+id/setSubjunctiveTensesButton"
+                    android:id="@+id/setSubjTensesButton"
                     style="@style/setter_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/set_subjunctive_tenses" />
+                    android:text="@string/set_subj_tenses" />
 
                 <TextView
-                    android:id="@+id/setSubjunctiveTenses"
+                    android:id="@+id/setSubjTenses"
                     style="@style/tensesList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

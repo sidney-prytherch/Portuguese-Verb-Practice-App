@@ -49,12 +49,12 @@
         <TableRow android:layout_height="wrap_content">
 
             <CheckBox
-                android:id="@+id/futuIndCheckbox"
+                android:id="@+id/condIndCheckbox"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:padding="2dp"
-                android:text="@string/future" />
+                android:text="@string/conditional" />
             <CheckBox
                 android:id="@+id/futuSimpIndCheckbox"
                 android:layout_height="wrap_content"
@@ -62,16 +62,5 @@
                 android:layout_marginStart="10dp"
                 android:padding="2dp"
                 android:text="@string/simple_future" />
-
-        </TableRow>
-        <TableRow android:layout_height="wrap_content">
-            <CheckBox
-                android:id="@+id/condIndCheckbox"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:padding="2dp"
-                android:text="@string/conditional" />
-
         </TableRow>
     </TableLayout>

@@ -24,13 +24,15 @@ object ConjugatorPortuguese {
             VerbForm.PRET_IND -> resources.getString(R.string.preterite)
             VerbForm.IMP_IND -> resources.getString(R.string.imperfect)
             VerbForm.SIMP_PLUP_IND -> resources.getString(R.string.simple_pluperfect)
+            VerbForm.SIMP_FUT_IND -> resources.getString(R.string.simple_future)
             VerbForm.COND_IND -> resources.getString(R.string.conditional)
-            VerbForm.SIMP_FUT_IND -> resources.getString(R.string.future)
-            VerbForm.FUT_IND -> resources.getString(R.string.simple_future)
-            VerbForm.PRES_PERF -> resources.getString(R.string.present_perfect)
-            VerbForm.PLUP -> resources.getString(R.string.pluperfect)
-            VerbForm.FUT_PERF -> resources.getString(R.string.future_perfect)
-            VerbForm.COND_PERF -> resources.getString(R.string.conditional_perfect)
+
+            VerbForm.FUT_IND -> "${resources.getString(R.string.future)} (compound)"
+            VerbForm.PRES_PERF -> "${resources.getString(R.string.present_perfect)} (compound)"
+            VerbForm.PLUP -> "${resources.getString(R.string.pluperfect)} (compound)"
+            VerbForm.FUT_PERF -> "${resources.getString(R.string.future_perfect)} (compound)"
+            VerbForm.COND_PERF -> "${resources.getString(R.string.conditional_perfect)} (compound)"
+
             VerbForm.PRES_PROG -> resources.getString(R.string.present_progressive)
             VerbForm.PRET_PROG -> resources.getString(R.string.preterite_progressive)
             VerbForm.IMP_PROG -> resources.getString(R.string.imperfect_progressive)
@@ -41,12 +43,14 @@ object ConjugatorPortuguese {
             VerbForm.PLUP_PROG -> resources.getString(R.string.pluperfect_progressive)
             VerbForm.FUT_PERF_PROG -> resources.getString(R.string.future_perfect_progressive)
             VerbForm.COND_PERF_PROG -> resources.getString(R.string.conditional_perfect_progressive)
+
             VerbForm.PRES_SUBJ -> resources.getString(R.string.present_subjunctive)
             VerbForm.PRES_PERF_SUBJ -> resources.getString(R.string.present_perfect_subjunctive)
             VerbForm.IMP_SUBJ -> resources.getString(R.string.imperfect_subjunctive)
             VerbForm.PLUP_SUBJ -> resources.getString(R.string.pluperfect_subjunctive)
             VerbForm.FUT_SUBJ -> resources.getString(R.string.future_subjunctive)
             VerbForm.FUT_PERF_SUBJ -> resources.getString(R.string.future_perfect_subjunctive)
+
             VerbForm.IMP_AFF -> resources.getString(R.string.imperative_affirmative)
             VerbForm.IMP_NEG -> resources.getString(R.string.imperative_negative)
             VerbForm.PERS_INF -> resources.getString(R.string.personal_infinitive)

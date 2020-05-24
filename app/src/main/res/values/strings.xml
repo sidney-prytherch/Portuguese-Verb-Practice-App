@@ -42,25 +42,25 @@
     <string name="full_conjugations">Full Conjugations</string>
     <string name="partial_conjugations">Partial Conjugations</string>
 
-    <string name="indicative_tenses">Indicative Tenses</string>
-    <string name="set_indicative_tenses">Set Indicative Tenses</string>
+    <string name="indicative_tenses">Simple Indicative Tenses</string>
+    <string name="set_simp_ind_tenses">Set Simple Indicative Tenses</string>
     <string name="present">Present</string>
     <string name="imperfect">Imperfect</string>
     <string name="preterite">Preterite</string>
     <string name="simple_pluperfect">Simple Pluperfect</string>
-    <string name="future">Future</string>
     <string name="simple_future">Simple Future</string>
     <string name="conditional">Conditional</string>
 
-    <string name="perfect_compound_tenses">Perfect Tenses</string>
-    <string name="set_perfect_compound_tenses">Set Perfect Tenses</string>
+    <string name="perfect_compound_tenses">Compound Indicative Tenses</string>
+    <string name="set_comp_ind_tenses">Set Compound Indicative Tenses</string>
+    <string name="future">Future</string>
     <string name="present_perfect">Present Perfect</string>
     <string name="pluperfect">Pluperfect</string>
     <string name="future_perfect">Future Perfect</string>
     <string name="conditional_perfect">Conditional Perfect</string>
 
-    <string name="progressive_tenses">Progressive Tenses</string>
-    <string name="set_progressive_tenses">Set Progressive Tenses</string>
+    <string name="progressive_tenses">Progressive Indicative Tenses</string>
+    <string name="set_prog_ind_tenses">Set Progressive Indicative Tenses</string>
     <string name="present_progressive">Present Progressive</string>
     <string name="imperfect_progressive">Imperfect Progressive</string>
     <string name="preterite_progressive">Preterite Progressive</string>
@@ -73,7 +73,7 @@
     <string name="conditional_perfect_progressive">Conditional Perfect Progressive</string>
 
     <string name="subjunctive_tenses">Subjunctive Tenses</string>
-    <string name="set_subjunctive_tenses">Set Subjunctive Tenses</string>
+    <string name="set_subj_tenses">Set Subjunctive Tenses</string>
     <string name="present_subjunctive">Present Subjunctive</string>
     <string name="imperfect_subjunctive">Imperfect Subjunctive</string>
     <string name="future_subjunctive">Future Subjunctive</string>

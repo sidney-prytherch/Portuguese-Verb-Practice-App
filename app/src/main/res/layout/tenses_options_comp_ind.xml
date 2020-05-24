@@ -10,12 +10,12 @@
 
     <TableRow android:layout_height="wrap_content">
         <CheckBox
-            android:id="@+id/presPerfCheckbox"
+            android:id="@+id/futCheckbox"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="2dp"
             android:layout_marginStart="10dp"
-            android:text="@string/present_perfect" />
+            android:text="@string/future" />
 
         <CheckBox
             android:id="@+id/plupPerfCheckbox"
@@ -28,12 +28,12 @@
 
     <TableRow android:layout_height="wrap_content">
         <CheckBox
-            android:id="@+id/futuPerfCheckbox"
+            android:id="@+id/presPerfCheckbox"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="2dp"
             android:layout_marginStart="10dp"
-            android:text="@string/future_perfect" />
+            android:text="@string/present_perfect" />
 
         <CheckBox
             android:id="@+id/condPerfCheckbox"
@@ -42,5 +42,16 @@
             android:padding="2dp"
             android:layout_marginStart="10dp"
             android:text="@string/conditional_perfect" />
+
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/futuPerfCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/future_perfect" />
     </TableRow>
 </TableLayout>

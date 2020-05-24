@@ -18,7 +18,6 @@ package com.sid.app.verbpractice.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,12 +27,10 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.VerbSettingsManager
-import kotlinx.android.synthetic.main.fragment_options.*
 import kotlinx.android.synthetic.main.fragment_options.view.*
 import kotlinx.android.synthetic.main.fragment_options.view.timeSwitchOption
 
@@ -82,19 +79,12 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
     private lateinit var countOptions: LinearLayout
 
 
-    // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // Verify that the host activity implements the callback interface
         try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
             mContext = context as MainActivity
         } catch (e: ClassCastException) {
-            // The activity doesn't implement the interface, throw exception
-            throw ClassCastException(
-                (context.toString() +
-                        " must implement ChangeIndicativeTensesDialogListener")
-            )
+            throw e
         }
     }
 
@@ -105,14 +95,14 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
 
         indicatives = arrayOf(
             resources.getString(R.string.present),
-            resources.getString(R.string.imperfect),
             resources.getString(R.string.preterite),
+            resources.getString(R.string.imperfect),
             resources.getString(R.string.simple_pluperfect),
-            resources.getString(R.string.future),
             resources.getString(R.string.simple_future),
             resources.getString(R.string.conditional)
         )
         perfects = arrayOf(
+            resources.getString(R.string.future),
             resources.getString(R.string.present_perfect),
             resources.getString(R.string.pluperfect),
             resources.getString(R.string.future_perfect),
@@ -120,8 +110,8 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         )
         progressives = arrayOf(
             resources.getString(R.string.present_progressive),
-            resources.getString(R.string.imperfect_progressive),
             resources.getString(R.string.preterite_progressive),
+            resources.getString(R.string.imperfect_progressive),
             resources.getString(R.string.simple_pluperfect_progressive),
             resources.getString(R.string.future_progressive),
             resources.getString(R.string.conditional_progressive),
@@ -132,10 +122,10 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         )
         subjunctives = arrayOf(
             resources.getString(R.string.present_subjunctive),
-            resources.getString(R.string.imperfect_subjunctive),
-            resources.getString(R.string.future_subjunctive),
             resources.getString(R.string.present_perfect_subjunctive),
+            resources.getString(R.string.imperfect_subjunctive),
             resources.getString(R.string.pluperfect_subjunctive),
+            resources.getString(R.string.future_subjunctive),
             resources.getString(R.string.future_perfect_subjunctive)
         )
 
@@ -189,16 +179,16 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         }
 
         tenseTextBoxes = arrayOf(
-            view.findViewById(R.id.setIndicativeTenses),
-            view.findViewById(R.id.setPerfectTenses),
-            view.findViewById(R.id.setProgressiveTenses),
-            view.findViewById(R.id.setSubjunctiveTenses)
+            view.findViewById(R.id.setSimpIndTenses),
+            view.findViewById(R.id.setCompIndTenses),
+            view.findViewById(R.id.setProgIndTenses),
+            view.findViewById(R.id.setSubjTenses)
         )
 
-        resetIndicativeTextView()
-        resetPerfectTextView()
-        resetProgressiveTextView()
-        resetSubjunctiveTextView()
+        resetSimpIndTextView()
+        resetCompIndTextView()
+        resetProgIndTextView()
+        resetSubjTextView()
 
         disabledColor = ContextCompat.getColor(view.context, R.color.disabled)
         enabledColor = ContextCompat.getColor(view.context, R.color.black)
@@ -317,17 +307,17 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             }
         }
 
-        view.findViewById<Button>(R.id.setIndicativeTensesButton).setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_title_to_set_indicative)
+        view.findViewById<Button>(R.id.setSimpIndTensesButton).setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_title_to_set_simp_ind)
         }
-        view.findViewById<Button>(R.id.setPerfectTensesButton).setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_title_to_set_perfect)
+        view.findViewById<Button>(R.id.setCompIndTensesButton).setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_title_to_set_comp_ind)
         }
-        view.findViewById<Button>(R.id.setProgressiveTensesButton).setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_title_to_set_progressive)
+        view.findViewById<Button>(R.id.setProgIndTensesButton).setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_title_to_set_prog_ind)
         }
-        view.findViewById<Button>(R.id.setSubjunctiveTensesButton).setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_title_to_set_subjunctive)
+        view.findViewById<Button>(R.id.setSubjTensesButton).setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_title_to_set_subj)
         }
 
         verbSettingsManager =
@@ -394,27 +384,27 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         mContext.onSetIntPreference(frequencyKeys[index], progress)
     }
 
-    fun resetIndicativeTextView() {
+    fun resetSimpIndTextView() {
         tenseTextBoxes[0].text =
-            mContext.getIndicativeValues().mapIndexed { index, boolean ->
+            mContext.getSimpIndTenses().mapIndexed { index, boolean ->
                 if (boolean) " \u2022 " + indicatives[index] else null
             }.filterNotNull().joinToString("\n")
     }
-    fun resetPerfectTextView() {
+    fun resetCompIndTextView() {
         tenseTextBoxes[1].text =
-            mContext.getPerfectValues().mapIndexed { index, boolean ->
+            mContext.getCompIndTenses().mapIndexed { index, boolean ->
                 if (boolean) " \u2022 " + perfects[index] else null
             }.filterNotNull().joinToString("\n")
     }
-    fun resetProgressiveTextView() {
+    fun resetProgIndTextView() {
         tenseTextBoxes[2].text =
-            mContext.getProgressiveValues().mapIndexed { index, boolean ->
+            mContext.getProgIndTenses().mapIndexed { index, boolean ->
                 if (boolean) " \u2022 " + progressives[index] else null
             }.filterNotNull().joinToString("\n")
     }
-    fun resetSubjunctiveTextView() {
+    fun resetSubjTextView() {
         tenseTextBoxes[3].text =
-            mContext.getSubjunctiveValues().mapIndexed { index, boolean ->
+            mContext.getSubjTenses().mapIndexed { index, boolean ->
                 if (boolean) " \u2022 " + subjunctives[index] else null
             }.filterNotNull().joinToString("\n")
     }
