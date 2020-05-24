@@ -26,7 +26,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.enums.Person
@@ -102,7 +101,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             }
 
             if (enabledTenses.isEmpty()) {
-                enabledTenses = arrayOf(VerbForm.PRES_IND, VerbForm.SIMP_FUT_IND, VerbForm.PRET_IND, VerbForm.IMP_IND)
+                enabledTenses = arrayOf(VerbForm.PRES_IND, VerbForm.FUT_IND, VerbForm.PRET_IND, VerbForm.IMP_IND)
             }
 
             val conjugatedVerbs = enabledVerbs.map { verb ->

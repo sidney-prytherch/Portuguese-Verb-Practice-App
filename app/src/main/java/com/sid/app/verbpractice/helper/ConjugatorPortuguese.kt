@@ -25,8 +25,8 @@ object ConjugatorPortuguese {
             VerbForm.IMP_IND -> resources.getString(R.string.imperfect)
             VerbForm.SIMP_PLUP_IND -> resources.getString(R.string.simple_pluperfect)
             VerbForm.COND_IND -> resources.getString(R.string.conditional)
-            VerbForm.FUT_IND -> resources.getString(R.string.future)
-            VerbForm.SIMP_FUT_IND -> resources.getString(R.string.simple_future)
+            VerbForm.SIMP_FUT_IND -> resources.getString(R.string.future)
+            VerbForm.FUT_IND -> resources.getString(R.string.simple_future)
             VerbForm.PRES_PERF -> resources.getString(R.string.present_perfect)
             VerbForm.PLUP -> resources.getString(R.string.pluperfect)
             VerbForm.FUT_PERF -> resources.getString(R.string.future_perfect)
@@ -1331,11 +1331,11 @@ object ConjugatorPortuguese {
                 verbData.verbClass,
                 verbData.plupIndStem
             )
-            VerbForm.FUT_IND -> conjugateFutInd(
+            VerbForm.SIMP_FUT_IND -> conjugateFutInd(
                 verbData.verbClass,
                 verbData.futIndStem
             )
-            VerbForm.SIMP_FUT_IND -> arrayOf(
+            VerbForm.FUT_IND -> arrayOf(
                 "vou $infinitive",
                 "vais $infinitive",
                 "vai $infinitive",
