@@ -49,7 +49,7 @@ class SetSubjTensesFragment : DialogFragment() {
 
             // Inflate and set the layout for the dialog
             // Pass null as the parent view because its going in the dialog layout
-            builder.setTitle(R.string.set_simp_ind_tenses)
+            builder.setTitle(R.string.set_subj_tenses)
                 .setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.ok) { _, _ ->
