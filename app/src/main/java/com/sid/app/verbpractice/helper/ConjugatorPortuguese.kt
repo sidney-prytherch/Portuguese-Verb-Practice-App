@@ -58,15 +58,15 @@ object ConjugatorPortuguese {
     }
 
     fun getSubject(index: Int, enabledThirdPersons: BooleanArray): String {
-        val enabledThirdSing = enabledThirdPersons.filterIndexed { i, _ -> i < 3 }.toBooleanArray()
-        val enabledThirdPlur = enabledThirdPersons.filterIndexed { i, _ -> i > 2 }.toBooleanArray()
         return when (index) {
             2 -> {
+                val enabledThirdSing = enabledThirdPersons.filterIndexed { i, _ -> i < 3 }.toBooleanArray()
                 val enabledThird = if (enabledThirdSing.indexOf(true) == -1) booleanArrayOf(false, true, false) else enabledThirdSing
                 (subjects[index].filterIndexed { i, _ -> enabledThird[i] }.random()).random()
             }
             5 -> {
-                val enabledThird = if (enabledThirdPlur.indexOf(true) == -1) booleanArrayOf(false, true, false) else enabledThirdPlur
+                val enabledThirdPlur = enabledThirdPersons.filterIndexed { i, _ -> i > 2 }.toBooleanArray()
+                val enabledThird = if (enabledThirdPlur.indexOf(true) == -1) booleanArrayOf(true, true, false) else enabledThirdPlur
                 (subjects[index].filterIndexed { i, _ -> enabledThird[i] }.random()).random()
             }
             else -> {
