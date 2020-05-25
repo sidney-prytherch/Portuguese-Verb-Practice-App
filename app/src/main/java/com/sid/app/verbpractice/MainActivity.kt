@@ -254,11 +254,14 @@ class MainActivity : AppCompatActivity(), SetSimpIndTensesFragment.SetAndGetIndi
         )
     }
 
-    fun getThirdPersonSwitches(): BooleanArray{
+    fun getThirdPersonSwitches(): BooleanArray {
         return booleanArrayOf(
             verbSettingsManager.getBool(VerbSettingsManager.VC_ENABLED, true),
             verbSettingsManager.getBool(VerbSettingsManager.ELE_ELA_ENABLED, true),
-            verbSettingsManager.getBool(VerbSettingsManager.SENHOR_ENABLED, true)
+            verbSettingsManager.getBool(VerbSettingsManager.SENHOR_ENABLED, true),
+            verbSettingsManager.getBool(VerbSettingsManager.VCS_ENABLED, true),
+            verbSettingsManager.getBool(VerbSettingsManager.ELES_ELAS_ENABLED, true),
+            verbSettingsManager.getBool(VerbSettingsManager.SENHORES_ENABLED, true)
         )
     }
 

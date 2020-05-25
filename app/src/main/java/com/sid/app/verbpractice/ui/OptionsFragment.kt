@@ -53,7 +53,10 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
     private val thirdPersonKeys = arrayOf(
         VerbSettingsManager.VC_ENABLED,
         VerbSettingsManager.ELE_ELA_ENABLED,
-        VerbSettingsManager.SENHOR_ENABLED
+        VerbSettingsManager.SENHOR_ENABLED,
+        VerbSettingsManager.VCS_ENABLED,
+        VerbSettingsManager.ELES_ELAS_ENABLED,
+        VerbSettingsManager.SENHORES_ENABLED
     )
     var switches = arrayOf<SwitchCompat>()
     var thirdPersonSwitches = arrayOf<SwitchCompat>()
@@ -148,9 +151,12 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         )
 
         thirdPersonSwitches = arrayOf(
-            view.vcVcsSwitch,
-            view.eleElaElesElasSwitch,
-            view.senhorsSwitch
+            view.vcEnabledSwitch,
+            view.eleElaEnabledSwitch,
+            view.senhorEnabledSwitch,
+            view.vcsEnabledSwitch,
+            view.elesElasEnabledSwitch,
+            view.senhoresEnabledSwitch
         )
 
         bars = arrayOf(
@@ -219,15 +225,14 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             mContext.onSetBooleanPreference(VerbSettingsManager.IS_PORTUGAL, isChecked)
         }
 
-        val thirdPersonSwitchesEnabled = mContext.getThirdPersonSwitches()
+        val thirdPersonSingSwitchesEnabled = mContext.getThirdPersonSwitches()
 
         thirdPersonSwitches.forEachIndexed { index, switch ->
-            switch.isChecked = thirdPersonSwitchesEnabled[index]
+            switch.isChecked = thirdPersonSingSwitchesEnabled[index]
             switch.setOnCheckedChangeListener { _, _ ->
                 mContext.onSetBooleanPreference(thirdPersonKeys[index], switch.isChecked)
             }
         }
-
 
         val frequencies = mContext.getFrequencies()
 

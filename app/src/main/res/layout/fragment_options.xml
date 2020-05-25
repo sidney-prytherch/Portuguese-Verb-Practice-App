@@ -379,27 +379,54 @@
                         style="@style/BigText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/vcVcsSwitch"
+                        android:id="@+id/vcEnabledSwitch"
                         android:padding="2dp"
-                        android:text="@string/vc_vcs"
+                        android:text="@string/vc"
                         android:layout_marginStart="10dp"
                         android:checked="true"/>
                     <androidx.appcompat.widget.SwitchCompat
                         style="@style/BigText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/eleElaElesElasSwitch"
+                        android:id="@+id/eleElaEnabledSwitch"
                         android:padding="2dp"
-                        android:text="@string/ele_ela_eles_elas"
+                        android:text="@string/ele_ela"
                         android:layout_marginStart="10dp"
                         android:checked="true"/>
                     <androidx.appcompat.widget.SwitchCompat
                         style="@style/BigText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/senhorsSwitch"
+                        android:id="@+id/senhorEnabledSwitch"
                         android:padding="2dp"
                         android:text="@string/senhor"
+                        android:layout_marginStart="10dp"
+                        android:checked="true"/>
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/vcsEnabledSwitch"
+                        android:padding="2dp"
+                        android:text="@string/vcs"
+                        android:layout_marginStart="10dp"
+                        android:checked="true"/>
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/elesElasEnabledSwitch"
+                        android:padding="2dp"
+                        android:text="@string/eles_elas"
+                        android:layout_marginStart="10dp"
+                        android:checked="true"/>
+                    <androidx.appcompat.widget.SwitchCompat
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/senhoresEnabledSwitch"
+                        android:padding="2dp"
+                        android:text="@string/senhores"
                         android:layout_marginStart="10dp"
                         android:checked="true"/>
                 </LinearLayout>

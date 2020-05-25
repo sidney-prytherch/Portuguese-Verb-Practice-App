@@ -75,6 +75,9 @@ class VerbSettingsManager(private val sharedPreferences: SharedPreferences) {
         const val VC_ENABLED = "vc_enabled"
         const val ELE_ELA_ENABLED = "ele_ela_enabled"
         const val SENHOR_ENABLED = "senhor_enabled"
+        const val VCS_ENABLED = "vcs_enabled"
+        const val ELES_ELAS_ENABLED = "eles_elas_enabled"
+        const val SENHORES_ENABLED = "senhores_enabled"
 
         const val IS_FULL_CONJUGATION = "is_full_conjugation"
         const val IS_COUNT = "is_count"

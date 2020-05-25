@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
-import com.sid.app.verbpractice.db.entity.PortugueseVerb
 import com.sid.app.verbpractice.enums.Person
 import com.sid.app.verbpractice.helper.*
 import kotlinx.android.synthetic.main.conjugation_cell_view.view.*

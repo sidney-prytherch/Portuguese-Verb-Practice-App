@@ -118,9 +118,12 @@
     <string name="count_spinner_label">Count:</string>
 
     <string name="third_person_options">3rd Person Settings</string>
-    <string name="vc_vcs">Você</string>
-    <string name="ele_ela_eles_elas">Ele/Ela</string>
+    <string name="vc">Você</string>
+    <string name="ele_ela">Ele/Ela</string>
     <string name="senhor">O senhor/A senhora</string>
+    <string name="vcs">Vocês</string>
+    <string name="eles_elas" tools:ignore="Typos">Eles/Elas</string>
+    <string name="senhores">Os senhores/As senhoras</string>
 
     <string-array name="times_array">
         <item>1:00</item>
