@@ -316,23 +316,37 @@ class PracticeFragment : Fragment() {
         val startIndex = (currentPage - 1) * rowCount
         val conjugation = conjugations[currentConjugation]
         val verb = StringHelper.capitalize(conjugation.verb)
+        val portuguesePersonString = Array(rowCount) {i ->
+            results[startIndex + i].personsString
+        }
+        val englishConjugations = ConjugatorEnglish.conjugate(
+            "do",
+            conjugation.tense,
+            portuguesePersonString,
+            "doing",
+            "done",
+            "do",
+            "does",
+            "did"
+        )
         tenseTextView.text = ConjugatorPortuguese.getVerbFormString(conjugation.tense, resources)
         verbTextView.text = verb
         englishVerbTextView.text = StringHelper.capitalize(conjugation.enVerb.split("~")[0])
         for (i in 0 until rowCount) {
             val view = conjugationViews[i]
             val result = results[i + startIndex]
-            val englishVerbString = formatEnglishVerbString(result.personsString, conjugation.verb, conjugation.enVerb)
+//            val englishVerbString = formatEnglishVerbString(result.personsString, conjugation.verb, conjugation.enVerb)
 
             view.ptVerbInput.setText(result.input)
             view.ptSubject.text = result.personsString
-            view.englishVerb.text = englishVerbString
+            view.englishVerb.text = englishConjugations[i]
         }
     }
 
-    private fun formatEnglishVerbString(ptSubject: String, ptVerb: String, enVerb: String): String {
-        return """${ConjugatorEnglish.getSubject(ptSubject)} $ptVerb (${enVerb.split("~")[1]})"""
-    }
+//    private fun formatEnglishVerbString(ptSubject: String, ptVerb: String, enVerb: String): String {
+////        return ConjugatorEnglish.conjugate("do", )
+//        return """${ConjugatorEnglish.getSubject(ptSubject)} $ptVerb (${enVerb.split("~")[1]})"""
+//    }
 
     private fun updateResults() {
         val startIndex = (currentPage - 1) * rowCount

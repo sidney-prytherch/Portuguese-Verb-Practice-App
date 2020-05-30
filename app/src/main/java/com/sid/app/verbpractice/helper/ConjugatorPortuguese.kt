@@ -1344,11 +1344,11 @@ object ConjugatorPortuguese {
                 verbData.verbClass,
                 verbData.plupIndStem
             )
-            VerbForm.FUT_IND -> conjugateFutInd(
+            VerbForm.SIMP_FUT_IND -> conjugateFutInd(
                 verbData.verbClass,
                 verbData.futIndStem
             )
-            VerbForm.SIMP_FUT_IND -> arrayOf(
+            VerbForm.FUT_IND -> arrayOf(
                 "vou $infinitive",
                 "vais $infinitive",
                 "vai $infinitive",
