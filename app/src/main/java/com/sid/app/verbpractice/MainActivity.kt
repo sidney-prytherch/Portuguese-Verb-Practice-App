@@ -39,7 +39,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 /**
  * An activity that inflates a layout that has a [BottomNavigationView].
  */
-class MainActivity : AppCompatActivity(), SetSimpIndTensesFragment.SetAndGetIndicativeSettings, SetCompIndTensesFragment.SetAndGetPerfectSettings, SetProgIndTensesFragment.SetAndGetProgressiveSettings, SetSubjTensesFragment.SetAndGetSubjunctiveSettings {
+class MainActivity : AppCompatActivity(),
+    SetSimpIndTensesFragment.SetAndGetIndicativeSettings,
+    SetCompIndTensesFragment.SetAndGetPerfectSettings,
+    SetProgIndTensesFragment.SetAndGetProgressiveSettings,
+    SetSubjTensesFragment.SetAndGetSubjunctiveSettings,
+    WordFilterFragment.SetAndGetFilterSettings {
 
     private lateinit var mWordViewModel: PortugueseVerbViewModel
     private lateinit var verbSettingsManager: VerbSettingsManager
@@ -306,5 +311,25 @@ class MainActivity : AppCompatActivity(), SetSimpIndTensesFragment.SetAndGetIndi
         val ids: IntArray = AppWidgetManager.getInstance(application).getAppWidgetIds(ComponentName(application, NewAppWidget::class.java))
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
         sendBroadcast(intent)
+    }
+
+    override fun onSetFilterSettings(result: BooleanArray) {
+        verbSettingsManager.setBool(VerbSettingsManager.SHOW_SELECTED, result[0])
+        verbSettingsManager.setBool(VerbSettingsManager.SHOW_UNSELECTED, result[1])
+    }
+
+    override fun getFilterSettings(): BooleanArray {
+        return booleanArrayOf(
+            verbSettingsManager.getBool(VerbSettingsManager.SHOW_SELECTED, true),
+            verbSettingsManager.getBool(VerbSettingsManager.SHOW_UNSELECTED, true)
+        )
+    }
+
+    override fun onSetCommonVerbValue(result: Int) {
+        verbSettingsManager.setInt(VerbSettingsManager.VERB_FREQUENCY, result)
+    }
+
+    override fun getCommonVerbValue(): Int {
+        return verbSettingsManager.getInt(VerbSettingsManager.VERB_FREQUENCY, 1)
     }
 }

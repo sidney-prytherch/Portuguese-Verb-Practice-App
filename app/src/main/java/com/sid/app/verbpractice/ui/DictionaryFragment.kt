@@ -16,6 +16,7 @@
 
 package com.sid.app.verbpractice.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -24,6 +25,8 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sid.app.verbpractice.MainActivity
@@ -39,11 +42,23 @@ class DictionaryFragment : Fragment() {
     private lateinit var mWordViewModel: PortugueseVerbViewModel
     private lateinit var adapter: WordListAdapter
     private lateinit var searchBar: EditText
+    private lateinit var filterResults: BooleanArray
+    private var commonVerbVal = 1
     private var text = ""
+    private lateinit var mainActivity: MainActivity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            mainActivity = context as MainActivity
+        } catch (e: ClassCastException) {
+            throw ClassCastException(("$context must implement SetAndGetIndicativeSettings"))
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        val actionBar = (activity as MainActivity?)?.supportActionBar
+        val actionBar = mainActivity.supportActionBar
         if (actionBar != null) {
             actionBar.elevation = 0f
         }
@@ -67,8 +82,10 @@ class DictionaryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val recyclerView: RecyclerView = view.verbs_recyclerview
+
+        filterResults = mainActivity.getFilterSettings()
+        commonVerbVal = mainActivity.getCommonVerbValue()
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
@@ -80,23 +97,29 @@ class DictionaryFragment : Fragment() {
         recyclerView.adapter = adapter
         mWordViewModel.allPortugueseVerbs.observe(viewLifecycleOwner, Observer { words:List<PortugueseVerb> ->
             adapter.setWords(words)
-            val searchFilter = searchBar.text.toString()
-            if (searchFilter != "") {
-                adapter.filter.filter(searchFilter)
-            }
+            resetFilter(filterResults, commonVerbVal)
         })
 
         searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
-                adapter.filter.filter(s)
+                resetFilter(filterResults, commonVerbVal)
             }
         })
 
         clearButton.setOnClickListener {
             searchBar.setText("")
         }
+    }
+
+    fun resetFilter(selectedResults:BooleanArray, verbCommonVal: Int) {
+        filterResults = selectedResults
+        commonVerbVal = verbCommonVal
+        adapter.showSelected = selectedResults[0]
+        adapter.showUnselected = selectedResults[1]
+        adapter.verbCommonVal = verbCommonVal
+        adapter.filter.filter(searchBar.text.toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -112,14 +135,8 @@ class DictionaryFragment : Fragment() {
                 adapter.resetAllWords()
                 return true
             }
-            R.id.filter -> {
-                adapter.specialFilter = true
-                adapter.filter.filter(searchBar.text.toString())
-                return true
-            }
-            R.id.unfilter -> {
-                adapter.specialFilter = false
-                adapter.filter.filter(searchBar.text.toString())
+            R.id.filterWords -> {
+                NavHostFragment.findNavController(parentFragmentManager.primaryNavigationFragment!!).navigate(R.id.action_dictionary_to_filter)
                 return true
             }
             else -> super.onOptionsItemSelected(item)

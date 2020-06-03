@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="8dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:stretchColumns="*"
+    android:shrinkColumns="*">
+
+
+    <TableRow android:layout_height="wrap_content">
+        <TextView
+            android:layout_span="2"
+            style="@style/BiggerText"
+            android:text="@string/show_selected"/>
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content">
+        <CheckBox
+            style="@style/BigText"
+            android:id="@+id/selected"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:padding="2dp"
+            android:text="@string/selected"/>
+        <CheckBox
+            style="@style/BigText"
+            android:id="@+id/unselected"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:padding="2dp"
+            android:text="@string/unselected"/>
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content" android:layout_marginTop="8dp">
+        <TextView
+            android:layout_span="2"
+            style="@style/BiggerText"
+            android:text="@string/verb_commonality"/>
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_span="2"
+            android:orientation="horizontal"
+            android:weightSum="3">
+            <TextView
+                android:id="@+id/commonLabel"
+                style="@style/BigText"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/very_common" />
+
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:layout_weight="2"
+                android:id="@+id/commonalitySlider"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:padding="2dp"
+                android:text="@string/selected"
+                android:max="3"
+                android:progress="3"
+                android:layout_width="0dp" />
+        </LinearLayout>
+
+    </TableRow>
+
+</TableLayout>

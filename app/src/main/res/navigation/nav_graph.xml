@@ -50,7 +50,16 @@
         android:id="@+id/dictionary"
         android:name="com.sid.app.verbpractice.ui.DictionaryFragment"
         android:label="@string/title_dictionary"
-        tools:layout="@layout/fragment_dictionary"/>
+        tools:layout="@layout/fragment_dictionary">
+        <action
+            android:id="@+id/action_dictionary_to_filter"
+            app:destination="@id/word_filter" />
+    </fragment>
+    <dialog
+        android:id="@+id/word_filter"
+        android:name="com.sid.app.verbpractice.ui.WordFilterFragment"
+        android:label="@string/filter"
+        tools:layout="@layout/filter_words"/>
     <fragment
         android:id="@+id/options"
         android:name="com.sid.app.verbpractice.ui.OptionsFragment"

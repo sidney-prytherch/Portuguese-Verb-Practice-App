@@ -96,5 +96,9 @@ class VerbSettingsManager(private val sharedPreferences: SharedPreferences) {
         const val PREV_YEAR = "prev_year"
         const val PREV_DAY = "prev_day"
         const val USED_COUNT = "used_count"
+
+        const val VERB_FREQUENCY = "verb_frequency"
+        const val SHOW_SELECTED = "show_selected"
+        const val SHOW_UNSELECTED = "show_unselected"
     }
 }

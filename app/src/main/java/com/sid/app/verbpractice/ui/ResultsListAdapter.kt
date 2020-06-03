@@ -55,9 +55,6 @@ class ResultsListAdapter(private val context: Context?) : RecyclerView.Adapter<R
             holder.resultsRows.verbInfo.visibility = View.GONE
             holder.numberTextView.visibility = View.INVISIBLE
         }
-        if (position == results.size - 1) {
-            holder.resultsRows.divider.visibility = View.GONE
-        }
     }
 
     override fun getItemCount(): Int {

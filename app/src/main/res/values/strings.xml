@@ -107,9 +107,16 @@
     <string name="show_answers">Show Answers</string>
     <string name="show_answer">Show</string>
     <string name="reset_all_words">Reset All Words</string>
-    <string name="filter">Show selected only</string>
-    <string name="unfilter">Show all</string>
+    <string name="filter">Set Verb Filter</string>
 
+    <string name="show_selected">Selected Verbs</string>
+    <string name="selected">Show Selected</string>
+    <string name="unselected">Show Unselected</string>
+    <string name="verb_commonality">Frequency: Show verbs that are…</string>
+    <string name="very_common">Very common</string>
+    <string name="common">Common +</string>
+    <string name="somewhat_common">Kinda common +</string>
+    <string name="all_verbs">uncommon +</string>
 
     <string name="time_and_count_options">Time and Count</string>
     <string name="time_switch_option">Time</string>
