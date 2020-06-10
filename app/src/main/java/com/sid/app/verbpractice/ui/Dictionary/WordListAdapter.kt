@@ -1,7 +1,6 @@
-package com.sid.app.verbpractice.ui
+package com.sid.app.verbpractice.ui.Dictionary
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +41,9 @@ class WordListAdapter(private val context: Context?) : RecyclerView.Adapter<Word
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_verbs, parent, false)
-        return ViewHolder(itemView)
+        return ViewHolder(
+            itemView
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

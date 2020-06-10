@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sid.app.verbpractice.ui
+package com.sid.app.verbpractice.ui.Dictionary
 
 import android.content.Context
 import android.os.Bundle
@@ -25,7 +25,6 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

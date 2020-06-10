@@ -1,4 +1,4 @@
-package com.sid.app.verbpractice.ui
+package com.sid.app.verbpractice.ui.Dictionary
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -29,7 +29,9 @@ class DefinitionListAdapter(private val context: Context?) : RecyclerView.Adapte
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_definitions, parent, false)
-        return ViewHolder(itemView)
+        return ViewHolder(
+            itemView
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

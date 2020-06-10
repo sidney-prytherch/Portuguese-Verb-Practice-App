@@ -1,10 +1,9 @@
-package com.sid.app.verbpractice.ui
+package com.sid.app.verbpractice.ui.Practice
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.EditText
@@ -374,7 +373,10 @@ class PracticeFragment : Fragment() {
                     val index = i - missingRows
                     val cellLayout = getDefaultCellLayout()
                     cellLayout.showAnswer.setOnClickListener {
-                        val answer = getDefaultAnswerFromConjugation(conjugations[currentConjugation].personMap[allPersons[i]] ?: "")
+                        val answer =
+                            getDefaultAnswerFromConjugation(
+                                conjugations[currentConjugation].personMap[allPersons[i]] ?: ""
+                            )
                         cellLayout.ptVerbInput.setText(answer)
                     }
                     conjugationViews[index] = cellLayout
@@ -388,7 +390,10 @@ class PracticeFragment : Fragment() {
             val cellLayout = getDefaultCellLayout()
             cellLayout.showAnswer.setOnClickListener {
                 val conjugation = conjugations[currentConjugation]
-                val answer = getDefaultAnswerFromConjugation(conjugation.personMap[allPersons[conjugation.person]] ?: "")
+                val answer =
+                    getDefaultAnswerFromConjugation(
+                        conjugation.personMap[allPersons[conjugation.person]] ?: ""
+                    )
                 cellLayout.ptVerbInput.setText(answer)
             }
             conjugationViews[0] = cellLayout
@@ -415,7 +420,10 @@ class PracticeFragment : Fragment() {
                 val conjugation = conjugations[currentConjugation]
                 for (i in 0 until rowCount) {
                     val person = if (isFullConjugation) conjugationViewsPersons[i] else conjugation.person
-                    val answer = getDefaultAnswerFromConjugation(conjugation.personMap[allPersons[person]] ?: "")
+                    val answer =
+                        getDefaultAnswerFromConjugation(
+                            conjugation.personMap[allPersons[person]] ?: ""
+                        )
                     conjugationViews[i].ptVerbInput.setText(answer)
                 }
                 return true

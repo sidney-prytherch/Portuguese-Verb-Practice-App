@@ -21,7 +21,6 @@ import android.content.ComponentName
 import android.content.Intent
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -32,7 +31,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sid.app.verbpractice.db.entity.PortugueseVerb
 import com.sid.app.verbpractice.enums.VerbForm
 import com.sid.app.verbpractice.helper.VerbSettingsManager
-import com.sid.app.verbpractice.ui.*
+import com.sid.app.verbpractice.ui.Dictionary.WordFilterFragment
+import com.sid.app.verbpractice.ui.Options.SetCompIndTensesFragment
+import com.sid.app.verbpractice.ui.Options.SetProgIndTensesFragment
+import com.sid.app.verbpractice.ui.Options.SetSimpIndTensesFragment
+import com.sid.app.verbpractice.ui.Options.SetSubjTensesFragment
 import com.sid.app.verbpractice.viewmodel.PortugueseVerbViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 

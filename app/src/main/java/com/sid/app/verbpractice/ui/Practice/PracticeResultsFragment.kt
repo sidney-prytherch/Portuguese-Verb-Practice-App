@@ -1,13 +1,11 @@
-package com.sid.app.verbpractice.ui
+package com.sid.app.verbpractice.ui.Practice
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.ActionBar.DISPLAY_SHOW_HOME
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.ResultArrayParcel
-import kotlinx.android.synthetic.main.conjugation_cell_view.view.*
 import kotlinx.android.synthetic.main.fragment_practice_results.view.*
 
 
@@ -41,7 +38,8 @@ class PracticeResultsFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
 
-        adapter = ResultsListAdapter(context)
+        adapter =
+            ResultsListAdapter(context)
         recyclerView.adapter = adapter
         adapter.setResults(results)
 

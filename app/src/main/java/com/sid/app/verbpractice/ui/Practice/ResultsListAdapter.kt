@@ -1,4 +1,4 @@
-package com.sid.app.verbpractice.ui
+package com.sid.app.verbpractice.ui.Practice
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.ConjugatorPortuguese
 import com.sid.app.verbpractice.helper.ResultParcel
 import com.sid.app.verbpractice.helper.StringHelper
-import com.sid.app.verbpractice.ui.PracticeFragment.Companion.getDefaultAnswerFromConjugation
+import com.sid.app.verbpractice.ui.Practice.PracticeFragment.Companion.getDefaultAnswerFromConjugation
 import kotlinx.android.synthetic.main.recyclerview_results.view.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -33,7 +33,9 @@ class ResultsListAdapter(private val context: Context?) : RecyclerView.Adapter<R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_results, parent, false)
-        return ViewHolder(itemView)
+        return ViewHolder(
+            itemView
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

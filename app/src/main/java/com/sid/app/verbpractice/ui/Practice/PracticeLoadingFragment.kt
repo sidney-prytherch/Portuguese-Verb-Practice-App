@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sid.app.verbpractice.ui
+package com.sid.app.verbpractice.ui.Practice
 
 import android.content.Context
 import android.graphics.drawable.Animatable
