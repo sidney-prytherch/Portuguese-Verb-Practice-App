@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.EditText
@@ -319,15 +320,21 @@ class PracticeFragment : Fragment() {
         val portuguesePersonString = Array(rowCount) {i ->
             results[startIndex + i].personsString
         }
+        // 1 : fly
+        // 2 : flies
+        // 3 : flew
+        // 4 : flown
+        // 5 : flying
+        val englishParts = conjugation.enVerb.split("|")
         val englishConjugations = ConjugatorEnglish.conjugate(
-            "do",
+            englishParts[6],
             conjugation.tense,
             portuguesePersonString,
-            "doing",
-            "done",
-            "do",
-            "does",
-            "did"
+            englishParts[5],
+            englishParts[4],
+            englishParts[1],
+            englishParts[2],
+            englishParts[3]
         )
         tenseTextView.text = ConjugatorPortuguese.getVerbFormString(conjugation.tense, resources)
         verbTextView.text = verb

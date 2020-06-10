@@ -97,7 +97,11 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
 
             if (enabledVerbs.isEmpty()) {
                 enabledVerbs = arrayOf("ser", "estar", "ter")
-                enabledEnglishVerbs = arrayOf("to be (denotes a permanent quality)~to be", "to be (denotes a transient quality; a quality expected to change)~to be", "to have~to have")
+                enabledEnglishVerbs = arrayOf(
+                    "to be (denotes a permanent quality)~to be|am|are|was|been|being|to be",
+                    "to be (denotes a transient quality; a quality expected to change)~to be|am|are|was|been|being|to be",
+                    "to have~to have|have|has|had|had|having|to have"
+                )
             }
 
             if (enabledTenses.isEmpty()) {
@@ -215,7 +219,9 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
         }
         val verbs = task.await()
         enabledVerbs = task.await()?.map { it.verb }?.toTypedArray() ?: arrayOf()
-        enabledEnglishVerbs = verbs?.map { it.main_def + "~" + it.main_def.split(";")[0].split(",")[0].replace(Regex("\\(.*\\)"), "").trim() }?.toTypedArray() ?: arrayOf()
+        enabledEnglishVerbs = verbs?.map {
+            val toFly = if (it.to_fly.startsWith("to ") || it.to_fly.startsWith("To ")) it.to_fly.substring(3).split(" ")[0] else it.to_fly.split(" ")[0]
+            it.main_def + "~" + it.main_def.split(";")[0].split(",")[0].replace(Regex("\\(.*\\)"), "").trim() + "|" + it.fly + "|" + it.flies + "|" + it.flew + "|" + it.flown + "|" + it.flying + "|" + toFly }?.toTypedArray() ?: arrayOf()
     }
 
 }

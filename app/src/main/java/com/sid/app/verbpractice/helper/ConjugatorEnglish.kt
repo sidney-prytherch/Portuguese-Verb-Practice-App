@@ -1,5 +1,6 @@
 package com.sid.app.verbpractice.helper
 
+import android.util.Log
 import com.sid.app.verbpractice.enums.EnglishHelper
 import com.sid.app.verbpractice.enums.Person
 import com.sid.app.verbpractice.enums.VerbForm
@@ -65,7 +66,9 @@ object ConjugatorEnglish {
         val objectStrings = ptPersonStrings.map{ getObjectPronounFromPtString(it) }.toTypedArray()
         val subjectStringsSimplified = subjectStrings.map{ it.replace(Regex("\\(.+\\)"), "").trim() }.toTypedArray()
         val objectStringsSimplified = objectStrings.map{ it.replace(Regex("\\(.+\\)"), "").trim() }.toTypedArray()
-        val verbData = VerbData(infinitive, gerund, pastPart, presOne, presTwo, past)
+        val verbData =
+            if (gerund != "") VerbData(infinitive, gerund, pastPart, presOne, presTwo, past)
+            else VerbData("do", "doing", "done", "do", "does", "did")
         val conjugatedVerbs = conjugateVerbForm(verbData, verbForm)
         return persons.mapIndexed { i, it ->
             StringHelper.specialCapWords(conjugatedVerbs[it]
@@ -162,6 +165,6 @@ object ConjugatorEnglish {
             else -> Array(6) { "_ ${verbData.past}" }
         }
     }
-
+    //ivate class verbData(val       TO DO                 DOING                DONE                  DO                 DOES                DID
     private class VerbData(val infinitive: String, val gerund: String, val pastPart: String, val presOne: String, val presTwo: String, val past: String)
 }
