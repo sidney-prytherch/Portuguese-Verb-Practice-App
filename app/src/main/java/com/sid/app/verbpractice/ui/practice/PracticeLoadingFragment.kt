@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sid.app.verbpractice.ui.Practice
+package com.sid.app.verbpractice.ui.practice
 
 import android.content.Context
 import android.graphics.drawable.Animatable
@@ -26,11 +26,14 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
+import com.sid.app.verbpractice.db.entity.PortugueseVerb
 import com.sid.app.verbpractice.enums.Person
 import com.sid.app.verbpractice.enums.VerbForm
 import com.sid.app.verbpractice.helper.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_practice_loading.view.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -79,8 +82,14 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         launch {
+            val singleVerb: String? = arguments?.get("verb") as String?
             //get enabled verbs
-            getRandomVerbs()
+            if (singleVerb == null) {
+                getRandomVerbs()
+            } else {
+                mContext.setNavBarToPractice()
+                getVerb(singleVerb)
+            }
 
             //get enabled persons
             val personsFrequencies: Array<Int> = mContext.getFrequencies().toTypedArray()
@@ -205,7 +214,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 }.toTypedArray()
             )
 
-            val bundle = bundleOf("conjugations" to conjugationArrayParcel)
+            val bundle = bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
 
             withContext(Dispatchers.Main) {
                 Navigation.findNavController(view).navigate(R.id.action_loading_to_practice, bundle)
@@ -217,8 +226,18 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
         val task = async(Dispatchers.IO) {
             mContext.getRandomVerbs()
         }
-        val verbs = task.await()
-        enabledVerbs = task.await()?.map { it.verb }?.toTypedArray() ?: arrayOf()
+        setVerbs(task.await())
+    }
+
+    private fun getVerb(verb: String) = runBlocking {
+        val task = async(Dispatchers.IO) {
+            mContext.getSpecificVerb(verb)
+        }
+        setVerbs(task.await())
+    }
+
+    private fun setVerbs(verbs: List<PortugueseVerb>?) {
+        enabledVerbs = verbs?.map { it.verb }?.toTypedArray() ?: arrayOf()
         enabledEnglishVerbs = verbs?.map {
             val toFly = if (it.to_fly.startsWith("to ") || it.to_fly.startsWith("To ")) it.to_fly.substring(3).split(" ")[0] else it.to_fly.split(" ")[0]
             it.main_def + "~" + it.main_def.split(";")[0].split(",")[0].replace(Regex("\\(.*\\)"), "").trim() + "|" + it.fly + "|" + it.flies + "|" + it.flew + "|" + it.flown + "|" + it.flying + "|" + toFly }?.toTypedArray() ?: arrayOf()

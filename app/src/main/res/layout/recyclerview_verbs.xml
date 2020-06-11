@@ -2,17 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
-    <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/verbTextView"
-        android:paddingEnd="2dp"
-        android:paddingStart="2dp"
-        android:layout_marginStart="4dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        style="@style/verb_tile"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/viewConjugations"
+            android:id="@+id/verbTextView"
+            android:paddingEnd="2dp"
+            android:paddingStart="2dp"
+            android:layout_marginStart="4dp"
+            android:layout_width="0dp"
+            style="@style/verb_tile"
+            android:layout_height="match_parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            app:layout_constraintEnd_toStartOf="@id/practiceVerb"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            android:id="@+id/viewConjugations"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:tint="@color/black"
+            android:src="@drawable/ic_view_conjugations_24"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            android:id="@+id/practiceVerb"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:tint="@color/black"
+            android:src="@drawable/ic_outline_practice_24"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/definition"

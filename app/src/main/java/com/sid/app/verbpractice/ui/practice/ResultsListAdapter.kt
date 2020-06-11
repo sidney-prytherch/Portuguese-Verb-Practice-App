@@ -1,4 +1,4 @@
-package com.sid.app.verbpractice.ui.Practice
+package com.sid.app.verbpractice.ui.practice
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.ConjugatorPortuguese
 import com.sid.app.verbpractice.helper.ResultParcel
 import com.sid.app.verbpractice.helper.StringHelper
-import com.sid.app.verbpractice.ui.Practice.PracticeFragment.Companion.getDefaultAnswerFromConjugation
+import com.sid.app.verbpractice.ui.practice.PracticeFragment.Companion.getDefaultAnswerFromConjugation
 import kotlinx.android.synthetic.main.recyclerview_results.view.*
 import java.util.*
 import kotlin.collections.ArrayList

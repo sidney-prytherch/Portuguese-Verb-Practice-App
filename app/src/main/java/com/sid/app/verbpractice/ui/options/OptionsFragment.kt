@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package com.sid.app.verbpractice.ui.Options
+package com.sid.app.verbpractice.ui.options
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
@@ -95,6 +94,7 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
 
         indicatives = arrayOf(
             resources.getString(R.string.present),
@@ -366,6 +366,7 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
                 timeOption.setTextColor(disabledColor)
                 countOptions.visibility = View.VISIBLE
                 timeOptions.visibility = View.GONE
+                timeOptions.visibility = View.GONE
             }
             false -> {
                 timeOption.setTextColor(enabledColor)
@@ -412,5 +413,19 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             mContext.getSubjTenses().mapIndexed { index, boolean ->
                 if (boolean) " \u2022 " + subjunctives[index] else null
             }.filterNotNull().joinToString("\n")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        return inflater.inflate(R.menu.options_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.explainOptions -> {
+                NavHostFragment.findNavController(parentFragmentManager.primaryNavigationFragment!!).navigate(R.id.action_options_to_tutorial)
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

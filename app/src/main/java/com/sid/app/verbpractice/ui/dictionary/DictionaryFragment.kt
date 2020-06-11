@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sid.app.verbpractice.ui.Dictionary
+package com.sid.app.verbpractice.ui.dictionary
 
 import android.content.Context
 import android.os.Bundle

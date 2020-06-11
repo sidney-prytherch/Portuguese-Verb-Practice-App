@@ -108,6 +108,11 @@
     <string name="show_answer">Show</string>
     <string name="reset_all_words">Reset All Words</string>
     <string name="filter">Set Verb Filter</string>
+    <string name="explain_options">Explain Options</string>
+    <string name="explain_simple_indicative_tenses">Explain Simple Indicative Tenses</string>
+    <string name="explain_compound_indicative_tenses">Explain Compound Indicative Tenses</string>
+    <string name="explain_progressive_indicative_tenses">Explain Progressive Indicative Tenses</string>
+    <string name="explain_subjunctive_tenses">Explain Subjunctive Tenses</string>
 
     <string name="show_selected">Selected Verbs</string>
     <string name="selected">Show Selected</string>

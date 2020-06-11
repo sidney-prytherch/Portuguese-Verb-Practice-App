@@ -6,7 +6,7 @@
     app:startDestination="@id/practiceStart">
     <fragment
         android:id="@+id/practiceStart"
-        android:name="com.sid.app.verbpractice.ui.Practice.PracticeStartFragment"
+        android:name="com.sid.app.verbpractice.ui.practice.PracticeStartFragment"
         android:label="@string/title_practice"
         tools:layout="@layout/fragment_practice_start">
         <action
@@ -15,54 +15,69 @@
     </fragment>
     <fragment
         android:id="@+id/practice_loading"
-        android:name="com.sid.app.verbpractice.ui.Practice.PracticeLoadingFragment"
+        android:name="com.sid.app.verbpractice.ui.practice.PracticeLoadingFragment"
         android:label="@string/title_practice"
         tools:layout="@layout/fragment_practice_loading">
+        <argument
+            android:name="verb"
+            android:defaultValue="null"
+            app:argType="string"/>
         <action
             android:id="@+id/action_loading_to_practice"
             app:destination="@id/practice" />
     </fragment>
     <fragment
         android:id="@+id/practice"
-        android:name="com.sid.app.verbpractice.ui.Practice.PracticeFragment"
+        android:name="com.sid.app.verbpractice.ui.practice.PracticeFragment"
         android:label="@string/title_practice"
         tools:layout="@layout/fragment_practice">
         <argument
             android:name="conjugations"
             app:argType="com.sid.app.verbpractice.helper.ConjugationArrayParcel"/>
+        <argument
+            android:name="verb"
+            android:defaultValue="null"
+            app:argType="string"/>
         <action
             android:id="@+id/action_practice_to_results"
             app:destination="@id/practice_results"/>
     </fragment>
     <fragment
         android:id="@+id/practice_results"
-        android:name="com.sid.app.verbpractice.ui.Practice.PracticeResultsFragment"
+        android:name="com.sid.app.verbpractice.ui.practice.PracticeResultsFragment"
         android:label="@string/title_practice"
         tools:layout="@layout/fragment_practice_results">
         <argument
             android:name="results"
             app:argType="com.sid.app.verbpractice.helper.ResultArrayParcel"/>
+        <argument
+            android:name="verb"
+            android:defaultValue="null"
+            app:argType="string"/>
         <action
             android:id="@+id/action_results_to_loading"
             app:destination="@id/practice_loading"/>
     </fragment>
     <fragment
         android:id="@+id/dictionary"
-        android:name="com.sid.app.verbpractice.ui.Dictionary.DictionaryFragment"
+        android:name="com.sid.app.verbpractice.ui.dictionary.DictionaryFragment"
         android:label="@string/title_dictionary"
         tools:layout="@layout/fragment_dictionary">
         <action
             android:id="@+id/action_dictionary_to_filter"
             app:destination="@id/word_filter" />
+        <action
+            android:id="@+id/action_dictionary_to_practice"
+            app:destination="@id/practice_loading"/>
     </fragment>
     <dialog
         android:id="@+id/word_filter"
-        android:name="com.sid.app.verbpractice.ui.Dictionary.WordFilterFragment"
+        android:name="com.sid.app.verbpractice.ui.dictionary.WordFilterFragment"
         android:label="@string/filter"
         tools:layout="@layout/filter_words"/>
     <fragment
         android:id="@+id/options"
-        android:name="com.sid.app.verbpractice.ui.Options.OptionsFragment"
+        android:name="com.sid.app.verbpractice.ui.options.OptionsFragment"
         android:label="@string/title_options"
         tools:layout="@layout/fragment_options">
         <action
@@ -77,26 +92,34 @@
         <action
             android:id="@+id/action_title_to_set_subj"
             app:destination="@id/setSubjTensesButton"/>
+        <action
+            android:id="@+id/action_options_to_tutorial"
+            app:destination="@+id/tutorial_dialog"/>
     </fragment>
     <dialog
         android:id="@+id/setCompIndTensesButton"
-        android:name="com.sid.app.verbpractice.ui.Options.SetCompIndTensesFragment"
+        android:name="com.sid.app.verbpractice.ui.options.SetCompIndTensesFragment"
         android:label="@string/set_comp_ind_tenses"
         tools:layout="@layout/tenses_options_comp_ind"/>
     <dialog
         android:id="@+id/setSimpIndTensesButton"
-        android:name="com.sid.app.verbpractice.ui.Options.SetSimpIndTensesFragment"
+        android:name="com.sid.app.verbpractice.ui.options.SetSimpIndTensesFragment"
         android:label="@string/set_simp_ind_tenses"
         tools:layout="@layout/tenses_options_simp_ind"/>
     <dialog
         android:id="@+id/setProgIndTensesButton"
-        android:name="com.sid.app.verbpractice.ui.Options.SetProgIndTensesFragment"
+        android:name="com.sid.app.verbpractice.ui.options.SetProgIndTensesFragment"
         android:label="@string/set_prog_ind_tenses"
         tools:layout="@layout/tenses_options_prog_ind"/>
     <dialog
         android:id="@+id/setSubjTensesButton"
-        android:name="com.sid.app.verbpractice.ui.Options.SetSubjTensesFragment"
+        android:name="com.sid.app.verbpractice.ui.options.SetSubjTensesFragment"
         android:label="@string/set_subj_tenses"
         tools:layout="@layout/tenses_options_subj"/>
+    <dialog
+        android:id="@+id/tutorial_dialog"
+        android:name="com.sid.app.verbpractice.ui.options.TutorialFragment"
+        android:label="@string/explain_options"
+        tools:layout="@layout/options_tutorial"/>
 </navigation>
 

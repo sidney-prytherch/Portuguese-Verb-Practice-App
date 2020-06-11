@@ -1,4 +1,4 @@
-package com.sid.app.verbpractice.ui.Practice
+package com.sid.app.verbpractice.ui.practice
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -83,6 +83,7 @@ class PracticeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_practice, container, false)
 
         conjugationsArrayParcel = (arguments?.get("conjugations") as ConjugationArrayParcel)
+        val singleVerb = (arguments?.get("verb") as String?)
         conjugations = conjugationsArrayParcel.conjugations.map { conjugationParcel ->
             Conjugation(conjugationParcel)
         }.toTypedArray()
@@ -131,7 +132,7 @@ class PracticeFragment : Fragment() {
 
             updateResults()
             val resultArray = ResultArrayParcel(results.toTypedArray())
-            val bundle = bundleOf("results" to resultArray)
+            val bundle = bundleOf("results" to resultArray, "verb" to singleVerb)
             NavHostFragment.findNavController(parentFragmentManager.primaryNavigationFragment!!).navigate(R.id.action_practice_to_results, bundle)
         }
 

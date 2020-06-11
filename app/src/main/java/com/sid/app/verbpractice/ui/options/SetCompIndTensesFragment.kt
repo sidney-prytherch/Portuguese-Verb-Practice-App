@@ -1,4 +1,4 @@
-package com.sid.app.verbpractice.ui.Options
+package com.sid.app.verbpractice.ui.options
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -8,25 +8,26 @@ import android.widget.CheckBox
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.sid.app.verbpractice.R
-import kotlinx.android.synthetic.main.tenses_options_subj.view.*
+import kotlinx.android.synthetic.main.tenses_options_comp_ind.view.*
 
-class SetSubjTensesFragment : DialogFragment() {
+class SetCompIndTensesFragment : DialogFragment() {
 
-    private lateinit var listener: SetAndGetSubjunctiveSettings
+    private lateinit var listener: SetAndGetPerfectSettings
     private var checkBoxes = arrayOf<CheckBox>()
 
-    interface SetAndGetSubjunctiveSettings {
-        fun onSetSubjTenses(dialog: DialogFragment, result: BooleanArray)
-        fun getSubjTenses():BooleanArray
+    interface SetAndGetPerfectSettings {
+        fun onSetCompIndTenses(dialog: DialogFragment, result: BooleanArray)
+        fun getCompIndTenses():BooleanArray
     }
-    
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            listener = context as SetAndGetSubjunctiveSettings
+            listener = context as SetAndGetPerfectSettings
         } catch (e: ClassCastException) {
-            throw ClassCastException(("$context must implement SetAndGetSubjunctiveSettings"))
+            throw ClassCastException(("$context must implement SetAndGetPerfectSettings"))
         }
+
     }
 
     @SuppressLint("InflateParams")
@@ -35,28 +36,27 @@ class SetSubjTensesFragment : DialogFragment() {
             val builder = AlertDialog.Builder(it)
             // Get the layout inflater
             val inflater = requireActivity().layoutInflater
-            val view = inflater.inflate(R.layout.tenses_options_subj, null)
+            val view = inflater.inflate(R.layout.tenses_options_comp_ind, null)
 
             checkBoxes = arrayOf(
-                view.presSubjCheckbox,
-                view.impeSubjCheckbox,
-                view.futuSubjCheckbox,
-                view.presPerfSubjCheckbox,
-                view.plupSubjCheckbox,
-                view.futuPerfSubjCheckbox
+                view.futCheckbox,
+                view.presPerfCheckbox,
+                view.plupPerfCheckbox,
+                view.futuPerfCheckbox,
+                view.condPerfCheckbox
             )
-            listener.getSubjTenses().forEachIndexed{ index, isSet -> checkBoxes[index].isChecked = isSet}
+            listener.getCompIndTenses().forEachIndexed{ index, isSet -> checkBoxes[index].isChecked = isSet}
 
             // Inflate and set the layout for the dialog
             // Pass null as the parent view because its going in the dialog layout
-            builder.setTitle(R.string.set_subj_tenses)
+            builder.setTitle(R.string.set_comp_ind_tenses)
                 .setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.ok) { _, _ ->
-                    listener.onSetSubjTenses(this,
+                    listener.onSetCompIndTenses(this,
                         checkBoxes.map { checkBox -> checkBox.isChecked }.toBooleanArray()
                     )
-                    (parentFragmentManager.primaryNavigationFragment!! as OptionsFragment).resetSubjTextView()
+                    (parentFragmentManager.primaryNavigationFragment!! as OptionsFragment).resetCompIndTextView()
                 }
                 .setNegativeButton(
                     R.string.cancel

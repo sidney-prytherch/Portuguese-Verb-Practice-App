@@ -1,4 +1,4 @@
-package com.sid.app.verbpractice.ui.Dictionary
+package com.sid.app.verbpractice.ui.dictionary
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,6 +8,11 @@ import android.widget.CheckBox
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.os.bundleOf
+import androidx.fragment.app.findFragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
@@ -36,7 +41,7 @@ class WordListAdapter(private val context: Context?) : RecyclerView.Adapter<Word
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val wordView: CheckBox = itemView.verbTextView
         val defView: TextView = itemView.definition
-        val divider: View = itemView.divider
+        val practiceButton: AppCompatImageButton = itemView.practiceVerb
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,6 +61,10 @@ class WordListAdapter(private val context: Context?) : RecyclerView.Adapter<Word
             if (!isBusy) {
                 updateChecked(words[position].verb_id, if (isChecked) 1 else 0, position)
             }
+        }
+        holder.practiceButton.setOnClickListener {
+            val bundle = bundleOf("verb" to words[position].verb)
+            NavHostFragment.findNavController(it.findFragment()).navigate(R.id.action_dictionary_to_practice, bundle)
         }
         isBusy = false
     }

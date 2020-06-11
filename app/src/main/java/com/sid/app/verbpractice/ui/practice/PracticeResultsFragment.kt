@@ -1,4 +1,4 @@
-package com.sid.app.verbpractice.ui.Practice
+package com.sid.app.verbpractice.ui.practice
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +34,7 @@ class PracticeResultsFragment : Fragment() {
 
 
         val results = (arguments?.get("results") as ResultArrayParcel).results.toList()
+        val singleVerb = (arguments?.get("verb") as String?)
 
         val recyclerView: RecyclerView = view.resultsRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -44,7 +46,12 @@ class PracticeResultsFragment : Fragment() {
         adapter.setResults(results)
 
         view.restart.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_results_to_loading)
+            if (singleVerb == null) {
+                Navigation.findNavController(view).navigate(R.id.action_results_to_loading)
+            } else {
+                val bundle = bundleOf("verb" to singleVerb)
+                Navigation.findNavController(view).navigate(R.id.action_results_to_loading, bundle)
+            }
         }
 
         val callback: OnBackPressedCallback =

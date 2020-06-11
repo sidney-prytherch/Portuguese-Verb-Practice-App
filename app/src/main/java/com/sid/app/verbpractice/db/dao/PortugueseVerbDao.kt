@@ -32,6 +32,9 @@ interface PortugueseVerbDao {
 
     @Query("SELECT * FROM PortugueseVerbs WHERE added = 1 ORDER BY RANDOM() LIMIT 50")
     suspend fun getRandomVerbs(): List<PortugueseVerb>?
+
+    @Query("SELECT * FROM PortugueseVerbs WHERE verb = :verb")
+    suspend fun getSpecificVerb(verb: String): List<PortugueseVerb>?
 }
 
 //

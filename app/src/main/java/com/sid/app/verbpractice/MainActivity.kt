@@ -31,11 +31,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sid.app.verbpractice.db.entity.PortugueseVerb
 import com.sid.app.verbpractice.enums.VerbForm
 import com.sid.app.verbpractice.helper.VerbSettingsManager
-import com.sid.app.verbpractice.ui.Dictionary.WordFilterFragment
-import com.sid.app.verbpractice.ui.Options.SetCompIndTensesFragment
-import com.sid.app.verbpractice.ui.Options.SetProgIndTensesFragment
-import com.sid.app.verbpractice.ui.Options.SetSimpIndTensesFragment
-import com.sid.app.verbpractice.ui.Options.SetSubjTensesFragment
+import com.sid.app.verbpractice.ui.dictionary.WordFilterFragment
+import com.sid.app.verbpractice.ui.options.SetCompIndTensesFragment
+import com.sid.app.verbpractice.ui.options.SetProgIndTensesFragment
+import com.sid.app.verbpractice.ui.options.SetSimpIndTensesFragment
+import com.sid.app.verbpractice.ui.options.SetSubjTensesFragment
 import com.sid.app.verbpractice.viewmodel.PortugueseVerbViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -82,6 +82,10 @@ class MainActivity : AppCompatActivity(),
 
     override fun onSupportNavigateUp(): Boolean {
         return Navigation.findNavController(this, R.id.nav_host_container).navigateUp()//currentNavController?.value?.navigateUp() ?: false
+    }
+
+    fun setNavBarToPractice() {
+        bottom_nav.menu.findItem(R.id.practiceStart).isChecked = true
     }
 
     override fun onSetSimpIndTenses(dialog: DialogFragment, result: BooleanArray) {
@@ -246,12 +250,16 @@ class MainActivity : AppCompatActivity(),
         return mWordViewModel.getRandomVerb()
     }
 
+    fun onSetBooleanPreference(key: String, result: Boolean) {
+        verbSettingsManager.setBool(key, result)
+    }
+
     suspend fun getRandomVerbs(): List<PortugueseVerb>? {
         return mWordViewModel.getRandomVerbs()
     }
 
-    fun onSetBooleanPreference(key: String, result: Boolean) {
-        verbSettingsManager.setBool(key, result)
+    suspend fun getSpecificVerb(verb: String): List<PortugueseVerb>? {
+        return mWordViewModel.getSpecificVerb(verb)
     }
 
     fun getVerbTypes(): BooleanArray {

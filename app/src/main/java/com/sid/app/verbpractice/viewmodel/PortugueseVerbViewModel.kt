@@ -24,6 +24,8 @@ class PortugueseVerbViewModel(app: Application): AndroidViewModel(app) {
     suspend fun getRandomVerb(): PortugueseVerb? = dao.getRandomVerb()
 
     suspend fun getRandomVerbs(): List<PortugueseVerb>? = dao.getRandomVerbs()
+
+    suspend fun getSpecificVerb(verb: String): List<PortugueseVerb>? = dao.getSpecificVerb(verb = verb)
 }
 //class PortugueseVerbViewModel : ViewModel() {
 //    private val mRepository: PortugueseVerbRepository = PortugueseVerbRepository(application)

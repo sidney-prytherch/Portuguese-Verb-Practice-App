@@ -1,4 +1,4 @@
-package com.sid.app.verbpractice.ui.Dictionary
+package com.sid.app.verbpractice.ui.dictionary
 
 import android.annotation.SuppressLint
 import android.app.Dialog

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    tools:context="com.sid.app.verbpractice.ui.Options.OptionsFragment"
+    tools:context="com.sid.app.verbpractice.ui.options.OptionsFragment"
     tools:layout_editor_absoluteY="81dp">
 
     <ScrollView
