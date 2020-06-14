@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.EditText
@@ -306,7 +307,8 @@ class PracticeFragment : Fragment() {
                     conjugation.personMap[allPersons[person]],
                     "",
                     i == 0,
-                    currentPage
+                    currentPage,
+                    false
                 )
             }
         }
@@ -342,23 +344,24 @@ class PracticeFragment : Fragment() {
         for (i in 0 until rowCount) {
             val view = conjugationViews[i]
             val result = results[i + startIndex]
-//            val englishVerbString = formatEnglishVerbString(result.personsString, conjugation.verb, conjugation.enVerb)
-
             view.ptVerbInput.setText(result.input)
             view.ptSubject.text = result.personsString
             view.englishVerb.text = englishConjugations[i]
         }
     }
-
-//    private fun formatEnglishVerbString(ptSubject: String, ptVerb: String, enVerb: String): String {
-////        return ConjugatorEnglish.conjugate("do", )
-//        return """${ConjugatorEnglish.getSubject(ptSubject)} $ptVerb (${enVerb.split("~")[1]})"""
-//    }
-
     private fun updateResults() {
         val startIndex = (currentPage - 1) * rowCount
         for (i in 0 until rowCount) {
-            results[i + startIndex].input = conjugationViews[i].ptVerbInput.text.toString()
+            updateResult(i + startIndex, conjugationViews[i].ptVerbInput, false)
+        }
+    }
+
+    private fun updateResult(index: Int, ptVerbInput: EditText, isFinal: Boolean) {
+        if (!results[index].isFinal) {
+            results[index].input = ptVerbInput.text.toString().trim()
+            if (isFinal) {
+                results[index].isFinal = isFinal
+            }
         }
     }
 
@@ -378,6 +381,7 @@ class PracticeFragment : Fragment() {
                             getDefaultAnswerFromConjugation(
                                 conjugations[currentConjugation].personMap[allPersons[i]] ?: ""
                             )
+                        updateResult((currentPage - 1) * rowCount + index, cellLayout.ptVerbInput, true)
                         cellLayout.ptVerbInput.setText(answer)
                     }
                     conjugationViews[index] = cellLayout
@@ -395,6 +399,7 @@ class PracticeFragment : Fragment() {
                     getDefaultAnswerFromConjugation(
                         conjugation.personMap[allPersons[conjugation.person]] ?: ""
                     )
+                updateResult(currentPage - 1, cellLayout.ptVerbInput, true)
                 cellLayout.ptVerbInput.setText(answer)
             }
             conjugationViews[0] = cellLayout
@@ -425,6 +430,7 @@ class PracticeFragment : Fragment() {
                         getDefaultAnswerFromConjugation(
                             conjugation.personMap[allPersons[person]] ?: ""
                         )
+                    updateResult((currentPage - 1) * rowCount + i, conjugationViews[i].ptVerbInput, true)
                     conjugationViews[i].ptVerbInput.setText(answer)
                 }
                 return true

@@ -16,7 +16,6 @@ import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.ResultArrayParcel
 import kotlinx.android.synthetic.main.fragment_practice_results.view.*
 
-
 class PracticeResultsFragment : Fragment() {
 
     private lateinit var adapter: ResultsListAdapter
@@ -32,7 +31,6 @@ class PracticeResultsFragment : Fragment() {
             supportActionBar.setHomeAsUpIndicator(null)
         }
 
-
         val results = (arguments?.get("results") as ResultArrayParcel).results.toList()
         val singleVerb = (arguments?.get("verb") as String?)
 
@@ -40,8 +38,7 @@ class PracticeResultsFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
 
-        adapter =
-            ResultsListAdapter(context)
+        adapter = ResultsListAdapter(context)
         recyclerView.adapter = adapter
         adapter.setResults(results)
 
@@ -62,6 +59,7 @@ class PracticeResultsFragment : Fragment() {
 
         return view
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> true

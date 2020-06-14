@@ -1,11 +1,15 @@
 package com.sid.app.verbpractice.ui.practice
 
 import android.content.Context
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.ConjugatorPortuguese
@@ -40,12 +44,34 @@ class ResultsListAdapter(private val context: Context?) : RecyclerView.Adapter<R
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val result = results[position]
-        val inputString = """You said: ${result.personsString} ${result.input}"""
-        val correctionString = """The correct answer is: ${result.personsString} ${getDefaultAnswerFromConjugation(result.verbConjugation)}"""
-        holder.resultsRows.input.text = inputString
-        holder.resultsRows.correction.text = correctionString
+        val wasCorrect = result.input == getDefaultAnswerFromConjugation(result.verbConjugation)
+        val input = """${result.personsString} ${result.input}""".trim()
+        val inputString = if (wasCorrect) {
+            holder.resultsRows.correction.visibility = View.GONE
+            holder.resultsRows.input.setBackgroundColor(ContextCompat.getColor(context!!, R.color.correct))
+            "You were correct: $input"
+        } else {
+            holder.resultsRows.correction.visibility = View.VISIBLE
+            val correctAnswer = """${result.personsString} ${getDefaultAnswerFromConjugation(result.verbConjugation)}"""
+            val correctionString = """The correct answer is: $correctAnswer"""
+            val formattedCorrectionString = SpannableString(correctionString)
+            formattedCorrectionString.setSpan(UnderlineSpan(), correctionString.length - correctAnswer.length, correctionString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            holder.resultsRows.correction.text = formattedCorrectionString
+            holder.resultsRows.input.setBackgroundColor(ContextCompat.getColor(context!!, R.color.incorrect))
+            holder.resultsRows.correction.setBackgroundColor(ContextCompat.getColor(context, R.color.incorrect))
+            if (result.input.isBlank()) {
+                "You left this blank."
+            } else {
+                "You were incorrect. You said: $input"
+            }
+        }
+        val formattedInputString = SpannableString(inputString)
+        if (!result.input.isBlank()) {
+            formattedInputString.setSpan(UnderlineSpan(), inputString.length - input.length, inputString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+        holder.resultsRows.input.text = formattedInputString
         if (result.isFirst) {
-            val verbInfoString = """${StringHelper.capitalize(result.verb)} in the ${ConjugatorPortuguese.getVerbFormString(result.tense, context!!.resources)
+            val verbInfoString = """${StringHelper.capitalize(result.verb)} in the ${ConjugatorPortuguese.getVerbFormString(result.tense, context.resources)
                 .toLowerCase(Locale.ROOT)} tense"""
             holder.numberTextView.text = result.count.toString()
             holder.resultsRows.verbInfo.text = verbInfoString

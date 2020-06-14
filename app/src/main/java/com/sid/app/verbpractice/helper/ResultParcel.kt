@@ -14,5 +14,6 @@ class ResultParcel(
     val verbConjugation: String?,
     var input: String,
     val isFirst: Boolean,
-    val count: Int
+    val count: Int,
+    var isFinal: Boolean
 ) : Parcelable
