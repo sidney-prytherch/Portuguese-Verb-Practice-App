@@ -20,11 +20,27 @@
         tools:layout="@layout/fragment_practice_loading">
         <argument
             android:name="verb"
-            android:defaultValue="null"
+            android:defaultValue=""
             app:argType="string"/>
+        <argument
+            android:name="isConjugationView"
+            android:defaultValue="false"
+            app:argType="boolean"/>
         <action
             android:id="@+id/action_loading_to_practice"
             app:destination="@id/practice" />
+        <action
+            android:id="@+id/action_loading_to_conjugations"
+            app:destination="@id/conjugations_view" />
+    </fragment>
+    <fragment
+        android:id="@+id/conjugations_view"
+        android:name="com.sid.app.verbpractice.ui.dictionary.ConjugationViewerFragment"
+        android:label="@string/title_dictionary"
+        tools:layout="@layout/fragment_practice">
+        <action
+            android:id="@+id/action_conjugations_to_dictionary"
+            app:destination="@id/dictionary" />
     </fragment>
     <fragment
         android:id="@+id/practice"
@@ -36,7 +52,7 @@
             app:argType="com.sid.app.verbpractice.helper.ConjugationArrayParcel"/>
         <argument
             android:name="verb"
-            android:defaultValue="null"
+            android:defaultValue=""
             app:argType="string"/>
         <action
             android:id="@+id/action_practice_to_results"
@@ -52,7 +68,7 @@
             app:argType="com.sid.app.verbpractice.helper.ResultArrayParcel"/>
         <argument
             android:name="verb"
-            android:defaultValue="null"
+            android:defaultValue=""
             app:argType="string"/>
         <action
             android:id="@+id/action_results_to_loading"
@@ -68,7 +84,10 @@
             app:destination="@id/word_filter" />
         <action
             android:id="@+id/action_dictionary_to_practice"
-            app:destination="@id/practice_loading"/>
+            app:destination="@id/practice_loading"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
     </fragment>
     <dialog
         android:id="@+id/word_filter"

@@ -13,6 +13,7 @@ object ConjugatorEnglish {
             "Eu" -> "I"
             "Tu" -> "you"
             "Você" -> "you"
+            "Você/Ele/Ela" -> "you/he/she"
             "A senhora" -> "you (formal, fem.)"
             "O senhor" -> "you (formal, masc.)"
             "Ele" -> "he"
@@ -20,6 +21,7 @@ object ConjugatorEnglish {
             "Nós" -> "we"
             "Vós" -> "you all (obsolete)"
             "Vocês" -> "you all"
+            "Vocês/Eles/Elas" -> "you all/they"
             "As senhoras" -> "you all (formal, fem.)"
             "Os senhores" -> "you all (formal, masc.)"
             "Eles" -> "they (masc.)"
@@ -32,9 +34,9 @@ object ConjugatorEnglish {
         return when (ptString) {
             "Eu" -> Person.FIRST_SING
             "Tu", "Você", "A senhora", "O senhor" -> Person.SECOND_SING
-            "Ele", "Ela" -> Person.THIRD_SING
+            "Ele", "Ela", "Você/Ele/Ela" -> Person.THIRD_SING
             "Nós" -> Person.FIRST_PLUR
-            "Eles", "Elas" -> Person.THIRD_PLUR
+            "Eles", "Elas", "Vocês/Eles/Elas" -> Person.THIRD_PLUR
             else -> Person.SECOND_PLUR
         }
     }
@@ -43,6 +45,7 @@ object ConjugatorEnglish {
         return when (ptString) {
             "Eu" -> "me"
             "Tu", "Você" -> "you"
+            "Você/Ele/Ela" -> "you/him/her"
             "A senhora" -> "you (formal, fem.)"
             "O senhor" -> "you (formal, masc.)"
             "Ele" -> "him"
@@ -50,6 +53,7 @@ object ConjugatorEnglish {
             "Nós" -> "us"
             "Vós" -> "you all (obsolete)"
             "Vocês" -> "you all"
+            "Vocês/Eles/Elas" -> "you all/them"
             "As senhoras" -> "you all (formal, fem.)"
             "Os senhores" -> "you all (formal, masc.)"
             "Eles" -> "them (masc.)"

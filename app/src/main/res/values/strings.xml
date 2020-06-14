@@ -101,6 +101,7 @@
     <string name="reset">Reset</string>
     <string name="clear">Clear</string>
     <string name="next">Next</string>
+    <string name="previous">Previous</string>
     <string name="check">Check</string>
     <string name="finish">Finish</string>
     <string name="restart">Restart</string>

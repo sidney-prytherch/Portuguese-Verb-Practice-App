@@ -26,14 +26,12 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.db.entity.PortugueseVerb
 import com.sid.app.verbpractice.enums.Person
 import com.sid.app.verbpractice.enums.VerbForm
 import com.sid.app.verbpractice.helper.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_practice_loading.view.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -81,14 +79,20 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         launch {
             val singleVerb: String? = arguments?.get("verb") as String?
+            val isConjugationView: Boolean = arguments?.get("isConjugationView") as Boolean
             //get enabled verbs
-            if (singleVerb == null) {
+            if (singleVerb.isNullOrBlank()) {
+                Log.v("whatIsTheThing", "hooray")
                 getRandomVerbs()
             } else {
-                mContext.setNavBarToPractice()
+                Log.v("whatIsTheThing", "ruh roh")
                 getVerb(singleVerb)
+                if (!isConjugationView) {
+                    mContext.setNavBarToPractice()
+                }
             }
 
             //get enabled persons
@@ -164,7 +168,9 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             }
 
             val selectedConjugations = mutableListOf<Conjugation>()
-            if (isFullConjugation) {
+            if (isConjugationView) {
+                possibleConjugations.forEach { selectedConjugations += Conjugation(it) }
+            } else if (isFullConjugation) {
                 for (i in 0 until 100) {
                     val randomConjugation = possibleConjugations.random()
                     selectedConjugations += Conjugation(randomConjugation)
@@ -200,7 +206,6 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 }
             }
 
-
             val conjugationArrayParcel = ConjugationArrayParcel(
                 selectedConjugations.map { conjugation ->
                     ConjugationParcel(
@@ -214,10 +219,16 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 }.toTypedArray()
             )
 
-            val bundle = bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
-
-            withContext(Dispatchers.Main) {
-                Navigation.findNavController(view).navigate(R.id.action_loading_to_practice, bundle)
+            if (!isConjugationView) {
+                val bundle = bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
+                withContext(Dispatchers.Main) {
+                    Navigation.findNavController(view).navigate(R.id.action_loading_to_practice, bundle)
+                }
+            } else {
+                val bundle = bundleOf("conjugations" to conjugationArrayParcel)
+                withContext(Dispatchers.Main) {
+                    Navigation.findNavController(view).navigate(R.id.action_loading_to_conjugations, bundle)
+                }
             }
         }
     }

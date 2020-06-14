@@ -42,6 +42,7 @@ class WordListAdapter(private val context: Context?) : RecyclerView.Adapter<Word
         val wordView: CheckBox = itemView.verbTextView
         val defView: TextView = itemView.definition
         val practiceButton: AppCompatImageButton = itemView.practiceVerb
+        val conjugationButton: AppCompatImageButton = itemView.viewConjugations
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -64,6 +65,10 @@ class WordListAdapter(private val context: Context?) : RecyclerView.Adapter<Word
         }
         holder.practiceButton.setOnClickListener {
             val bundle = bundleOf("verb" to words[position].verb)
+            NavHostFragment.findNavController(it.findFragment()).navigate(R.id.action_dictionary_to_practice, bundle)
+        }
+        holder.conjugationButton.setOnClickListener {
+            val bundle = bundleOf("verb" to words[position].verb, "isConjugationView" to true)
             NavHostFragment.findNavController(it.findFragment()).navigate(R.id.action_dictionary_to_practice, bundle)
         }
         isBusy = false
