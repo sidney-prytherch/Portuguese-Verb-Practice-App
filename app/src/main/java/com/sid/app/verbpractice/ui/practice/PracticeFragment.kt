@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -167,6 +167,15 @@ class PracticeFragment : Fragment() {
             count.visibility = View.VISIBLE
             timer.visibility = View.GONE
             nextButton.setOnClickListener {
+                val v = mContext.currentFocus
+                if (v != null) {
+                    val imm = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+                    imm?.hideSoftInputFromWindow(v.windowToken, 0)
+                }
+                view.conjugationScrollView.scrollTo(0, 0)
+                if (isFullConjugation) {
+                    conjugationViews[0].requestFocus()
+                }
                 goToNext()
             }
         } else {
