@@ -43,7 +43,8 @@ class SetCompIndTensesFragment : DialogFragment() {
                 view.presPerfCheckbox,
                 view.plupPerfCheckbox,
                 view.futuPerfCheckbox,
-                view.condPerfCheckbox
+                view.condPerfCheckbox,
+                view.pastIntentCheckbox
             )
             listener.getCompIndTenses().forEachIndexed{ index, isSet -> checkBoxes[index].isChecked = isSet}
 

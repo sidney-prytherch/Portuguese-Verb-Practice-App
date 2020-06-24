@@ -32,6 +32,7 @@ object ConjugatorPortuguese {
             VerbForm.PLUP -> "${resources.getString(R.string.pluperfect)} (compound)"
             VerbForm.FUT_PERF -> "${resources.getString(R.string.future_perfect)} (compound)"
             VerbForm.COND_PERF -> "${resources.getString(R.string.conditional_perfect)} (compound)"
+            VerbForm.PAST_INTENT -> "${resources.getString(R.string.past_intent)} (compound)"
 
             VerbForm.PRES_PROG -> resources.getString(R.string.present_progressive)
             VerbForm.PRET_PROG -> resources.getString(R.string.preterite_progressive)
@@ -1391,6 +1392,14 @@ object ConjugatorPortuguese {
                 "teríamos " + verbData.participle,
                 "teríeis " + verbData.participle,
                 "teriam " + verbData.participle
+            )
+            VerbForm.PAST_INTENT -> arrayOf(
+                "ia $infinitive",
+                "ias $infinitive",
+                "ia $infinitive",
+                "íamos $infinitive",
+                "íeis $infinitive",
+                "iam $infinitive"
             )
             VerbForm.PRES_PROG -> if (portugal || verbData.gerund == null) {
                 arrayOf(

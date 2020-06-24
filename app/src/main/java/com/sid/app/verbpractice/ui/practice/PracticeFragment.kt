@@ -148,6 +148,11 @@ class PracticeFragment : Fragment() {
             } else {
                 checkAnswer(conjugation.personMap[allPersons[conjugation.person]] ?: "", conjugationViews[0].ptVerbInput)
             }
+            if (nextButton.visibility == View.VISIBLE) {
+                nextButton.requestFocus()
+            } else {
+                finishButton.requestFocus()
+            }
         }
 
         // set up counter and timer settings
@@ -173,9 +178,6 @@ class PracticeFragment : Fragment() {
                     imm?.hideSoftInputFromWindow(v.windowToken, 0)
                 }
                 view.conjugationScrollView.scrollTo(0, 0)
-                if (isFullConjugation) {
-                    conjugationViews[0].requestFocus()
-                }
                 goToNext()
             }
         } else {
@@ -302,6 +304,7 @@ class PracticeFragment : Fragment() {
                 nextButton.visibility = View.VISIBLE
             }
         }
+        conjugationViews[0].ptVerbInput.requestFocus()
 
         if (results.size == (currentPage - 1) * rowCount) {
             val conjugation = conjugations[currentConjugation]

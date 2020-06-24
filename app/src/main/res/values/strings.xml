@@ -58,6 +58,7 @@
     <string name="pluperfect">Pluperfect</string>
     <string name="future_perfect">Future Perfect</string>
     <string name="conditional_perfect">Conditional Perfect</string>
+    <string name="past_intent">Imperfect</string>
 
     <string name="progressive_tenses">Progressive Indicative Tenses</string>
     <string name="set_prog_ind_tenses">Set Progressive Indicative Tenses</string>

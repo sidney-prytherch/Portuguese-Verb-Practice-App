@@ -109,7 +109,8 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             resources.getString(R.string.present_perfect),
             resources.getString(R.string.pluperfect),
             resources.getString(R.string.future_perfect),
-            resources.getString(R.string.conditional_perfect)
+            resources.getString(R.string.conditional_perfect),
+            resources.getString(R.string.past_intent)
         )
         progressives = arrayOf(
             resources.getString(R.string.present_progressive),

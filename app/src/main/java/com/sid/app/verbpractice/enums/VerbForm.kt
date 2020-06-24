@@ -16,6 +16,7 @@ enum class VerbForm {
     PLUP,
     FUT_PERF,
     COND_PERF,
+    PAST_INTENT,
 
     // Progressive Indicative
     PRES_PROG,

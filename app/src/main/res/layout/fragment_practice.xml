@@ -48,19 +48,24 @@
         <ScrollView
             android:id="@+id/conjugationScrollView"
             android:layout_width="match_parent"
+            android:fillViewport="true"
             android:layout_height="0dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/checkButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/verbData">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="10dp"
-                android:weightSum="10">
+                android:paddingBottom="10dp"
+                android:weightSum="10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <View
                     android:layout_width="0dp"
@@ -68,102 +73,11 @@
                     android:layout_weight="1" />
 
                 <LinearLayout
+                    android:id="@+id/conjugationTable"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/tenseDisplay"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/BiggerText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/tense"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:id="@+id/tenseTextView"
-                            style="@style/BiggerText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="4dp"
-                            android:paddingEnd="4dp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/verbDisplay"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/BiggerText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/verb"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:id="@+id/verbTextView"
-                            style="@style/BiggerText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="4dp"
-                            android:paddingEnd="4dp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/englishVerbDisplay"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/BigText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/verb"
-                            android:textStyle="bold"
-                            android:visibility="invisible"/>
-
-                        <TextView
-                            style="@style/BigText"
-                            android:gravity="top"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="@string/enVerb"/>
-
-                        <TextView
-                            android:id="@+id/englishVerbTextView"
-                            style="@style/BigText"
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="4dp"
-                            android:paddingEnd="4dp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/conjugationTable"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical" />
-                </LinearLayout>
+                    android:orientation="vertical"
+                    android:layout_weight="8" />
 
                 <View
                     android:layout_width="0dp"
@@ -171,8 +85,121 @@
                     android:layout_weight="1" />
             </LinearLayout>
 
-
         </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/verbData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:weightSum="10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/tenseDisplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BiggerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tense"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tenseTextView"
+                        style="@style/BiggerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/verbDisplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BiggerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/verb"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/verbTextView"
+                        style="@style/BiggerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/englishVerbDisplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BigText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/verb"
+                        android:textStyle="bold"
+                        android:visibility="invisible"/>
+
+                    <TextView
+                        style="@style/BigText"
+                        android:gravity="top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/enVerb"/>
+
+                    <TextView
+                        android:id="@+id/englishVerbTextView"
+                        style="@style/BigText"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

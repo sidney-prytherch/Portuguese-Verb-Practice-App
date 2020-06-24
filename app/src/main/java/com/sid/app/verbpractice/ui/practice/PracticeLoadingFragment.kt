@@ -85,10 +85,8 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             val isConjugationView: Boolean = arguments?.get("isConjugationView") as Boolean
             //get enabled verbs
             if (singleVerb.isNullOrBlank()) {
-                Log.v("whatIsTheThing", "hooray")
                 getRandomVerbs()
             } else {
-                Log.v("whatIsTheThing", "ruh roh")
                 getVerb(singleVerb)
                 if (!isConjugationView) {
                     mContext.setNavBarToPractice()

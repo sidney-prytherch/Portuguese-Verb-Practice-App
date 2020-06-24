@@ -107,6 +107,7 @@ object ConjugatorEnglish {
             VerbForm.PLUP -> Array(6) { "_ had ${verbData.pastPart} [comp]" }
             VerbForm.FUT_PERF -> Array(6) { "_ will have ${verbData.pastPart}" }
             VerbForm.COND_PERF -> Array(6) { "_ would have ${verbData.pastPart} (if...)" }
+            VerbForm.PAST_INTENT -> Array(6) { "_ was going to ${verbData.infinitive}/_ would ${verbData.infinitive}" }
             VerbForm.PRES_PROG -> getConjugatedHelper(EnglishHelper.TO_BE_PRES).map {
                 "$it ${verbData.gerund}"
             }.toTypedArray()

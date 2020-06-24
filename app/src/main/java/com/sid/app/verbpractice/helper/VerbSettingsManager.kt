@@ -49,6 +49,7 @@ class VerbSettingsManager(private val sharedPreferences: SharedPreferences) {
         const val PLUP = "plup"
         const val FUT_PERF = "fut_perf"
         const val COND_PERF = "cond_perf"
+        const val PAST_INTENT = "past_intent"
 
         const val PRES_PROG = "pres_prog"
         const val PRET_PROG = "pret_prog"

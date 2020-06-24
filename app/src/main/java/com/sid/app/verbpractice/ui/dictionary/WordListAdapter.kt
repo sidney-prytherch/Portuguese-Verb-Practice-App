@@ -106,17 +106,21 @@ class WordListAdapter(private val context: Context?) : RecyclerView.Adapter<Word
 
                 val filterResults = FilterResults()
 
-                val preFilteredWords = if (showSelected && showUnselected) {
-                    allWords.filter { it.verb_group >= verbCommonVal }
-                } else if (!showUnselected && showSelected) {
-                    allWords.filter { it.added == 1 && it.verb_group >= verbCommonVal }
-                } else if (showUnselected && !showSelected) {
-                    allWords.filter { it.added == 0 && it.verb_group >= verbCommonVal }
+                val preFilteredWords = if (queryString.isNullOrBlank()) {
+                    if (showSelected && showUnselected) {
+                        allWords.filter { it.verb_group >= verbCommonVal }
+                    } else if (!showUnselected && showSelected) {
+                        allWords.filter { it.added == 1 && it.verb_group >= verbCommonVal }
+                    } else if (showUnselected && !showSelected) {
+                        allWords.filter { it.added == 0 && it.verb_group >= verbCommonVal }
+                    } else {
+                        allWords.filter { it.added == -1 }
+                    }
                 } else {
-                    allWords.filter { it.added == -1 }
+                    allWords
                 }
 
-                filterResults.values = if (queryString==null || queryString.isEmpty()) {
+                filterResults.values = if (queryString.isNullOrBlank()) {
                     preFilteredWords
                 } else {
                     val orderedSearchedList = preFilteredWords.filter {

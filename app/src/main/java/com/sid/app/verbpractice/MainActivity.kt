@@ -21,6 +21,7 @@ import android.content.ComponentName
 import android.content.Intent
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -114,6 +115,7 @@ class MainActivity : AppCompatActivity(),
         verbSettingsManager.setBool(VerbSettingsManager.PLUP, result[2])
         verbSettingsManager.setBool(VerbSettingsManager.FUT_PERF, result[3])
         verbSettingsManager.setBool(VerbSettingsManager.COND_PERF, result[4])
+        verbSettingsManager.setBool(VerbSettingsManager.PAST_INTENT, result[5])
     }
 
     override fun getCompIndTenses(): BooleanArray {
@@ -122,7 +124,8 @@ class MainActivity : AppCompatActivity(),
             verbSettingsManager.getBool(VerbSettingsManager.PRES_PERF),
             verbSettingsManager.getBool(VerbSettingsManager.PLUP),
             verbSettingsManager.getBool(VerbSettingsManager.FUT_PERF),
-            verbSettingsManager.getBool(VerbSettingsManager.COND_PERF)
+            verbSettingsManager.getBool(VerbSettingsManager.COND_PERF),
+            verbSettingsManager.getBool(VerbSettingsManager.PAST_INTENT)
         )
     }
 
@@ -211,6 +214,7 @@ class MainActivity : AppCompatActivity(),
             checkTense(VerbSettingsManager.PLUP, VerbForm.PLUP),
             checkTense(VerbSettingsManager.FUT_PERF, VerbForm.FUT_PERF),
             checkTense(VerbSettingsManager.COND_PERF, VerbForm.COND_PERF),
+            checkTense(VerbSettingsManager.PAST_INTENT, VerbForm.PAST_INTENT),
             checkTense(VerbSettingsManager.PRES_PROG, VerbForm.PRES_PROG),
             checkTense(VerbSettingsManager.PRET_PROG, VerbForm.PRET_PROG),
             checkTense(VerbSettingsManager.IMP_PROG, VerbForm.IMP_PROG),
