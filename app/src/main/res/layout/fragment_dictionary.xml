@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     tools:context="com.sid.app.verbpractice.ui.dictionary.DictionaryFragment"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_bar_full"
@@ -49,7 +48,6 @@
         android:id="@+id/verbs_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/white"
         tools:listitem="@layout/recyclerview_verbs"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

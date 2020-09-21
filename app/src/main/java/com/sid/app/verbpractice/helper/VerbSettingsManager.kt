@@ -32,11 +32,6 @@ class VerbSettingsManager(private val sharedPreferences: SharedPreferences) {
 
 
     companion object {
-        const val AR_ENABLED = "ar_enabled"
-        const val ER_ENABLED = "er_enabled"
-        const val IR_ENABLED = "ir_enabled"
-        const val IRREG_ENABLED = "irreg_enabled"
-
         const val PRES_IND = "pres_ind"
         const val PRET_IND = "pret_ind"
         const val IMP_IND = "imp_ind"
@@ -101,5 +96,16 @@ class VerbSettingsManager(private val sharedPreferences: SharedPreferences) {
         const val VERB_FREQUENCY = "verb_frequency"
         const val SHOW_SELECTED = "show_selected"
         const val SHOW_UNSELECTED = "show_unselected"
+
+        const val VERB_POOL = "verb_pool"
+
+        const val AR_ENABLED = "ar_enabled"
+        const val ER_ENABLED = "er_enabled"
+        const val IR_ENABLED = "ir_enabled"
+        const val IRREG_ENABLED = "irreg_enabled"
+
+        const val REG_SUBTYPE = "reg_subtype"
+        const val RADICAL_SUBTYPE = "radical_subtype"
+        const val ORTHOGRAPHIC_SUBTYPE = "orthographic_subtype"
     }
 }

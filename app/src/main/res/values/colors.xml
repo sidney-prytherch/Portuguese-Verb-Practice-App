@@ -16,15 +16,74 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#7e53c5</color>
+    <color name="colorPrimary">#5472D5</color>
+    <color name="colorPrimaryDark">#5654D5</color>
+    <color name="colorAccent">#7754D5</color>
     <color name="timeCountColor">@color/colorAccent</color>
 
+    <color name="appIconBackgroundColor">#A8D7EC</color>
+
+    <color name="transparency">#00000000</color>
+
+    <color name="background">#FAFAFA</color>
     <color name="lightGray">#EEEEEE</color>
     <color name="transparentBackground">#80FAFAFA</color>
     <color name="disabled">#AAA</color>
     <color name="black">#000</color>
     <color name="correct">#E6FFE4</color>
     <color name="incorrect">#FDF1F1</color>
+
+    <color name="red">#e06666</color>
+    <color name="orange">#f6b26b</color>
+    <color name="yellow">#ffd966</color>
+    <color name="green">#93c47d</color>
+    <color name="bluegreen">#76a5af</color>
+    <color name="blue">#6d9eeb</color>
+    <color name="purple">#8e7cc3</color>
+    <color name="redpurple">#c27ba0</color>
+
+    <color name="redb">#dde06666</color>
+    <color name="orangeb">#ddf6b26b</color>
+    <color name="yellowb">#ddffd966</color>
+    <color name="greenb">#dd93c47d</color>
+    <color name="bluegreenb">#dd76a5af</color>
+    <color name="blueb">#dd6d9eeb</color>
+    <color name="purpleb">#dd8e7cc3</color>
+    <color name="redpurpleb">#ddc27ba0</color>
+
+    <color name="redt">#44e06666</color>
+    <color name="oranget">#44f6b26b</color>
+    <color name="yellowt">#44ffd966</color>
+    <color name="greent">#4493c47d</color>
+    <color name="bluegreent">#4476a5af</color>
+    <color name="bluet">#446d9eeb</color>
+    <color name="purplet">#448e7cc3</color>
+    <color name="redpurplet">#44c27ba0</color>
+
+<!--    <color name="icon_outline">#FF000000</color>-->
+<!--    <color name="icon_back">#bfbfbf</color>-->
+<!--    <color name="icon_blue">#002776</color>-->
+<!--    <color name="icon_green">#009b3a</color>-->
+<!--    <color name="icon_yellow">#fedf00</color>-->
+<!--    <color name="icon_red">#da231c</color>-->
+<!--    <color name="icon_white">#fff</color>-->
+<!--    <color name="icon_speech">#bfbfbf</color>-->
+<!--    <color name="icon_skin1">#cc7438</color>-->
+<!--    <color name="icon_hair1">#35211f</color>-->
+<!--    <color name="icon_skin2">#dda179</color>-->
+<!--    <color name="icon_hair2">#bf9000</color>-->
+
+    <color name="icon_outline">#18294C</color>
+    <color name="icon_back">#FBFAF6</color>
+    <color name="icon_blue">#233B6B</color>
+    <color name="icon_green">#0c5c2e</color>
+    <color name="icon_yellow">#F6E82F</color>
+    <color name="icon_red">#E31F29</color>
+    <color name="icon_white">#fff</color>
+    <color name="icon_speech">#FBFAF6</color>
+    <color name="icon_skin1">#FBFAF6</color>
+    <color name="icon_hair1">#F6E82F</color>
+    <color name="icon_skin2">#FBFAF6</color>
+    <color name="icon_hair2">#F6E82F</color>
+
 </resources>

@@ -14,6 +14,15 @@
             app:destination="@id/practice_loading" />
     </fragment>
     <fragment
+        android:id="@+id/wordsearch"
+        android:name="com.sid.app.verbpractice.ui.practice.wordsearch.WordsearchFragment"
+        android:label="@string/wordsearch"
+        tools:layout="@layout/fragment_wordsearch">
+        <argument
+            android:name="wordsearchData"
+            app:argType="com.sid.app.verbpractice.helper.WordsearchParcel"/>
+    </fragment>
+    <fragment
         android:id="@+id/practice_loading"
         android:name="com.sid.app.verbpractice.ui.practice.PracticeLoadingFragment"
         android:label="@string/title_practice"
@@ -26,12 +35,19 @@
             android:name="isConjugationView"
             android:defaultValue="false"
             app:argType="boolean"/>
+        <argument
+            android:name="isWordsearch"
+            android:defaultValue="false"
+            app:argType="boolean"/>
         <action
             android:id="@+id/action_loading_to_practice"
             app:destination="@id/practice" />
         <action
             android:id="@+id/action_loading_to_conjugations"
             app:destination="@id/conjugations_view" />
+        <action
+            android:id="@+id/action_loading_to_wordsearch"
+            app:destination="@id/wordsearch"/>
     </fragment>
     <fragment
         android:id="@+id/conjugations_view"

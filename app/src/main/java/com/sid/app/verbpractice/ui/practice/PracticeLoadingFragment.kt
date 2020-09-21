@@ -17,12 +17,13 @@
 package com.sid.app.verbpractice.ui.practice
 
 import android.content.Context
-import android.graphics.drawable.Animatable
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -49,6 +50,12 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
     private var enabledTenses: Array<VerbForm> = arrayOf()
     private var isFullConjugation = true
     private var isPortugal = true
+    private var navConditionsMet = 0
+    private var isWordsearch = false
+    private var isConjugationView = false
+    private lateinit var conjugationArrayParcel: ConjugationArrayParcel
+    private var singleVerb: String? = null
+
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + Job()
@@ -73,21 +80,58 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_practice_loading, container, false)
-        view.imageView.setImageResource(R.drawable.animated_logo)
-        (view.imageView.drawable as Animatable).start()
+
+//        view.imageView.setImageResource(R.drawable.animated_logo2)
+//        (view.imageView.drawable as Animatable).start()
+        val rotate = AnimationUtils.loadAnimation(view.imageView.context, R.anim.rotate_animation)
+        view.imageView.animation = rotate
+        object: CountDownTimer(3000,1000) {
+            override fun onTick(millisUntilFinished: Long) {}
+
+            override fun onFinish() {
+                navConditionsMet++
+                Log.v("navConditions", "timer")
+                if (navConditionsMet == 2) {
+                    if (isWordsearch) {
+                        val bundle = bundleOf("wordsearch" to Wordsearch(14, conjugationArrayParcel).convertToWordsearchParcel())
+                            Navigation.findNavController(view).navigate(R.id.action_loading_to_wordsearch, bundle)
+                    } else if (!isConjugationView) {
+                        val bundle = bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
+                            Navigation.findNavController(view)
+                                .navigate(R.id.action_loading_to_practice, bundle)
+                    } else {
+                        val bundle = bundleOf("conjugations" to conjugationArrayParcel)
+                            Navigation.findNavController(view)
+                                .navigate(R.id.action_loading_to_conjugations, bundle)
+                    }
+                }
+            }
+        }.start()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         launch {
-            val singleVerb: String? = arguments?.get("verb") as String?
-            val isConjugationView: Boolean = arguments?.get("isConjugationView") as Boolean
+            singleVerb = arguments?.get("verb") as String?
+            isConjugationView = arguments?.get("isConjugationView") as Boolean
+            isWordsearch = arguments?.get("isWordsearch") as Boolean
+
+            Log.v("theThing", mContext.getVerbPool().toString())
+
             //get enabled verbs
             if (singleVerb.isNullOrBlank()) {
-                getRandomVerbs()
+                when (val verbPool = mContext.getVerbPool()) {
+                    0 -> getRandomSelectedVerbs(mContext.getVerbTypes(), mContext.getVerbSubtypes())
+                    else -> getRandomVerbs(
+                        3 - verbPool,
+                        mContext.getVerbTypes(),
+                        mContext.getVerbSubtypes()
+                    )
+                }
+                //getRandomVerbs(mContext.getVerbPool(), mContext.getVerbTypes(), mContext.getVerbSubtypes())
             } else {
-                getVerb(singleVerb)
+                getVerb(singleVerb!!)
                 if (!isConjugationView) {
                     mContext.setNavBarToPractice()
                 }
@@ -95,15 +139,27 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
 
             //get enabled persons
             val personsFrequencies: Array<Int> = mContext.getFrequencies().toTypedArray()
-            val allPersons = arrayOf(Person.FIRST_SING, Person.SECOND_SING, Person.THIRD_SING, Person.FIRST_PLUR, Person.SECOND_PLUR, Person.THIRD_PLUR)
+            val allPersons = arrayOf(
+                Person.FIRST_SING,
+                Person.SECOND_SING,
+                Person.THIRD_SING,
+                Person.FIRST_PLUR,
+                Person.SECOND_PLUR,
+                Person.THIRD_PLUR
+            )
             var personFrequencyMap = mapOf(*allPersons.zip(personsFrequencies).toTypedArray()).filterValues { freq -> freq > 0 }
             //get enabled tenses
             enabledTenses = mContext.getAllTenses()
-            isFullConjugation = mContext.getIsFullConjugation()
+            isFullConjugation = if (isWordsearch) false else mContext.getIsFullConjugation()
             isPortugal = mContext.getIsPortugal()
 
             if (personFrequencyMap.isEmpty()) {
-                personFrequencyMap = mapOf(Person.FIRST_SING to 5, Person.THIRD_SING to 5, Person.FIRST_PLUR to 5, Person.THIRD_PLUR to 5)
+                personFrequencyMap = mapOf(
+                    Person.FIRST_SING to 5,
+                    Person.THIRD_SING to 5,
+                    Person.FIRST_PLUR to 5,
+                    Person.THIRD_PLUR to 5
+                )
             }
 
             if (enabledVerbs.isEmpty()) {
@@ -116,7 +172,12 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             }
 
             if (enabledTenses.isEmpty()) {
-                enabledTenses = arrayOf(VerbForm.PRES_IND, VerbForm.FUT_IND, VerbForm.PRET_IND, VerbForm.IMP_IND)
+                enabledTenses = arrayOf(
+                    VerbForm.PRES_IND,
+                    VerbForm.FUT_IND,
+                    VerbForm.PRET_IND,
+                    VerbForm.IMP_IND
+                )
             }
 
             val conjugatedVerbs = enabledVerbs.map { verb ->
@@ -154,15 +215,14 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             val possibleConjugations = mutableListOf<PotentialConjugation>()
 
             for ((verb, tenseMap) in conjugatedVerbsMap) {
-                Log.v("mapStuff", verb)
                 for ((tense, personMap) in tenseMap) {
-                    Log.v("mapStuff", """  $tense""")
-                    possibleConjugations += PotentialConjugation(verb, englishVerbMap[verb] ?: verb, tense, personMap)
+                    possibleConjugations += PotentialConjugation(
+                        verb,
+                        englishVerbMap[verb] ?: verb,
+                        tense,
+                        personMap
+                    )
                 }
-            }
-
-            for (conjugation in possibleConjugations) {
-                Log.v("possibles", conjugation.verb + ":  " + conjugation.tense)
             }
 
             val selectedConjugations = mutableListOf<Conjugation>()
@@ -184,7 +244,10 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 for (i in 0 until 100) {
                     val randomConjugation = possibleConjugations.random()
                     val thisConjugation = Conjugation(randomConjugation)
-                    val randomPerson = randomConjugation.getRandomPerson(isFullConjugation, personFrequencyMap)
+                    val randomPerson = randomConjugation.getRandomPerson(
+                        isFullConjugation,
+                        personFrequencyMap
+                    )
                     if (!randomConjugation.isValidPick) {
                         possibleConjugations -= randomConjugation
                     }
@@ -204,7 +267,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 }
             }
 
-            val conjugationArrayParcel = ConjugationArrayParcel(
+            conjugationArrayParcel = ConjugationArrayParcel(
                 selectedConjugations.map { conjugation ->
                     ConjugationParcel(
                         conjugation.verb,
@@ -216,24 +279,50 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                     )
                 }.toTypedArray()
             )
+            navConditionsMet++
+            Log.v("navConditions", navConditionsMet.toString())
+            if (navConditionsMet == 2){
+            if (isWordsearch) {
+                val bundle = bundleOf("wordsearch" to Wordsearch(14, conjugationArrayParcel).convertToWordsearchParcel())
+                withContext(Dispatchers.Main){
+                    Navigation.findNavController(view).navigate(R.id.action_loading_to_wordsearch, bundle)
+                }
 
-            if (!isConjugationView) {
+            } else if (!isConjugationView) {
                 val bundle = bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
                 withContext(Dispatchers.Main) {
-                    Navigation.findNavController(view).navigate(R.id.action_loading_to_practice, bundle)
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_loading_to_practice, bundle)
                 }
             } else {
                 val bundle = bundleOf("conjugations" to conjugationArrayParcel)
-                withContext(Dispatchers.Main) {
-                    Navigation.findNavController(view).navigate(R.id.action_loading_to_conjugations, bundle)
-                }
-            }
+                    withContext(Dispatchers.Main) {
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_loading_to_conjugations, bundle)
+                    }
+            }}
         }
     }
 
-    private fun getRandomVerbs() = runBlocking {
+    private fun generateWordsearch(): Array<CharArray> {
+        return arrayOf(charArrayOf())
+    }
+
+    private fun getRandomVerbs(verbPool: Int, verbTypes: List<Int>, verbSubtypes: List<Int>) = runBlocking {
         val task = async(Dispatchers.IO) {
-            mContext.getRandomVerbs()
+            Log.v("listCheck", verbTypes.toString())
+            Log.v("listCheck", verbSubtypes.toString())
+            mContext.getRandomVerbs(verbPool, verbTypes, verbSubtypes)
+        }
+        setVerbs(task.await())
+    }
+
+    private fun getRandomSelectedVerbs(verbTypes: List<Int>, verbSubtypes: List<Int>) = runBlocking {
+        Log.v("theThing", "YAS")
+        val task = async(Dispatchers.IO) {
+            Log.v("listCheck", verbTypes.toString())
+            Log.v("listCheck", verbSubtypes.toString())
+            mContext.getRandomEnabledVerbs(verbTypes, verbSubtypes)
         }
         setVerbs(task.await())
     }
@@ -247,9 +336,15 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
 
     private fun setVerbs(verbs: List<PortugueseVerb>?) {
         enabledVerbs = verbs?.map { it.verb }?.toTypedArray() ?: arrayOf()
+        verbs?.forEach { Log.v("theThing", it.verb_group.toString()) }
         enabledEnglishVerbs = verbs?.map {
-            val toFly = if (it.to_fly.startsWith("to ") || it.to_fly.startsWith("To ")) it.to_fly.substring(3).split(" ")[0] else it.to_fly.split(" ")[0]
-            it.main_def + "~" + it.main_def.split(";")[0].split(",")[0].replace(Regex("\\(.*\\)"), "").trim() + "|" + it.fly + "|" + it.flies + "|" + it.flew + "|" + it.flown + "|" + it.flying + "|" + toFly }?.toTypedArray() ?: arrayOf()
+            val toFly = if (it.to_fly.startsWith("to ") || it.to_fly.startsWith("To ")) it.to_fly.substring(
+                3
+            ).split(" ")[0] else it.to_fly.split(" ")[0]
+            it.main_def + "~" + it.main_def.split(";")[0].split(",")[0].replace(
+                Regex("\\(.*\\)"),
+                ""
+            ).trim() + "|" + it.fly + "|" + it.flies + "|" + it.flew + "|" + it.flown + "|" + it.flying + "|" + toFly }?.toTypedArray() ?: arrayOf()
     }
 
 }

@@ -17,4 +17,7 @@ data class PortugueseVerb(
     @ColumnInfo(name = "flew") val flew: String,
     @ColumnInfo(name = "flown") val flown: String,
     @ColumnInfo(name = "flying") val flying: String,
-    @ColumnInfo(name = "verb_group") val verb_group: Int = 0)
+    @ColumnInfo(name = "verb_group") val verb_group: Int = 0,
+    @ColumnInfo(name = "verb_type") val verb_type: Int = 0,
+    @ColumnInfo(name = "verb_subtype") val verb_subtype: Int = 0,
+    @ColumnInfo(name = "reflexive") val reflexive: Int = 0)

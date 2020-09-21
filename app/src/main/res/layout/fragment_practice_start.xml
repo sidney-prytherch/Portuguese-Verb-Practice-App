@@ -1,39 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright 2019, The Android Open Source Project
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~      http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
+
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/title_constraint"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sid.app.verbpractice.ui.practice.PracticeStartFragment"
+    tools:context="com.sid.app.verbpractice.ui.options.OptionsFragment"
     tools:layout_editor_absoluteY="81dp">
+
+    <ScrollView
+        android:id="@+id/verbFormsScrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/startButton">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+            android:id="@+id/verbPool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:background="@drawable/border"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:stretchColumns="*">
+
+
+                <TableRow
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp">
+
+                <TextView
+                    style="@style/BiggerText"
+                    android:layout_margin="5dp"
+                    android:text="@string/verb_pool"
+                    android:layout_span="2" />
+            </TableRow>
+
+
+                <TableRow
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp">
+                <RadioButton
+                    android:checked="true"
+                    style="@style/BigText"
+                    android:id="@+id/rbSelectedVerbs"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/selected_verbs"/>
+                <RadioButton
+                    style="@style/BigText"
+                    android:id="@+id/rbTop100"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/top_100_verbs"/>
+            </TableRow>
+
+                <TableRow
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp">
+                <RadioButton
+                    style="@style/BigText"
+                    android:id="@+id/rbTop500"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/top_500_verbs"/>
+                <RadioButton
+                    style="@style/BigText"
+                    android:id="@+id/rbTop2000"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/top_2000_verbs"/>
+            </TableRow>
+
+
+                <TableRow
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp">
+                <RadioButton
+                    style="@style/BigText"
+                    android:id="@+id/rbAllVerbs"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/all_verbs"/>
+            </TableRow>
+
+
+        </TableLayout>
+
+            <TableLayout
+                android:id="@+id/verbTypes"
+                android:layout_below="@+id/verbPool"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:background="@drawable/border"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:stretchColumns="*">
+
+
+                <TableRow
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp">
+
+                    <TextView
+                        style="@style/BiggerText"
+                        android:layout_margin="5dp"
+                        android:text="@string/verb_types"
+                        android:layout_span="2" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp">
+                    <CheckBox
+                        android:checked="true"
+                        style="@style/BigText"
+                        android:id="@+id/cbArVerbs"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/ar_verbs" />
+                    <CheckBox
+                        android:checked="true"
+                        style="@style/BigText"
+                        android:id="@+id/cbErVerbs"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/er_verbs" />
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp">
+                <CheckBox
+                    android:checked="true"
+                    style="@style/BigText"
+                    android:id="@+id/cbIrVerbs"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/ir_verbs" />
+                <CheckBox
+                    android:checked="true"
+                    style="@style/BigText"
+                    android:id="@+id/cbIrregVerbs"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/irreg_verbs" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/verbSubtypes"
+                android:layout_below="@+id/verbTypes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:background="@drawable/border"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp">
+
+                    <TextView
+                        style="@style/BiggerText"
+                        android:layout_margin="5dp"
+                        android:text="@string/verb_subtypes"
+                        android:layout_span="2" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp">
+                    <CheckBox
+                        android:checked="true"
+                        style="@style/BigText"
+                        android:id="@+id/cbRegVerbs"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/regular_verbs" />
+                    <CheckBox
+                        android:checked="true"
+                        style="@style/BigText"
+                        android:id="@+id/cbOrthographic"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/orthographic_verbs" />
+                </TableRow>
+                <TableRow
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp">
+                    <CheckBox
+                        android:checked="true"
+                        style="@style/BigText"
+                        android:id="@+id/cbRadical"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/radical_verbs" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/practiceType"
+                android:layout_below="@+id/verbSubtypes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:padding="4dp"
+                android:layout_margin="10dp"
+                android:stretchColumns="*">
+
+
+            <TableRow
+                android:layout_height="match_parent"
+                android:layout_width="0dp">
+
+                <TextView
+                    style="@style/BiggerText"
+                    android:layout_margin="5dp"
+                    android:text="@string/practice_mode"
+                    android:layout_span="2" />
+            </TableRow>
+
+
+            <TableRow
+                android:layout_height="match_parent"
+                android:layout_width="0dp">
+                <RadioButton
+                    android:checked="true"
+                    style="@style/BigText"
+                    android:id="@+id/rbQuiz"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/quiz"/>
+                <RadioButton
+                    style="@style/BigText"
+                    android:id="@+id/rbWordsearch"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/wordsearch"/>
+            </TableRow>
+            </TableLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
     <Button
         android:id="@+id/startButton"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
         style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/start"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,110 @@
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="@color/transparency"
+        android:weightSum="14">
+        <include
+            android:id="@+id/row0"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row1"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row2"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row3"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row4"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row5"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row6"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row7"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row8"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row9"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row10"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row11"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row12"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+        <include
+            android:id="@+id/row13"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_wordsearch_row" />
+<!--        <include-->
+<!--            android:id="@+id/row14"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            layout="@layout/fragment_wordsearch_row" />-->
+<!--        <include-->
+<!--            android:id="@+id/row15"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            layout="@layout/fragment_wordsearch_row" />-->
+<!--        <include-->
+<!--            android:id="@+id/row16"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            layout="@layout/fragment_wordsearch_row" />-->
+    </LinearLayout>

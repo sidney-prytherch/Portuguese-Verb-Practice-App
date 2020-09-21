@@ -90,61 +90,61 @@ object ConjugatorEnglish {
             Person.FIRST_PLUR, Person.SECOND_PLUR, Person.THIRD_PLUR
         )
         val conjugation = when (verbForm) {
-            VerbForm.PRES_IND -> getPresInd(verbData)
-            VerbForm.PRET_IND -> getPretInd(verbData)
+            VerbForm.PRES_IND -> getPresInd(verbData).map { "<$it>" }.toTypedArray()
+            VerbForm.PRET_IND -> getPretInd(verbData).map { "<$it>" }.toTypedArray()
             VerbForm.IMP_IND -> getConjugatedHelper(EnglishHelper.TO_BE_PAST).map {
-                "_ used to ${verbData.infinitive}/$it ${verbData.gerund} (while...) [simp]"
+                "<_ used to ${verbData.infinitive}>/<$it ${verbData.gerund}> (while...) [simp]"
             }.toTypedArray()
-            VerbForm.SIMP_PLUP_IND -> Array(6) { "_ had ${verbData.pastPart} [simp]" }
-            VerbForm.SIMP_FUT_IND -> Array(6) { "_ will ${verbData.infinitive}" }
-            VerbForm.COND_IND -> Array(6) {"_ would ${verbData.infinitive} (if...)"}
+            VerbForm.SIMP_PLUP_IND -> Array(6) { "<_ had ${verbData.pastPart}> [simp]" }
+            VerbForm.SIMP_FUT_IND -> Array(6) { "<_ will ${verbData.infinitive}>" }
+            VerbForm.COND_IND -> Array(6) {"<_ would ${verbData.infinitive}> (if...)"}
             VerbForm.FUT_IND -> getConjugatedHelper(EnglishHelper.TO_BE_PRES).map {
-                "$it going to ${verbData.infinitive}"
+                "<$it going to ${verbData.infinitive}>"
             }.toTypedArray()
             VerbForm.PRES_PERF -> getConjugatedHelper(EnglishHelper.TO_HAVE_PRES).map {
-                "$it been ${verbData.gerund}/$it ${verbData.pastPart} (a lot lately) [ter]"
+                "<$it been ${verbData.gerund}>/<$it ${verbData.pastPart}> (a lot lately) [ter]"
             }.toTypedArray()
-            VerbForm.PLUP -> Array(6) { "_ had ${verbData.pastPart} [comp]" }
-            VerbForm.FUT_PERF -> Array(6) { "_ will have ${verbData.pastPart}" }
-            VerbForm.COND_PERF -> Array(6) { "_ would have ${verbData.pastPart} (if...)" }
-            VerbForm.PAST_INTENT -> Array(6) { "_ was going to ${verbData.infinitive}/_ would ${verbData.infinitive}" }
+            VerbForm.PLUP -> Array(6) { "<_ had ${verbData.pastPart}> [comp]" }
+            VerbForm.FUT_PERF -> Array(6) { "<_ will have ${verbData.pastPart}>" }
+            VerbForm.COND_PERF -> Array(6) { "<_ would have ${verbData.pastPart}> (if...)" }
+            VerbForm.PAST_INTENT -> getConjugatedHelper(EnglishHelper.TO_BE_PAST).map {
+                "<$it going to ${verbData.infinitive}>/<_ would ${verbData.infinitive}>"
+            }.toTypedArray()
             VerbForm.PRES_PROG -> getConjugatedHelper(EnglishHelper.TO_BE_PRES).map {
-                "$it ${verbData.gerund}"
+                "<$it ${verbData.gerund}>"
             }.toTypedArray()
-            VerbForm.PRET_PROG -> Array(6) { "_ had been ${verbData.gerund}" }
+            VerbForm.PRET_PROG -> Array(6) { "<_ had been ${verbData.gerund}>" }
             VerbForm.IMP_PROG -> getConjugatedHelper(EnglishHelper.TO_BE_PAST).map {
-                "_ used to ${verbData.infinitive}/$it ${verbData.gerund} (while...) [comp]"
+                "<_ used to ${verbData.infinitive}>/<$it ${verbData.gerund}> (while...) [comp]"
             }.toTypedArray()
             VerbForm.SIMP_PLUP_PROG -> getConjugatedHelper(EnglishHelper.TO_HAVE_PRES).map {
-                "$it been ${verbData.gerund}/$it ${verbData.pastPart} (a lot lately\\repeatedly lately) [estar]"
+                "<$it been ${verbData.gerund}>/<$it ${verbData.pastPart}> (a lot lately\\repeatedly lately) [estar]"
             }.toTypedArray()
-            VerbForm.FUT_PROG -> Array(6) { "_ will be ${verbData.gerund}" }
-            VerbForm.COND_PROG -> Array(6) { "_ would be ${verbData.gerund} (if...)" }
+            VerbForm.FUT_PROG -> Array(6) { "<_ will be ${verbData.gerund}>" }
+            VerbForm.COND_PROG -> Array(6) { "<_ would be ${verbData.gerund}> (if...)" }
             VerbForm.PRES_PERF_PROG -> getConjugatedHelper(EnglishHelper.TO_HAVE_PRES).map {
-                "$it been ${verbData.gerund} [unnatural - present perfect compound tense is more common]"
+                "<$it been ${verbData.gerund}> [unnatural - present perfect compound tense is more common]"
             }.toTypedArray()
             VerbForm.PLUP_PROG -> getConjugatedHelper(EnglishHelper.TO_HAVE_PRES).map {
-                "$it been ${verbData.gerund} (during...\\while...)"
+                "<$it been ${verbData.gerund}> (during...\\while...)"
             }.toTypedArray()
-            VerbForm.FUT_PERF_PROG -> Array(6) { "_ will have been ${verbData.gerund} [very unnatural tense - avoid]" }
-            VerbForm.COND_PERF_PROG -> Array(6) { "_ would have been ${verbData.gerund} (if...) [very unnatural tense - avoid]" }
-
+            VerbForm.FUT_PERF_PROG -> Array(6) { "<_ will have been ${verbData.gerund}> [very unnatural tense - avoid]" }
+            VerbForm.COND_PERF_PROG -> Array(6) { "<_ would have been ${verbData.gerund}> (if...) [very unnatural tense - avoid]" }
             VerbForm.PRES_SUBJ -> getPresInd(verbData).map {
-                "(...that) $it/_ may ${verbData.infinitive}/maybe _ will ${verbData.infinitive}/I want ~ to ${verbData.infinitive}"
+                "(...that) <$it>/<_ may ${verbData.infinitive}>/maybe <_ will ${verbData.infinitive}>/I want <~ to ${verbData.infinitive}>"
             }.toTypedArray()
-            VerbForm.PRES_PERF_SUBJ -> Array(6) { "(...that) _ had ${verbData.pastPart}/_ may have ${verbData.pastPart}/_ probably will have ${verbData.pastPart} (by then)" }
-            VerbForm.IMP_SUBJ -> Array(6) { "I would like ~ to ${verbData.infinitive}/I wanted ~ to ${verbData.infinitive}" }
-            VerbForm.PLUP_SUBJ -> Array(6) { "I would be happier if _ had ${verbData.pastPart} (before...)/(if) _ had ${verbData.pastPart}, (something would've happened)" }
+            VerbForm.PRES_PERF_SUBJ -> Array(6) { "(...that) <_ had ${verbData.pastPart}>/<_ may have ${verbData.pastPart}>/<_ probably will have ${verbData.pastPart}> (by then)" }
+            VerbForm.IMP_SUBJ -> Array(6) { "I would like <~ to ${verbData.infinitive}>/I wanted <~ to ${verbData.infinitive}>" }
+            VerbForm.PLUP_SUBJ -> Array(6) { "I would be feeling (something) if <_ had ${verbData.pastPart}> (before...)/if <_ had ${verbData.pastPart}>, (something would've happened)" }
             VerbForm.FUT_SUBJ -> getPresInd(verbData).map {
-                "(when) $it, (something will happen)/(if) $it, (at some point in the future, something will happen)"
+                "when <$it>, (something will happen)/if <$it>, (at some point in the future, something will happen)"
             }.toTypedArray()
             VerbForm.FUT_PERF_SUBJ -> getConjugatedHelper(EnglishHelper.TO_HAVE_PRES).map {
-                "(when/as soon as) $it ${verbData.pastPart}, (something will happen)"
+                "when <$it ${verbData.pastPart}>, (something will happen)/as soon as <$it ${verbData.pastPart}>, (something will happen)"
             }.toTypedArray()
-
-            VerbForm.IMP_AFF -> Array(6) {verbData.infinitive}
-            VerbForm.IMP_NEG -> Array(6) {verbData.infinitive}
-            VerbForm.PERS_INF -> Array(6) {"for _ to ${verbData.infinitive}"}
+            VerbForm.IMP_AFF -> Array(6) {verbData.infinitive}.map { "<$it>" }.toTypedArray()
+            VerbForm.IMP_NEG -> Array(6) {verbData.infinitive}.map { "<$it>" }.toTypedArray()
+            VerbForm.PERS_INF -> Array(6) {"for <_ to ${verbData.infinitive}>"}
         }
         return mapOf(*allPersons.zip(conjugation).toTypedArray())
     }

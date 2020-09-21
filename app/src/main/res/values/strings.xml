@@ -21,6 +21,30 @@
     <string name="title_dictionary">Dictionary</string>
     <string name="title_results">Results</string>
 
+    <string name="verb_pool">Verb Pool</string>
+    <string name="selected_verbs">Selected verbs</string>
+    <string name="top_100_verbs">Top 100 verbs</string>
+    <string name="top_500_verbs">Top 500 verbs</string>
+    <string name="top_2000_verbs">Top 2000 verbs</string>
+    <string name="all_verbs">All verbs</string>
+
+    <string name="verb_types">Verb Types</string>
+    <string name="all_verb_types">All verb types</string>
+    <string name="ar_verbs">-ar verbs</string>
+    <string name="er_verbs">-er verbs</string>
+    <string name="ir_verbs">-ir verbs</string>
+    <string name="irreg_verbs">Irregular verbs</string>
+
+    <string name="verb_subtypes">Verb Sub-types</string>
+    <string name="all_subtypes">All verb sub-types</string>
+    <string name="regular_verbs">Regular verbs</string>
+    <string name="radical_verbs">Radical changing verbs</string>
+    <string name="orthographic_verbs">Orthographic changing verbs</string>
+
+    <string name="practice_mode">Practice Mode</string>
+    <string name="quiz">Quiz</string>
+    <string name="wordsearch">Wordsearch</string>
+
     <string name="portugal">Portugal</string>
     <string name="brazil">Brazil</string>
     <string name="port_or_brazil">Location Settings</string>
@@ -28,13 +52,6 @@
     <string name="tense">Tense:</string>
     <string name="verb">Verb:</string>
     <string name="enVerb">-</string>
-
-    //verb types
-    <string name="verb_types">Verb Types</string>
-    <string name="ar_verbs">-ar Verbs</string>
-    <string name="er_verbs">-er Verbs</string>
-    <string name="ir_verbs">-ir Verbs</string>
-    <string name="irreg_verbs">Irregular Verbs</string>
 
     // tenses
     <string name="verb_tenses">Verb Tenses</string>
@@ -123,7 +140,7 @@
     <string name="very_common">Very common</string>
     <string name="common">Common +</string>
     <string name="somewhat_common">Kinda common +</string>
-    <string name="all_verbs">uncommon +</string>
+    <string name="uncommon">uncommon +</string>
 
     <string name="time_and_count_options">Time and Count</string>
     <string name="time_switch_option">Time</string>

@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -23,17 +23,17 @@
     </style>
 
     <style name="verb_tile">
+        <item name="android:textColor">@color/black</item>
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:background">@android:color/white</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
     </style>
 
     <style name="definition_tile">
+        <item name="android:textColor">@color/black</item>
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:paddingStart">2dp</item>
         <item name="android:paddingEnd">2dp</item>
-        <item name="android:background">@android:color/white</item>
         <item name="android:textAppearance">@android:style/TextAppearance.DialogWindowTitle</item>
     </style>
 
@@ -49,6 +49,21 @@
         <item name="android:layout_marginBottom">5dp</item>
         <item name="android:layout_marginStart">15dp</item>
         <item name="android:lineSpacingExtra">3dp</item>
+    </style>
+
+    <style name="crosswordRow">
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <style name="crosswordCell">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:text">A</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
     </style>
 
 </resources>

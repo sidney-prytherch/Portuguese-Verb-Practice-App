@@ -3,6 +3,9 @@ package com.sid.app.verbpractice.ui.dictionary
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.UnderlineSpan
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -189,8 +192,18 @@ class ConjugationViewerFragment : Fragment() {
             val view = conjugationViews[i]
             val answer = getDefaultAnswerFromConjugation(conjugation.personMap[allPersons[person]] ?: "")
             val portConj = "${personStrings[i]} $answer"
+
+            var engCong = englishConjugations[i]
+            val formattedEnglishConjugation = SpannableString(engCong.replace("<", "").replace(">", ""))
+            while (engCong.indexOf("<") != -1) {
+                val start = engCong.indexOf("<")
+                val end = engCong.indexOf(">") - 1
+                formattedEnglishConjugation.setSpan(UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                engCong = engCong.replaceFirst("<", "").replaceFirst(">", "")
+            }
+
             view.portConj.text = portConj
-            view.englishVerb.text = englishConjugations[i]
+            view.englishVerb.text = formattedEnglishConjugation
         }
     }
 

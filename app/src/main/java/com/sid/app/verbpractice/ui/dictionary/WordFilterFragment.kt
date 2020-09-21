@@ -43,7 +43,7 @@ class WordFilterFragment : DialogFragment() {
                 .forEachIndexed { index, isSet -> checkBoxes[index].isChecked = isSet }
             view.commonalitySlider.progress = listener.getCommonVerbValue()
             view.commonLabel.text = getString(when (view.commonalitySlider.progress) {
-                0 -> R.string.all_verbs
+                0 -> R.string.uncommon
                 1 -> R.string.somewhat_common
                 2 -> R.string.common
                 else -> R.string.very_common
@@ -52,7 +52,7 @@ class WordFilterFragment : DialogFragment() {
             view.commonalitySlider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                     view.commonLabel.text = getString(when (i) {
-                        0 -> R.string.all_verbs
+                        0 -> R.string.uncommon
                         1 -> R.string.somewhat_common
                         2 -> R.string.common
                         else -> R.string.very_common

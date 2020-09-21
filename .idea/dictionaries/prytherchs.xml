@@ -2,6 +2,8 @@
   <dictionary name="prytherchs">
     <words>
       <w>conjugator</w>
+      <w>coord</w>
+      <w>coords</w>
       <w>elas</w>
       <w>eles</w>
       <w>irreg</w>
@@ -10,6 +12,7 @@
       <w>preterite</w>
       <w>você</w>
       <w>vocês</w>
+      <w>wordsearch</w>
     </words>
   </dictionary>
 </component>

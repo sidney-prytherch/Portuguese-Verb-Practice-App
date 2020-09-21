@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/animated_logo"
+        app:srcCompat="@drawable/ic_launcherv2_foreground"
         android:contentDescription="@string/title_practice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,6 +39,7 @@ import com.sid.app.verbpractice.ui.options.SetSimpIndTensesFragment
 import com.sid.app.verbpractice.ui.options.SetSubjTensesFragment
 import com.sid.app.verbpractice.viewmodel.PortugueseVerbViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.tenses_options_subj.view.*
 
 /**
  * An activity that inflates a layout that has a [BottomNavigationView].
@@ -159,20 +160,20 @@ class MainActivity : AppCompatActivity(),
 
     override fun onSetSubjTenses(dialog: DialogFragment, result: BooleanArray) {
         verbSettingsManager.setBool(VerbSettingsManager.PRES_SUBJ, result[0])
-        verbSettingsManager.setBool(VerbSettingsManager.PRES_PERF_SUBJ, result[1])
-        verbSettingsManager.setBool(VerbSettingsManager.IMP_SUBJ, result[2])
-        verbSettingsManager.setBool(VerbSettingsManager.PLUP_SUBJ, result[3])
-        verbSettingsManager.setBool(VerbSettingsManager.FUT_SUBJ, result[4])
+        verbSettingsManager.setBool(VerbSettingsManager.IMP_SUBJ, result[1])
+        verbSettingsManager.setBool(VerbSettingsManager.FUT_SUBJ, result[2])
+        verbSettingsManager.setBool(VerbSettingsManager.PRES_PERF_SUBJ, result[3])
+        verbSettingsManager.setBool(VerbSettingsManager.PLUP_SUBJ, result[4])
         verbSettingsManager.setBool(VerbSettingsManager.FUT_PERF_SUBJ, result[5])
     }
 
     override fun getSubjTenses(): BooleanArray {
         return booleanArrayOf(
             verbSettingsManager.getBool(VerbSettingsManager.PRES_SUBJ),
-            verbSettingsManager.getBool(VerbSettingsManager.PRES_PERF_SUBJ),
             verbSettingsManager.getBool(VerbSettingsManager.IMP_SUBJ),
-            verbSettingsManager.getBool(VerbSettingsManager.PLUP_SUBJ),
             verbSettingsManager.getBool(VerbSettingsManager.FUT_SUBJ),
+            verbSettingsManager.getBool(VerbSettingsManager.PRES_PERF_SUBJ),
+            verbSettingsManager.getBool(VerbSettingsManager.PLUP_SUBJ),
             verbSettingsManager.getBool(VerbSettingsManager.FUT_PERF_SUBJ)
         )
     }
@@ -242,9 +243,9 @@ class MainActivity : AppCompatActivity(),
         mWordViewModel.updateChecked(added, verbId)
     }
 
-    suspend fun updateCheckedInDbForDefinition(definitionId: Int, added: Int) {
-        mWordViewModel.updateCheckedForDefinition(added, definitionId)
-    }
+//    suspend fun updateCheckedInDbForDefinition(definitionId: Int, added: Int) {
+//        mWordViewModel.updateCheckedForDefinition(added, definitionId)
+//    }
 
     suspend fun resetAllChecked() {
         mWordViewModel.resetAllChecked()
@@ -258,21 +259,16 @@ class MainActivity : AppCompatActivity(),
         verbSettingsManager.setBool(key, result)
     }
 
-    suspend fun getRandomVerbs(): List<PortugueseVerb>? {
-        return mWordViewModel.getRandomVerbs()
+    suspend fun getRandomVerbs(verbPool: Int, verbTypes: List<Int>, verbSubtypes: List<Int>): List<PortugueseVerb>? {
+        return mWordViewModel.getRandomVerbs(verbPool, verbTypes, verbSubtypes)
+    }
+
+    suspend fun getRandomEnabledVerbs(verbTypes: List<Int>, verbSubtypes: List<Int>): List<PortugueseVerb>? {
+        return mWordViewModel.getRandomEnabledVerbs(verbTypes, verbSubtypes)
     }
 
     suspend fun getSpecificVerb(verb: String): List<PortugueseVerb>? {
         return mWordViewModel.getSpecificVerb(verb)
-    }
-
-    fun getVerbTypes(): BooleanArray {
-        return booleanArrayOf(
-            verbSettingsManager.getBool(VerbSettingsManager.AR_ENABLED),
-            verbSettingsManager.getBool(VerbSettingsManager.ER_ENABLED),
-            verbSettingsManager.getBool(VerbSettingsManager.IR_ENABLED),
-            verbSettingsManager.getBool(VerbSettingsManager.IRREG_ENABLED)
-        )
     }
 
     fun getThirdPersonSwitches(): BooleanArray {
@@ -318,6 +314,27 @@ class MainActivity : AppCompatActivity(),
             verbSettingsManager.getInt(VerbSettingsManager.VOS_FREQUENCY, 0),
             verbSettingsManager.getInt(VerbSettingsManager.VCS_ELES_ELAS_FREQUENCY, 5)
         )
+    }
+
+    fun getVerbPool(): Int {
+        return verbSettingsManager.getInt(VerbSettingsManager.VERB_POOL, 0)
+    }
+
+    fun getVerbTypes(): List<Int> {
+        return listOf(
+            if (verbSettingsManager.getBool(VerbSettingsManager.AR_ENABLED, true)) 1 else 0,
+            if (verbSettingsManager.getBool(VerbSettingsManager.ER_ENABLED, true)) 2 else 0,
+            if (verbSettingsManager.getBool(VerbSettingsManager.IR_ENABLED, true)) 3 else 0,
+            if (verbSettingsManager.getBool(VerbSettingsManager.IRREG_ENABLED, true)) 4 else 0
+        ).filter { it != 0 }
+    }
+
+    fun getVerbSubtypes(): List<Int> {
+        return listOf(
+            if (verbSettingsManager.getBool(VerbSettingsManager.REG_SUBTYPE, true)) 1 else 0,
+            if (verbSettingsManager.getBool(VerbSettingsManager.RADICAL_SUBTYPE, true)) 2 else 0,
+            if (verbSettingsManager.getBool(VerbSettingsManager.ORTHOGRAPHIC_SUBTYPE, true)) 3 else 0
+        ).filter { it != 0 }
     }
 
     fun updateWidget() {

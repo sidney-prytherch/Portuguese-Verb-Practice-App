@@ -173,22 +173,6 @@ object ConjugatorPortuguese {
                 impNegStem = "-"
                 presSubjStem = impNegStem
             }
-            infinitive.matches(Regex("vestir")) -> {
-                verbClass = VerbClass.VESTIR
-                stem = infinitive.substring(0, verbLength - 6)
-                impAffStem = stem + "v"
-                presIndStem = impAffStem
-                impSubjStem = stem + "vest"
-                plupIndStem = impSubjStem
-                impIndStem = plupIndStem
-                pretIndStem = stem + "vesti"
-                persInfStem = stem + "vestir"
-                futSubjStem = persInfStem
-                condIndStem = futSubjStem
-                futIndStem = condIndStem
-                impNegStem = stem + "vista"
-                presSubjStem = impNegStem
-            }
             infinitive.matches(Regex("caber")) -> {
                 verbClass = VerbClass.CABER
                 stem = ""
@@ -445,38 +429,6 @@ object ConjugatorPortuguese {
                 condIndStem = futSubjStem
                 futIndStem = condIndStem
                 impNegStem = "engula"
-                presSubjStem = impNegStem
-            }
-            infinitive.matches(Regex("fugir")) -> {
-                verbClass = VerbClass.FUGIR
-                stem = ""
-                impAffStem = "f"
-                presIndStem = impAffStem
-                impSubjStem = "fug"
-                plupIndStem = impSubjStem
-                impIndStem = plupIndStem
-                pretIndStem = "fugi"
-                persInfStem = "fugir"
-                futSubjStem = persInfStem
-                condIndStem = futSubjStem
-                futIndStem = condIndStem
-                impNegStem = "fuja"
-                presSubjStem = impNegStem
-            }
-            infinitive.matches(Regex("divertir")) -> {
-                verbClass = VerbClass.DIVERTIR
-                stem = ""
-                impAffStem = "div"
-                presIndStem = impAffStem
-                impSubjStem = "divert"
-                plupIndStem = impSubjStem
-                impIndStem = plupIndStem
-                pretIndStem = "diverti"
-                persInfStem = "divertir"
-                futSubjStem = persInfStem
-                condIndStem = futSubjStem
-                futIndStem = condIndStem
-                impNegStem = "divirta"
                 presSubjStem = impNegStem
             }
             infinitive.matches(Regex("servir")) -> {
@@ -789,6 +741,183 @@ object ConjugatorPortuguese {
                 impNegStem = stem + "oie"
                 presSubjStem = impNegStem
             }
+            infinitive.matches(Regex("convergir|divergir")) -> {
+                verbClass = VerbClass.ERGIR
+                stem = infinitive.substring(0, verbLength - 5)
+                impAffStem = stem
+                presIndStem = impAffStem
+                impSubjStem = stem + "erg"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "ergi"
+                persInfStem = stem + "ergir"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem + "irja"
+                presSubjStem = impNegStem
+            }
+            infinitive.matches(Regex("fugir")) -> {
+                verbClass = VerbClass.FUGIR
+                stem = ""
+                impAffStem = "f"
+                presIndStem = impAffStem
+                impSubjStem = "fug"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = "fugi"
+                persInfStem = "fugir"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = "fuja"
+                presSubjStem = impNegStem
+            }
+            infinitive.matches(Regex("resfolegar")) -> {
+                verbClass = VerbClass.RESFOLEGAR
+                stem = "resf"
+                presIndStem = stem
+                impSubjStem = stem + "oleg"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                eAndIStem = impSubjStem + "u"
+                pretIndStem = impSubjStem
+                persInfStem = stem + "olegar"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem
+                presSubjStem = stem
+                impAffStem = stem
+            }
+            infinitive.matches(Regex("mobiliar")) -> {
+                verbClass = VerbClass.MOBILIAR
+                stem = "mob"
+                impAffStem = stem
+                presIndStem = stem
+                impSubjStem = stem + "ili"
+                plupIndStem = impSubjStem
+                impIndStem = impSubjStem
+                pretIndStem = impSubjStem
+                persInfStem = stem + "iliar"
+                futSubjStem = persInfStem
+                condIndStem = persInfStem
+                futIndStem = persInfStem
+                impNegStem = stem
+                presSubjStem = stem
+            }
+            matches(infinitive, verbLength, "umir") -> {
+                verbClass = VerbClass.UMIR
+                stem = infinitive.substring(0, verbLength - 4)
+                impAffStem = stem
+                presIndStem = impAffStem
+                impSubjStem = stem + "um"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "umi"
+                persInfStem = stem + "umir"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem + "uma"
+                presSubjStem = impNegStem
+            }
+            matches(infinitive, verbLength, "uspir") -> {
+                verbClass = VerbClass.USPIR
+                stem = infinitive.substring(0, verbLength - 5)
+                impAffStem = stem
+                presIndStem = impAffStem
+                impSubjStem = stem + "usp"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "uspi"
+                persInfStem = stem + "uspir"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem + "uspa"
+                presSubjStem = impNegStem
+            }
+            matches(infinitive, verbLength, "upir") -> {
+                verbClass = VerbClass.UPIR
+                stem = infinitive.substring(0, verbLength - 4)
+                impAffStem = stem
+                presIndStem = impAffStem
+                impSubjStem = stem + "up"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "upi"
+                persInfStem = stem + "upir"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem + "upa"
+                presSubjStem = impNegStem
+            }
+            matches(infinitive, verbLength, "ulir") -> {
+                verbClass = VerbClass.ULIR
+                stem = infinitive.substring(0, verbLength - 4)
+                impAffStem = stem
+                presIndStem = impAffStem
+                impSubjStem = stem + "ul"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "uli"
+                persInfStem = stem + "ulir"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem + "ula"
+                presSubjStem = impNegStem
+            }
+            matches(infinitive, verbLength, "udir") -> {
+                verbClass = VerbClass.UDIR
+                stem = infinitive.substring(0, verbLength - 4)
+                impAffStem = stem
+                presIndStem = impAffStem
+                impSubjStem = stem + "ud"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "udi"
+                persInfStem = stem + "udir"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem + "uda"
+                presSubjStem = impNegStem
+            }
+            matches(infinitive, verbLength, "vestir") -> {
+                verbClass = VerbClass.VESTIR
+                stem = infinitive.substring(0, verbLength - 6)
+                impAffStem = stem + "v"
+                presIndStem = impAffStem
+                impSubjStem = stem + "vest"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "vesti"
+                persInfStem = stem + "vestir"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem + "vista"
+                presSubjStem = impNegStem
+            }
+            matches(infinitive, verbLength, "ertir") -> {
+                verbClass = VerbClass.ERTIR
+                stem = infinitive.substring(0, verbLength - 5)
+                impAffStem = stem
+                presIndStem = impAffStem
+                impSubjStem = stem + "ert"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "erti"
+                persInfStem = stem + "ertir"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem + "irta"
+                presSubjStem = impNegStem
+            }
             matches(infinitive, verbLength, "dizer") -> {
                 verbClass = VerbClass.DIZER
                 stem = infinitive.substring(0, verbLength - 5)
@@ -837,6 +966,22 @@ object ConjugatorPortuguese {
                 condIndStem = futSubjStem
                 futIndStem = condIndStem
                 impNegStem = stem + "creia"
+                presSubjStem = impNegStem
+            }
+            matches(infinitive, verbLength, "uzir") -> {
+                verbClass = VerbClass.UZIR
+                stem = infinitive.substring(0, verbLength - 2)
+                impAffStem = stem
+                impSubjStem = impAffStem
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                presIndStem = impIndStem
+                pretIndStem = stem + "i"
+                persInfStem = infinitive
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem + "a"
                 presSubjStem = impNegStem
             }
             matches(infinitive, verbLength, "cobrir") -> {
@@ -993,6 +1138,22 @@ object ConjugatorPortuguese {
                 impNegStem = stem + "eça"
                 presSubjStem = impNegStem
             }
+            matches(infinitive, verbLength, "venir") -> {
+                verbClass = VerbClass.ENIR
+                stem = infinitive.substring(0, verbLength - 4)
+                impAffStem = stem + "e"
+                presIndStem = impAffStem
+                impSubjStem = stem + "en"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "eni"
+                persInfStem = stem + "enir"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem
+                presSubjStem = stem + "ina"
+            }
             matches(infinitive, verbLength, "entir") -> {
                 verbClass = VerbClass.ENTIR
                 stem = infinitive.substring(0, verbLength - 5)
@@ -1059,6 +1220,22 @@ object ConjugatorPortuguese {
                 condIndStem = futSubjStem
                 futIndStem = condIndStem
             }
+            matches(infinitive, verbLength, "aguar") -> {
+                verbClass = VerbClass.AGUAR
+                stem = infinitive.substring(0, verbLength - 5)
+                presIndStem = stem
+                impSubjStem = stem + "agu"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "agu"
+                persInfStem = stem + "aguar"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem
+                presSubjStem = impNegStem
+                impAffStem = stem
+            }
             matches(infinitive, verbLength, "oibir") -> {
                 verbClass = VerbClass.OIBIR
                 stem = infinitive.substring(0, verbLength - 5)
@@ -1071,9 +1248,25 @@ object ConjugatorPortuguese {
                 futSubjStem = persInfStem
                 condIndStem = futSubjStem
                 futIndStem = condIndStem
-                impNegStem = stem + "oíba"
+                impNegStem = stem + "o"
                 presSubjStem = impNegStem
-                impAffStem = stem + "oíb"
+                impAffStem = stem + "o"
+            }
+            matches(infinitive, verbLength, "uinar") -> {
+                verbClass = VerbClass.UINAR
+                stem = infinitive.substring(0, verbLength - 5)
+                presIndStem = stem + "u"
+                impSubjStem = stem + "uin"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "uina"
+                persInfStem = stem + "uinar"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem + "u"
+                presSubjStem = impNegStem
+                impAffStem = stem + "u"
             }
             matches(infinitive, verbLength, "oer") -> {
                 verbClass = VerbClass.OER
@@ -1146,6 +1339,22 @@ object ConjugatorPortuguese {
                 impNegStem = stem + "strua"
                 presSubjStem = impNegStem
                 impSubjStem = stem + "struísse"
+            }
+            matches(infinitive, verbLength, "etir") -> {
+                verbClass = VerbClass.ETIR
+                stem = infinitive.substring(0, verbLength - 4)
+                impAffStem = stem
+                presIndStem = impAffStem
+                impSubjStem = stem + "et"
+                plupIndStem = impSubjStem
+                impIndStem = plupIndStem
+                pretIndStem = stem + "eti"
+                persInfStem = stem + "etir"
+                futSubjStem = persInfStem
+                condIndStem = futSubjStem
+                futIndStem = condIndStem
+                impNegStem = stem + "ita"
+                presSubjStem = impNegStem
             }
             matches(infinitive, verbLength, "ervir") -> {
                 verbClass = VerbClass.ERVIR
@@ -1714,6 +1923,7 @@ object ConjugatorPortuguese {
             VerbClass.REG_AR -> arrayOf(presIndStem + "o", presIndStem + "as", presIndStem + "a", presIndStem + "amos", presIndStem + "ais", presIndStem + "am")
             VerbClass.REG_ER -> arrayOf(presIndStem + "o", presIndStem + "es", presIndStem + "e", presIndStem + "emos", presIndStem + "eis", presIndStem + "em")
             VerbClass.REG_IR, VerbClass.ABRIR, VerbClass.GANIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.ODIR, VerbClass.ATIR -> arrayOf(presIndStem + "o", presIndStem + "es", presIndStem + "e", presIndStem + "imos", presIndStem + "is", presIndStem + "em")
+            VerbClass.UZIR -> arrayOf(presIndStem + "o", presIndStem + "es", presIndStem, presIndStem + "imos", presIndStem + "is", presIndStem + "em")
             VerbClass.TER -> arrayOf(presIndStem + "enho", if (infinitive == "ter") presIndStem + "ens" else presIndStem + "éns", if (infinitive == "ter") presIndStem + "em" else presIndStem + "ém",
                     presIndStem + "emos", presIndStem + "endes", presIndStem + "êm")
             VerbClass.FAZER -> arrayOf(presIndStem + "ço", presIndStem + "zes", presIndStem + "z", presIndStem + "zemos", presIndStem + "zeis", presIndStem + "zem")
@@ -1728,12 +1938,18 @@ object ConjugatorPortuguese {
             VerbClass.GREDIR -> arrayOf(presIndStem + "ido", presIndStem + "ides", presIndStem + "ide", presIndStem + "edimos", presIndStem + "edis", presIndStem + "idem")
             VerbClass.EDIR -> arrayOf(presIndStem + "ço", presIndStem + "des", presIndStem + "de", presIndStem + "dimos", presIndStem + "dis", presIndStem + "dem")
             VerbClass.ENTIR -> arrayOf(presIndStem + "into", presIndStem + "entes", presIndStem + "ente", presIndStem + "entimos", presIndStem + "entis", presIndStem + "entem")
+            VerbClass.ENIR -> arrayOf(presIndStem + "ino", presIndStem + "ines", presIndStem + "ine", presIndStem + "enimos", presIndStem + "enis", presIndStem + "inem")
             VerbClass.DELIR, VerbClass.DESPIR -> arrayOf(null, presIndStem + "es", presIndStem + "e", presIndStem + "imos", presIndStem + "is", presIndStem + "em")
             VerbClass.ELIR -> arrayOf(presIndStem + "ilo", presIndStem + "eles", presIndStem + "ele", presIndStem + "elimos", presIndStem + "elis", presIndStem + "elem")
             VerbClass.ERIR -> arrayOf(presIndStem + "iro", presIndStem + "eres", presIndStem + "ere", presIndStem + "erimos", presIndStem + "eris", presIndStem + "erem")
+            VerbClass.ETIR -> arrayOf(presIndStem + "ito", presIndStem + "etes", presIndStem + "ete", presIndStem + "etimos", presIndStem + "etis", presIndStem + "etem")
             VerbClass.EAR -> arrayOf(presIndStem + "io", presIndStem + "ias", presIndStem + "ia", presIndStem + "amos", presIndStem + "ais", presIndStem + "iam")
             VerbClass.OIBIR -> arrayOf(presIndStem + "íbo", presIndStem + "íbes", presIndStem + "íbe", presIndStem + "ibimos", presIndStem + "ibis", presIndStem + "íbem")
-            VerbClass.OER -> arrayOf(presIndStem + "oo/" + presIndStem + "óis", presIndStem + "ói", presIndStem + "oemos", presIndStem + "oeis", presIndStem + "oem")
+            VerbClass.UINAR -> arrayOf(presIndStem + "íno", presIndStem + "ínas", presIndStem + "ína", presIndStem + "inamos", presIndStem + "inais", presIndStem + "ínam")
+            VerbClass.MOBILIAR -> arrayOf(presIndStem + "ílio", presIndStem + "ílias", presIndStem + "ília", presIndStem + "iliamos", presIndStem + "iliais", presIndStem + "iliam")
+            VerbClass.RESFOLEGAR -> arrayOf(presIndStem + "ólego", presIndStem + "ólegas", presIndStem + "ólega", presIndStem + "olegamos", presIndStem + "olegais", presIndStem + "olegam")
+            VerbClass.AGUAR -> arrayOf(presIndStem + "águo", presIndStem + "águas", presIndStem + "água", presIndStem + "aguamos", presIndStem + "aguais", presIndStem + "águam")
+            VerbClass.OER -> arrayOf(presIndStem + "oo", presIndStem + "óis", presIndStem + "ói", presIndStem + "oemos", presIndStem + "oeis", presIndStem + "oem")
             VerbClass.VESTIR -> arrayOf(presIndStem + "isto", presIndStem + "estes", presIndStem + "este", presIndStem + "estimos", presIndStem + "estis", presIndStem + "estem")
             VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR -> arrayOf(presIndStem + "o", presIndStem + "is", presIndStem + "i", presIndStem + "ímos", presIndStem + "ís", presIndStem + "em")
             VerbClass.ERVIR, VerbClass.SERVIR -> arrayOf(presIndStem + "irvo", presIndStem + "erves", presIndStem + "erve", presIndStem + "ervimos", presIndStem + "ervis", presIndStem + "ervem")
@@ -1752,7 +1968,14 @@ object ConjugatorPortuguese {
             VerbClass.TOSSIR -> arrayOf(presIndStem + "usso", presIndStem + "osses", presIndStem + "osse", presIndStem + "ossimos", presIndStem + "ossis", presIndStem + "ossem")
             VerbClass.ENGOLIR, VerbClass.OLIR -> arrayOf(presIndStem + "ulo", presIndStem + "oles", presIndStem + "ole", presIndStem + "olimos", presIndStem + "olis", presIndStem + "olem")
             VerbClass.FUGIR -> arrayOf(presIndStem + "ujo", presIndStem + "oges", presIndStem + "oge", presIndStem + "ugimos", presIndStem + "ugis", presIndStem + "ogem")
-            VerbClass.DIVERTIR -> arrayOf(presIndStem + "irto", presIndStem + "ertes", presIndStem + "erte", presIndStem + "ertimos", presIndStem + "ertis", presIndStem + "ertem")
+            VerbClass.UBIR -> arrayOf(presIndStem + "ubo", presIndStem + "obes", presIndStem + "obe", presIndStem + "ubimos", presIndStem + "ubis", presIndStem + "obem")
+            VerbClass.UMIR -> arrayOf(presIndStem + "umo", presIndStem + "omes", presIndStem + "ome", presIndStem + "umimos", presIndStem + "umis", presIndStem + "omem")
+            VerbClass.USPIR -> arrayOf(presIndStem + "uspo", presIndStem + "ospes", presIndStem + "ospe", presIndStem + "uspimos", presIndStem + "uspis", presIndStem + "ospem")
+            VerbClass.UPIR -> arrayOf(presIndStem + "upo", presIndStem + "opes", presIndStem + "ope", presIndStem + "upimos", presIndStem + "upis", presIndStem + "opem")
+            VerbClass.ULIR -> arrayOf(presIndStem + "ulo", presIndStem + "oles", presIndStem + "ole", presIndStem + "ulimos", presIndStem + "ulis", presIndStem + "olem")
+            VerbClass.UDIR -> arrayOf(presIndStem + "udo", presIndStem + "odes", presIndStem + "ode", presIndStem + "udimos", presIndStem + "udis", presIndStem + "odem")
+            VerbClass.ERTIR -> arrayOf(presIndStem + "irto", presIndStem + "ertes", presIndStem + "erte", presIndStem + "ertimos", presIndStem + "ertis", presIndStem + "ertem")
+            VerbClass.ERGIR -> arrayOf(presIndStem + "irjo", presIndStem + "erges", presIndStem + "erge", presIndStem + "ergimos", presIndStem + "ergis", presIndStem + "ergem")
             VerbClass.SAUDAR -> arrayOf(presIndStem + "údo", presIndStem + "údas", presIndStem + "úda", presIndStem + "udamos", presIndStem + "udais", presIndStem + "údam")
             VerbClass.REUNIR -> arrayOf(presIndStem + "úno", presIndStem + "únes", presIndStem + "úne", presIndStem + "unimos", presIndStem + "unis", presIndStem + "únem")
             VerbClass.REMIR -> arrayOf(presIndStem + "dimo/" + presIndStem + "dimes/" + presIndStem + "dime/" + presIndStem + "mimos", presIndStem + "mis", presIndStem + "dimem")
@@ -1770,8 +1993,8 @@ object ConjugatorPortuguese {
 
     private fun conjugateImpInd(verbClass: VerbClass, impIndStem: String): Array<String?> {
         return when (verbClass) {
-            VerbClass.REG_AR, VerbClass.EAR, VerbClass.SAUDAR, VerbClass.IAR, VerbClass.DAR, VerbClass.OIAR -> arrayOf(impIndStem + "ava", impIndStem + "avas", impIndStem + "ava", impIndStem + "ávamos", impIndStem + "áveis", impIndStem + "avam")
-            VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.FAZER, VerbClass.ABRIR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.OIBIR, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.HAVER, VerbClass.IR, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PROVER, VerbClass.SABER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.DIVERTIR, VerbClass.SERVIR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.LER, VerbClass.VER, VerbClass.RIR -> arrayOf(impIndStem + "ia", impIndStem + "ias", impIndStem + "ia", impIndStem + "íamos", impIndStem + "íeis", impIndStem + "iam")
+            VerbClass.REG_AR, VerbClass.UINAR, VerbClass.MOBILIAR, VerbClass.RESFOLEGAR, VerbClass.AGUAR, VerbClass.EAR, VerbClass.SAUDAR, VerbClass.IAR, VerbClass.DAR, VerbClass.OIAR -> arrayOf(impIndStem + "ava", impIndStem + "avas", impIndStem + "ava", impIndStem + "ávamos", impIndStem + "áveis", impIndStem + "avam")
+            VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.ENIR, VerbClass.UZIR, VerbClass.FAZER, VerbClass.ABRIR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.ETIR, VerbClass.OIBIR, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.HAVER, VerbClass.IR, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PROVER, VerbClass.SABER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.UBIR, VerbClass.UMIR, VerbClass.USPIR, VerbClass.UPIR, VerbClass.ULIR, VerbClass.UDIR, VerbClass.ERTIR, VerbClass.ERGIR, VerbClass.SERVIR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.LER, VerbClass.VER, VerbClass.RIR -> arrayOf(impIndStem + "ia", impIndStem + "ias", impIndStem + "ia", impIndStem + "íamos", impIndStem + "íeis", impIndStem + "iam")
             VerbClass.TER, VerbClass.VIR -> arrayOf(impIndStem + "inha", impIndStem + "inhas", impIndStem + "inha", impIndStem + "ínhamos", impIndStem + "ínheis", impIndStem + "inham")
             VerbClass.AIR, VerbClass.OER, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR -> arrayOf(impIndStem + "a", impIndStem + "as", impIndStem + "a", impIndStem + "amos", impIndStem + "eis", impIndStem + "am")
             VerbClass.POR, VerbClass.PÔR -> arrayOf(impIndStem + "unha", impIndStem + "unhas", impIndStem + "unha", impIndStem + "únhamos", impIndStem + "únheis", impIndStem + "unham")
@@ -1785,9 +2008,9 @@ object ConjugatorPortuguese {
 
     private fun conjugatePretInd(verbClass: VerbClass, pretIndStem: String): Array<String?> {
         return when (verbClass) {
-            VerbClass.REG_AR, VerbClass.EAR, VerbClass.SAUDAR, VerbClass.IAR, VerbClass.OIAR -> arrayOf(pretIndStem + "ei", pretIndStem + "aste", pretIndStem + "ou", pretIndStem + "amos/" + pretIndStem + "ámos", pretIndStem + "astes", pretIndStem + "aram")
+            VerbClass.REG_AR, VerbClass.UINAR, VerbClass.MOBILIAR, VerbClass.RESFOLEGAR, VerbClass.AGUAR, VerbClass.EAR, VerbClass.SAUDAR, VerbClass.IAR, VerbClass.OIAR -> arrayOf(pretIndStem + "ei", pretIndStem + "aste", pretIndStem + "ou", pretIndStem + "amos/" + pretIndStem + "ámos", pretIndStem + "astes", pretIndStem + "aram")
             VerbClass.REG_ER, VerbClass.CRER, VerbClass.VALER, VerbClass.PERDER, VerbClass.LER -> arrayOf(pretIndStem + "i", pretIndStem + "este", pretIndStem + "eu", pretIndStem + "emos", pretIndStem + "estes", pretIndStem + "eram")
-            VerbClass.REG_IR, VerbClass.ABRIR, VerbClass.SEGUIR, VerbClass.COBRIR, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.OIBIR, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.OUVIR, VerbClass.TOSSIR, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.DIVERTIR, VerbClass.SERVIR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VER, VerbClass.RIR -> arrayOf(pretIndStem, pretIndStem + "ste", pretIndStem + "u", pretIndStem + "mos", pretIndStem + "stes", pretIndStem + "ram")
+            VerbClass.REG_IR, VerbClass.ENIR, VerbClass.UZIR, VerbClass.ABRIR, VerbClass.SEGUIR, VerbClass.COBRIR, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.ETIR, VerbClass.OIBIR, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.OUVIR, VerbClass.TOSSIR, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.UBIR, VerbClass.UMIR, VerbClass.USPIR, VerbClass.UPIR, VerbClass.ULIR, VerbClass.UDIR, VerbClass.ERTIR, VerbClass.ERGIR, VerbClass.SERVIR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VER, VerbClass.RIR -> arrayOf(pretIndStem, pretIndStem + "ste", pretIndStem + "u", pretIndStem + "mos", pretIndStem + "stes", pretIndStem + "ram")
             VerbClass.TER, VerbClass.ESTAR -> arrayOf(pretIndStem + "ive", pretIndStem + "iveste", pretIndStem + "eve", pretIndStem + "ivemos", pretIndStem + "ivestes", pretIndStem + "iveram")
             VerbClass.FAZER -> arrayOf(pretIndStem + "iz", pretIndStem + "izeste", pretIndStem + "ez", pretIndStem + "izemos", pretIndStem + "izestes", pretIndStem + "izeram")
             VerbClass.AIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR -> arrayOf(pretIndStem + "í", pretIndStem + "íste", pretIndStem + "iu", pretIndStem + "ímos", pretIndStem + "ístes", pretIndStem + "íram")
@@ -1808,9 +2031,9 @@ object ConjugatorPortuguese {
 
     private fun conjugateSimpPlupInd(verbClass: VerbClass, plupIndStem: String): Array<String?> {
         return when (verbClass) {
-            VerbClass.REG_AR, VerbClass.EAR, VerbClass.SAUDAR, VerbClass.IAR, VerbClass.OIAR -> arrayOf(plupIndStem + "ara", plupIndStem + "aras", plupIndStem + "ara", plupIndStem + "áramos", plupIndStem + "áreis", plupIndStem + "aram")
+            VerbClass.REG_AR, VerbClass.UINAR, VerbClass.MOBILIAR, VerbClass.RESFOLEGAR, VerbClass.AGUAR, VerbClass.EAR, VerbClass.SAUDAR, VerbClass.IAR, VerbClass.OIAR -> arrayOf(plupIndStem + "ara", plupIndStem + "aras", plupIndStem + "ara", plupIndStem + "áramos", plupIndStem + "áreis", plupIndStem + "aram")
             VerbClass.REG_ER, VerbClass.CRER, VerbClass.VALER, VerbClass.OER, VerbClass.PERDER, VerbClass.PROVER, VerbClass.LER -> arrayOf(plupIndStem + "era", plupIndStem + "eras", plupIndStem + "era", plupIndStem + "êramos", plupIndStem + "êreis", plupIndStem + "eram")
-            VerbClass.REG_IR, VerbClass.ABRIR, VerbClass.SEGUIR, VerbClass.COBRIR, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.OIBIR, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.OUVIR, VerbClass.TOSSIR, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.DIVERTIR, VerbClass.SERVIR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VER, VerbClass.RIR -> arrayOf(plupIndStem + "ira", plupIndStem + "iras", plupIndStem + "ira", plupIndStem + "íramos", plupIndStem + "íreis", plupIndStem + "iram")
+            VerbClass.REG_IR, VerbClass.ENIR, VerbClass.UZIR, VerbClass.ABRIR, VerbClass.SEGUIR, VerbClass.COBRIR, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.ETIR, VerbClass.OIBIR, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.OUVIR, VerbClass.TOSSIR, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.UBIR, VerbClass.UMIR, VerbClass.USPIR, VerbClass.UPIR, VerbClass.ULIR, VerbClass.UDIR, VerbClass.ERTIR, VerbClass.ERGIR, VerbClass.SERVIR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VER, VerbClass.RIR -> arrayOf(plupIndStem + "ira", plupIndStem + "iras", plupIndStem + "ira", plupIndStem + "íramos", plupIndStem + "íreis", plupIndStem + "iram")
             VerbClass.TER, VerbClass.FAZER, VerbClass.POR, VerbClass.DIZER, VerbClass.QUERER, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.PODER, VerbClass.PÔR, VerbClass.TRAZER, VerbClass.VIR, VerbClass.DAR -> arrayOf(plupIndStem + "era", plupIndStem + "eras", plupIndStem + "era", plupIndStem + "éramos", plupIndStem + "éreis", plupIndStem + "eram")
             VerbClass.AIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR -> arrayOf(plupIndStem + "a", plupIndStem + "as", plupIndStem + "a", plupIndStem + "amos", plupIndStem + "eis", plupIndStem + "am")
             VerbClass.GEAR, VerbClass.NEVAR -> arrayOf(null, null, plupIndStem, null, null, null)
@@ -1824,7 +2047,7 @@ object ConjugatorPortuguese {
 
     private fun conjugateFutInd(verbClass: VerbClass, futIndStem: String): Array<String?> {
         return when (verbClass) {
-            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.ESTAR, VerbClass.TER, VerbClass.FAZER, VerbClass.AIR, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.EAR, VerbClass.OIBIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.HAVER, VerbClass.IR, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PÔR, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.DIVERTIR, VerbClass.SERVIR, VerbClass.SAUDAR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VIR, VerbClass.IAR, VerbClass.DAR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(futIndStem + "ei", futIndStem + "ás", futIndStem + "á", futIndStem + "emos", futIndStem + "eis", futIndStem + "ão")
+            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.UINAR, VerbClass.MOBILIAR, VerbClass.RESFOLEGAR, VerbClass.AGUAR, VerbClass.ENIR, VerbClass.UZIR, VerbClass.ESTAR, VerbClass.TER, VerbClass.FAZER, VerbClass.AIR, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.ETIR, VerbClass.EAR, VerbClass.OIBIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.HAVER, VerbClass.IR, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PÔR, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.UBIR, VerbClass.UMIR, VerbClass.USPIR, VerbClass.UPIR, VerbClass.ULIR, VerbClass.UDIR, VerbClass.ERTIR, VerbClass.ERGIR, VerbClass.SERVIR, VerbClass.SAUDAR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VIR, VerbClass.IAR, VerbClass.DAR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(futIndStem + "ei", futIndStem + "ás", futIndStem + "á", futIndStem + "emos", futIndStem + "eis", futIndStem + "ão")
             VerbClass.GEAR, VerbClass.NEVAR -> arrayOf(null, null, futIndStem, null, null, null)
             VerbClass.PRAZER -> arrayOf("{d}" + futIndStem + "ei", "{d}" + futIndStem + "ás", futIndStem + "á", "{d}" + futIndStem + "emos", "{d}" + futIndStem + "eis", "{d}" + futIndStem + "ão")
             VerbClass.DOER -> arrayOf("{d}" + futIndStem + "ei", "{d}" + futIndStem + "ás", futIndStem + "á", "{d}" + futIndStem + "emos", "{d}" + futIndStem + "eis", futIndStem + "ão")
@@ -1833,7 +2056,7 @@ object ConjugatorPortuguese {
 
     private fun conjugateCondInd(verbClass: VerbClass, condIndStem: String): Array<String?> {
         return when (verbClass) {
-            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.TER, VerbClass.FAZER, VerbClass.AIR, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.EAR, VerbClass.OIBIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.IR, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PÔR, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.DIVERTIR, VerbClass.SERVIR, VerbClass.SAUDAR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VIR, VerbClass.IAR, VerbClass.DAR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(condIndStem + "ia", condIndStem + "ias", condIndStem + "ia", condIndStem + "íamos", condIndStem + "íeis", condIndStem + "iam")
+            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.UINAR, VerbClass.MOBILIAR, VerbClass.RESFOLEGAR, VerbClass.AGUAR, VerbClass.ENIR, VerbClass.UZIR, VerbClass.TER, VerbClass.FAZER, VerbClass.AIR, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.ETIR, VerbClass.EAR, VerbClass.OIBIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.IR, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PÔR, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.UBIR, VerbClass.UMIR, VerbClass.USPIR, VerbClass.UPIR, VerbClass.ULIR, VerbClass.UDIR, VerbClass.ERTIR, VerbClass.ERGIR, VerbClass.SERVIR, VerbClass.SAUDAR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VIR, VerbClass.IAR, VerbClass.DAR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(condIndStem + "ia", condIndStem + "ias", condIndStem + "ia", condIndStem + "íamos", condIndStem + "íeis", condIndStem + "iam")
             VerbClass.GEAR, VerbClass.NEVAR -> arrayOf(null, null, condIndStem, null, null, null)
             VerbClass.PRAZER -> arrayOf("{d}" + condIndStem + "ia", "{d}" + condIndStem + "ias", condIndStem + "ia", "{d}" + condIndStem + "íamos", "{d}" + condIndStem + "íeis",
                     "{d}" + condIndStem + "iam")
@@ -1843,7 +2066,7 @@ object ConjugatorPortuguese {
 
     private fun conjugatePresSubj(verbClass: VerbClass, presSubjStem: String): Array<String?> {
         return when (verbClass) {
-            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.TER, VerbClass.FAZER, VerbClass.AIR, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.OIBIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PÔR, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.DIVERTIR, VerbClass.SERVIR, VerbClass.REUNIR, VerbClass.DORMIR, VerbClass.VIR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(presSubjStem, presSubjStem + "s", presSubjStem, presSubjStem + "mos", presSubjStem + "is", presSubjStem + "m")
+            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.ENIR, VerbClass.UZIR, VerbClass.TER, VerbClass.FAZER, VerbClass.AIR, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.ETIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PÔR, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.UBIR, VerbClass.UMIR, VerbClass.USPIR, VerbClass.UPIR, VerbClass.ULIR, VerbClass.UDIR, VerbClass.ERTIR, VerbClass.ERGIR, VerbClass.SERVIR, VerbClass.REUNIR, VerbClass.DORMIR, VerbClass.VIR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(presSubjStem, presSubjStem + "s", presSubjStem, presSubjStem + "mos", presSubjStem + "is", presSubjStem + "m")
             VerbClass.DELIR, VerbClass.DESPIR, VerbClass.FALIR -> arrayOf(null, null, null, null, null, null)
             VerbClass.EAR -> arrayOf(presSubjStem + "ie", presSubjStem + "ies", presSubjStem + "ie", presSubjStem + "emos", presSubjStem + "eis", presSubjStem + "iem")
             VerbClass.GEAR, VerbClass.NEVAR -> arrayOf(null, null, presSubjStem, null, null, null)
@@ -1855,15 +2078,20 @@ object ConjugatorPortuguese {
             VerbClass.DOER -> arrayOf("{d}$presSubjStem", "{d}" + presSubjStem + "s", presSubjStem, "{d}" + presSubjStem + "mos", "{d}" + presSubjStem + "is", presSubjStem + "m")
             VerbClass.IAR -> arrayOf(presSubjStem + "eie", presSubjStem + "eies", presSubjStem + "eie", presSubjStem + "iemos", presSubjStem + "ieis", presSubjStem + "eiem")
             VerbClass.DAR -> arrayOf(presSubjStem + "ê", presSubjStem + "ês", presSubjStem + "ê", presSubjStem + "emos", presSubjStem + "eis", presSubjStem + "eem")
+            VerbClass.UINAR -> arrayOf(presSubjStem + "ína", presSubjStem + "ínas", presSubjStem + "ína", presSubjStem + "inamos", presSubjStem + "inais", presSubjStem + "ínam")
+            VerbClass.MOBILIAR -> arrayOf(presSubjStem + "ílie", presSubjStem + "ílies", presSubjStem + "ílie", presSubjStem + "iliemos", presSubjStem + "ilieis", presSubjStem + "iliem")
+            VerbClass.RESFOLEGAR -> arrayOf(presSubjStem + "ólegue", presSubjStem + "ólegues", presSubjStem + "ólegue", presSubjStem + "oleguemos", presSubjStem + "olegueis", presSubjStem + "oleguem")
+            VerbClass.AGUAR -> arrayOf(presSubjStem + "águe", presSubjStem + "águes", presSubjStem + "águe", presSubjStem + "aguemos", presSubjStem + "agueis", presSubjStem + "águem")
+            VerbClass.OIBIR -> arrayOf(presSubjStem + "íba", presSubjStem + "íbas", presSubjStem + "íba", presSubjStem + "ibamos", presSubjStem + "ibais", presSubjStem + "íbam")
         }
     }
 
     private fun conjugateImpSubj(verbClass: VerbClass, impSubjStem: String): Array<String?> {
         println(verbClass)
         return when (verbClass) {
-            VerbClass.REG_AR, VerbClass.EAR, VerbClass.SAUDAR, VerbClass.IAR, VerbClass.OIAR -> arrayOf(impSubjStem + "asse", impSubjStem + "asses", impSubjStem + "asse", impSubjStem + "ássemos", impSubjStem + "ásseis", impSubjStem + "assem")
+            VerbClass.REG_AR, VerbClass.UINAR, VerbClass.MOBILIAR, VerbClass.RESFOLEGAR, VerbClass.AGUAR, VerbClass.EAR, VerbClass.SAUDAR, VerbClass.IAR, VerbClass.OIAR -> arrayOf(impSubjStem + "asse", impSubjStem + "asses", impSubjStem + "asse", impSubjStem + "ássemos", impSubjStem + "ásseis", impSubjStem + "assem")
             VerbClass.REG_ER, VerbClass.CRER, VerbClass.VALER, VerbClass.OER, VerbClass.PERDER, VerbClass.PROVER, VerbClass.LER -> arrayOf(impSubjStem + "esse", impSubjStem + "esses", impSubjStem + "esse", impSubjStem + "êssemos", impSubjStem + "êsseis", impSubjStem + "essem")
-            VerbClass.REG_IR, VerbClass.ABRIR, VerbClass.SEGUIR, VerbClass.COBRIR, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.OIBIR, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.OUVIR, VerbClass.TOSSIR, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.DIVERTIR, VerbClass.SERVIR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VER, VerbClass.RIR -> arrayOf(impSubjStem + "isse", impSubjStem + "isses", impSubjStem + "isse", impSubjStem + "íssemos", impSubjStem + "ísseis", impSubjStem + "issem")
+            VerbClass.REG_IR, VerbClass.ENIR, VerbClass.UZIR, VerbClass.ABRIR, VerbClass.SEGUIR, VerbClass.COBRIR, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.ETIR, VerbClass.OIBIR, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.OUVIR, VerbClass.TOSSIR, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.UBIR, VerbClass.UMIR, VerbClass.USPIR, VerbClass.UPIR, VerbClass.ULIR, VerbClass.UDIR, VerbClass.ERTIR, VerbClass.ERGIR, VerbClass.SERVIR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VER, VerbClass.RIR -> arrayOf(impSubjStem + "isse", impSubjStem + "isses", impSubjStem + "isse", impSubjStem + "íssemos", impSubjStem + "ísseis", impSubjStem + "issem")
             VerbClass.TER, VerbClass.FAZER, VerbClass.POR, VerbClass.DIZER, VerbClass.QUERER, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.PODER, VerbClass.PÔR, VerbClass.SABER, VerbClass.TRAZER, VerbClass.VIR, VerbClass.DAR -> arrayOf(impSubjStem + "esse", impSubjStem + "esses", impSubjStem + "esse", impSubjStem + "éssemos", impSubjStem + "ésseis", impSubjStem + "essem")
             VerbClass.AIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR -> arrayOf(impSubjStem, impSubjStem + "s", impSubjStem, impSubjStem + "mos", impSubjStem + "is", impSubjStem + "m")
             VerbClass.GEAR, VerbClass.NEVAR -> arrayOf(null, null, impSubjStem, null, null, null)
@@ -1877,7 +2105,7 @@ object ConjugatorPortuguese {
 
     private fun conjugateFutSubj(verbClass: VerbClass, futSubjStem: String): Array<String?> {
         return when (verbClass) {
-            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.TER, VerbClass.FAZER, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.EAR, VerbClass.OIBIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.IR, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PÔR, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.DIVERTIR, VerbClass.SERVIR, VerbClass.SAUDAR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VIR, VerbClass.IAR, VerbClass.DAR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(futSubjStem, futSubjStem + "es", futSubjStem, futSubjStem + "mos", futSubjStem + "des", futSubjStem + "em")
+            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.UINAR, VerbClass.MOBILIAR, VerbClass.RESFOLEGAR, VerbClass.AGUAR, VerbClass.ENIR, VerbClass.UZIR, VerbClass.TER, VerbClass.FAZER, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.ETIR, VerbClass.EAR, VerbClass.OIBIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.IR, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PÔR, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.UBIR, VerbClass.UMIR, VerbClass.USPIR, VerbClass.UPIR, VerbClass.ULIR, VerbClass.UDIR, VerbClass.ERTIR, VerbClass.ERGIR, VerbClass.SERVIR, VerbClass.SAUDAR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VIR, VerbClass.IAR, VerbClass.DAR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(futSubjStem, futSubjStem + "es", futSubjStem, futSubjStem + "mos", futSubjStem + "des", futSubjStem + "em")
             VerbClass.AIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR -> arrayOf(futSubjStem + "ir", futSubjStem + "íres", futSubjStem + "ir", futSubjStem + "irmos", futSubjStem + "irdes", futSubjStem + "írem")
             VerbClass.GEAR, VerbClass.NEVAR -> arrayOf(null, null, futSubjStem, null, null, null)
             VerbClass.PRAZER -> arrayOf("{d}$futSubjStem", "{d}" + futSubjStem + "es", futSubjStem, "{d}" + futSubjStem + "mos", "{d}" + futSubjStem + "des", "{d}" + futSubjStem + "em")
@@ -1889,7 +2117,7 @@ object ConjugatorPortuguese {
         return when (verbClass) {
             VerbClass.REG_AR -> arrayOf(null, impAffStem + "a", impAffStem + "e", impAffStem + "emos", impAffStem + "ai", impAffStem + "em")
             VerbClass.REG_ER -> arrayOf(null, impAffStem + "e", impAffStem + "a", impAffStem + "amos", impAffStem + "ei", impAffStem + "am")
-            VerbClass.REG_IR, VerbClass.ABRIR, VerbClass.OIBIR -> arrayOf(null, impAffStem + "e", impAffStem + "a", impAffStem + "amos", impAffStem + "i", impAffStem + "am")
+            VerbClass.REG_IR, VerbClass.UZIR, VerbClass.ABRIR -> arrayOf(null, impAffStem + "e", impAffStem + "a", impAffStem + "amos", impAffStem + "i", impAffStem + "am")
             VerbClass.TER -> arrayOf(null, if (infinitive == "ter") impAffStem + "em" else impAffStem + "ém", impAffStem + "enha", impAffStem + "enhamos", impAffStem + "ende", impAffStem + "enham")
             VerbClass.FAZER -> arrayOf(null, impAffStem + "z/" + impAffStem + "ze", impAffStem + "ça", impAffStem + "çamos", impAffStem + "zei", impAffStem + "çam")
             VerbClass.AIR -> arrayOf(null, impAffStem + "i", impAffStem + "ia", impAffStem + "iamos", impAffStem + "í", impAffStem + "iam")
@@ -1898,6 +2126,11 @@ object ConjugatorPortuguese {
             VerbClass.SEGUIR -> arrayOf(null, impAffStem + "egue", impAffStem + "iga", impAffStem + "igamos", impAffStem + "egui", impAffStem + "igam")
             VerbClass.CRER, VerbClass.LER -> arrayOf(null, impAffStem + "ê", impAffStem + "eia", impAffStem + "eiamos", impAffStem + "ede", impAffStem + "eiam")
             VerbClass.COBRIR -> arrayOf(null, impAffStem + "obre", impAffStem + "ubra", impAffStem + "ubramos", impAffStem + "obri", impAffStem + "ubram")
+            VerbClass.OIBIR -> arrayOf(null, impAffStem + "íbe", impAffStem + "íba", impAffStem + "ibamos", impAffStem + "ibi", impAffStem + "íbam")
+            VerbClass.UINAR -> arrayOf(null, impAffStem + "ína", impAffStem + "íne", impAffStem + "inemos", impAffStem + "inai", impAffStem + "ínem")
+            VerbClass.AGUAR -> arrayOf(null, impAffStem + "água", impAffStem + "águe", impAffStem + "aguemos", impAffStem + "aguai", impAffStem + "águem")
+            VerbClass.MOBILIAR -> arrayOf(null, impAffStem + "ilia", impAffStem + "ílie", impAffStem + "iliemos", impAffStem + "iliai", impAffStem + "iliem")
+            VerbClass.RESFOLEGAR -> arrayOf(null, impAffStem + "ólega", impAffStem + "ólegue", impAffStem + "oleguemos", impAffStem + "olegai", impAffStem + "oleguem")
             VerbClass.QUERER -> arrayOf(null, impAffStem + "r", impAffStem + "ira", impAffStem + "iramos", impAffStem + "rei", impAffStem + "iram")
             VerbClass.VALER -> arrayOf(null, impAffStem + "e", impAffStem + "ha", impAffStem + "hamos", impAffStem + "ei", impAffStem + "ham")
             VerbClass.GREDIR -> arrayOf(null, impAffStem + "ide", impAffStem + "ida", impAffStem + "idamos", impAffStem + "edi", impAffStem + "idam")
@@ -1906,6 +2139,7 @@ object ConjugatorPortuguese {
             VerbClass.DELIR, VerbClass.DESPIR -> arrayOf(null, impAffStem + "e", null, null, impAffStem + "i", null)
             VerbClass.ELIR -> arrayOf(null, impAffStem + "ele", impAffStem + "ila", impAffStem + "ilamos", impAffStem + "eli", impAffStem + "ilam")
             VerbClass.ERIR -> arrayOf(null, impAffStem + "ere", impAffStem + "ira", impAffStem + "iramos", impAffStem + "eri", impAffStem + "iram")
+            VerbClass.ETIR -> arrayOf(null, impAffStem + "ete", impAffStem + "ita", impAffStem + "itamos", impAffStem + "eti", impAffStem + "itam")
             VerbClass.EAR -> arrayOf(null, impAffStem + "ia", impAffStem + "ie", impAffStem + "emos", impAffStem + "ai", impAffStem + "iem")
             VerbClass.OER -> arrayOf(null, impAffStem + "ói", impAffStem + "oa", impAffStem + "oamos", impAffStem + "oei", impAffStem + "oam")
             VerbClass.VESTIR -> arrayOf(null, impAffStem + "este", impAffStem + "ista", impAffStem + "istamos", impAffStem + "esti", impAffStem + "istam")
@@ -1924,7 +2158,15 @@ object ConjugatorPortuguese {
             VerbClass.TRAZER -> arrayOf(null, impAffStem + "z", impAffStem + "ga", impAffStem + "gamos", impAffStem + "zei", impAffStem + "gam")
             VerbClass.ENGOLIR -> arrayOf(null, impAffStem + "ole", impAffStem + "ula", impAffStem + "ulamos", impAffStem + "oli", impAffStem + "ulam")
             VerbClass.FUGIR -> arrayOf(null, impAffStem + "oge", impAffStem + "uja", impAffStem + "ujamos", impAffStem + "ugi", impAffStem + "ujam")
-            VerbClass.DIVERTIR -> arrayOf(null, impAffStem + "erte", impAffStem + "irta", impAffStem + "irtamos", impAffStem + "erti", impAffStem + "irtam")
+            VerbClass.UBIR -> arrayOf(null, impAffStem + "obe", impAffStem + "uba", impAffStem + "ubamos", impAffStem + "ubi", impAffStem + "ubam")
+            VerbClass.UMIR -> arrayOf(null, impAffStem + "obe", impAffStem + "uma", impAffStem + "umamos", impAffStem + "umi", impAffStem + "umam")
+            VerbClass.USPIR -> arrayOf(null, impAffStem + "obe", impAffStem + "uspa", impAffStem + "uspamos", impAffStem + "uspi", impAffStem + "uspam")
+            VerbClass.UPIR -> arrayOf(null, impAffStem + "obe", impAffStem + "upa", impAffStem + "upamos", impAffStem + "upi", impAffStem + "upam")
+            VerbClass.ULIR -> arrayOf(null, impAffStem + "obe", impAffStem + "ula", impAffStem + "ulamos", impAffStem + "uli", impAffStem + "ulam")
+            VerbClass.UDIR -> arrayOf(null, impAffStem + "obe", impAffStem + "uda", impAffStem + "udamos", impAffStem + "udi", impAffStem + "udam")
+            VerbClass.ERTIR -> arrayOf(null, impAffStem + "erte", impAffStem + "irta", impAffStem + "irtamos", impAffStem + "erti", impAffStem + "irtam")
+            VerbClass.ENIR -> arrayOf(null, impAffStem + "ine", impAffStem + "ina", impAffStem + "inamos", impAffStem + "eni", impAffStem + "inam")
+            VerbClass.ERGIR -> arrayOf(null, impAffStem + "erge", impAffStem + "erja", impAffStem + "erjamos", impAffStem + "ergi", impAffStem + "erjam")
             VerbClass.SAUDAR -> arrayOf(null, impAffStem + "úda", impAffStem + "úde", impAffStem + "udemos", impAffStem + "udai", impAffStem + "údem")
             VerbClass.GANIR -> arrayOf("{d}" + impAffStem + "gana", impAffStem + "gane/" + impAffStem + "Normally defective:/" + impAffStem + "ganas", "{d}" + impAffStem + "gana",
                     "{d}" + impAffStem + "ganamos", impAffStem + "gani/" + impAffStem + "Normally defective:/" + impAffStem + "ganais", "{d}" + impAffStem + "ganam")
@@ -1956,9 +2198,14 @@ object ConjugatorPortuguese {
 
     private fun conjugateImpNeg(verbClass: VerbClass, impNegStem: String): Array<String?> {
         return when (verbClass) {
-            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.TER, VerbClass.FAZER, VerbClass.AIR, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.OIBIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PÔR, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.DIVERTIR, VerbClass.SERVIR, VerbClass.REUNIR, VerbClass.DORMIR, VerbClass.VIR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(null, impNegStem + "s", impNegStem, impNegStem + "mos", impNegStem + "is", impNegStem + "m")
+            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.ENIR, VerbClass.UZIR, VerbClass.TER, VerbClass.FAZER, VerbClass.AIR, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.ETIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PÔR, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.UBIR, VerbClass.UMIR, VerbClass.USPIR, VerbClass.UPIR, VerbClass.ULIR, VerbClass.UDIR, VerbClass.ERTIR, VerbClass.ERGIR, VerbClass.SERVIR, VerbClass.REUNIR, VerbClass.DORMIR, VerbClass.VIR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(null, impNegStem + "s", impNegStem, impNegStem + "mos", impNegStem + "is", impNegStem + "m")
             VerbClass.DELIR, VerbClass.DESPIR, VerbClass.FALIR -> arrayOf(null, null, null, null, null, null)
             VerbClass.EAR -> arrayOf(null, impNegStem + "ies", impNegStem + "ie", impNegStem + "emos", impNegStem + "eis", impNegStem + "iem")
+            VerbClass.OIBIR -> arrayOf(null, impNegStem + "íbas", impNegStem + "íba", impNegStem + "ibamos", impNegStem + "ibais", impNegStem + "íbam")
+            VerbClass.UINAR -> arrayOf(null, impNegStem + "ínes", impNegStem + "íne", impNegStem + "inemos", impNegStem + "ineis", impNegStem + "ínem")
+            VerbClass.AGUAR -> arrayOf(null, impNegStem + "águes", impNegStem + "águe", impNegStem + "aguemos", impNegStem + "agueis", impNegStem + "águem")
+            VerbClass.MOBILIAR -> arrayOf(null, impNegStem + "ílies", impNegStem + "ílie", impNegStem + "iliemos", impNegStem + "ilieis", impNegStem + "iliem")
+            VerbClass.RESFOLEGAR -> arrayOf(null, impNegStem + "ólegues", impNegStem + "ólegue", impNegStem + "oleguemos", impNegStem + "olegueis", impNegStem + "oleguem")
             VerbClass.GEAR, VerbClass.NEVAR -> arrayOf(null, null, impNegStem, null, null, null)
             VerbClass.IR -> arrayOf(null, impNegStem + "ás", impNegStem + "á", impNegStem + "amos", impNegStem + "ades", impNegStem + "ão")
             VerbClass.SAUDAR -> arrayOf(null, impNegStem + "údes", impNegStem + "úde", impNegStem + "udemos", impNegStem + "udeis", impNegStem + "údem")
@@ -1973,7 +2220,7 @@ object ConjugatorPortuguese {
 
     private fun conjugatePersInf(verbClass: VerbClass, persInfStem: String): Array<String?> {
         return when (verbClass) {
-            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.TER, VerbClass.FAZER, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.EAR, VerbClass.OIBIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.IR, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.DIVERTIR, VerbClass.SERVIR, VerbClass.SAUDAR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VIR, VerbClass.IAR, VerbClass.DAR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(persInfStem, persInfStem + "es", persInfStem, persInfStem + "mos", persInfStem + "des", persInfStem + "em")
+            VerbClass.REG_AR, VerbClass.REG_ER, VerbClass.REG_IR, VerbClass.UINAR, VerbClass.MOBILIAR, VerbClass.RESFOLEGAR, VerbClass.AGUAR,  VerbClass.ENIR, VerbClass.UZIR, VerbClass.TER, VerbClass.FAZER, VerbClass.ABRIR, VerbClass.POR, VerbClass.DIZER, VerbClass.SEGUIR, VerbClass.CRER, VerbClass.COBRIR, VerbClass.QUERER, VerbClass.VALER, VerbClass.GREDIR, VerbClass.EDIR, VerbClass.ENTIR, VerbClass.DELIR, VerbClass.ELIR, VerbClass.ERIR, VerbClass.ETIR, VerbClass.EAR, VerbClass.OIBIR, VerbClass.OER, VerbClass.VESTIR, VerbClass.ERVIR, VerbClass.CABER, VerbClass.ESTAR, VerbClass.HAVER, VerbClass.IR, VerbClass.OUVIR, VerbClass.PERDER, VerbClass.PODER, VerbClass.PROVER, VerbClass.SABER, VerbClass.SER, VerbClass.TOSSIR, VerbClass.TRAZER, VerbClass.ENGOLIR, VerbClass.FUGIR, VerbClass.UBIR, VerbClass.UMIR, VerbClass.USPIR, VerbClass.UPIR, VerbClass.ULIR, VerbClass.UDIR, VerbClass.ERTIR, VerbClass.ERGIR, VerbClass.SERVIR, VerbClass.SAUDAR, VerbClass.GANIR, VerbClass.REUNIR, VerbClass.REMIR, VerbClass.DORMIR, VerbClass.OLIR, VerbClass.BARRIR, VerbClass.DEF_ORIR, VerbClass.DESPIR, VerbClass.FALIR, VerbClass.ODIR, VerbClass.ATIR, VerbClass.VIR, VerbClass.IAR, VerbClass.DAR, VerbClass.LER, VerbClass.VER, VerbClass.RIR, VerbClass.OIAR -> arrayOf(persInfStem, persInfStem + "es", persInfStem, persInfStem + "mos", persInfStem + "des", persInfStem + "em")
             VerbClass.AIR, VerbClass.TUIR, VerbClass.BUIR, VerbClass.STRUIR -> arrayOf(persInfStem + "ir", persInfStem + "íres", persInfStem + "ir", persInfStem + "irmos", persInfStem + "irdes", persInfStem + "írem")
             VerbClass.GEAR, VerbClass.NEVAR -> arrayOf(null, null, persInfStem, null, null, null)
             VerbClass.PÔR -> arrayOf(persInfStem + "ôr", persInfStem + "ores", persInfStem + "ôr", persInfStem + "ormos", persInfStem + "ordes", persInfStem + "orem")

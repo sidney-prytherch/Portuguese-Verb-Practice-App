@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.UnderlineSpan
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
@@ -26,6 +29,7 @@ import kotlinx.android.synthetic.main.conjugation_cell_view.view.*
 import kotlinx.android.synthetic.main.fragment_practice.view.*
 import java.util.*
 import kotlin.math.max
+import kotlin.collections.mutableListOf as mutableListOf
 
 
 class PracticeFragment : Fragment() {
@@ -356,9 +360,19 @@ class PracticeFragment : Fragment() {
         for (i in 0 until rowCount) {
             val view = conjugationViews[i]
             val result = results[i + startIndex]
+
+            var engCong = englishConjugations[i]
+            val formattedEnglishConjugation = SpannableString(engCong.replace("<", "").replace(">", ""))
+            while (engCong.indexOf("<") != -1) {
+                val start = engCong.indexOf("<")
+                val end = engCong.indexOf(">") - 1
+                formattedEnglishConjugation.setSpan(UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                engCong = engCong.replaceFirst("<", "").replaceFirst(">", "")
+            }
+
             view.ptVerbInput.setText(result.input)
             view.ptSubject.text = result.personsString
-            view.englishVerb.text = englishConjugations[i]
+            view.englishVerb.text = formattedEnglishConjugation
         }
     }
     private fun updateResults() {

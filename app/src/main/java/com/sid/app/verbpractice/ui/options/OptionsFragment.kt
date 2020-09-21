@@ -65,7 +65,7 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
     private lateinit var portugalSwitch: SwitchCompat
     private lateinit var portugal: TextView
     private lateinit var brazil: TextView
-    var bars = arrayOf<AppCompatSeekBar>()
+    private var bars = arrayOf<AppCompatSeekBar>()
     lateinit var verbSettingsManager: VerbSettingsManager
     private lateinit var mContext: MainActivity
     private lateinit var enabledVerbTypes: Array<CheckBox>
@@ -126,10 +126,10 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         )
         subjunctives = arrayOf(
             resources.getString(R.string.present_subjunctive),
-            resources.getString(R.string.present_perfect_subjunctive),
             resources.getString(R.string.imperfect_subjunctive),
-            resources.getString(R.string.pluperfect_subjunctive),
             resources.getString(R.string.future_subjunctive),
+            resources.getString(R.string.present_perfect_subjunctive),
+            resources.getString(R.string.pluperfect_subjunctive),
             resources.getString(R.string.future_perfect_subjunctive)
         )
 
@@ -179,7 +179,7 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         val enabledVerbTypesDefaults = mContext.getVerbTypes()
 
         enabledVerbTypes.forEachIndexed { index, checkBox ->
-            checkBox.isChecked = enabledVerbTypesDefaults[index]
+            checkBox.isChecked = enabledVerbTypesDefaults.contains(index + 1)
             checkBox.setOnCheckedChangeListener { _, isChecked ->
                 mContext.onSetBooleanPreference(enabledVerbTypeKeys[index], isChecked)
             }
