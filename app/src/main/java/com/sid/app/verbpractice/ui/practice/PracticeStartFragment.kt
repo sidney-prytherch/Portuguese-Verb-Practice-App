@@ -70,6 +70,7 @@ class PracticeStartFragment : Fragment() {
 
         val defaultTypes = mContext.getVerbTypes()
         val defaultSubtypes = mContext.getVerbSubtypes()
+        val quizIsDefault = mContext.getQuizIsDefault()
 
         setPrefListener(view.cbArVerbs, VerbSettingsManager.AR_ENABLED, defaultTypes.contains(1))
         setPrefListener(view.cbErVerbs, VerbSettingsManager.ER_ENABLED, defaultTypes.contains(2))
@@ -91,16 +92,21 @@ class PracticeStartFragment : Fragment() {
         verbPools[mContext.getVerbPool()].isChecked = true
 
         view.rbQuiz.setOnCheckedChangeListener { _, isChecked ->
+            mContext.setQuizIsDefault(isChecked)
             if (isChecked) {
                 view.rbWordsearch.isChecked = false
             }
         }
 
         view.rbWordsearch.setOnCheckedChangeListener { _, isChecked ->
+            mContext.setQuizIsDefault(!isChecked)
             if (isChecked) {
                 view.rbQuiz.isChecked = false
             }
         }
+
+        view.rbQuiz.isChecked = quizIsDefault
+        view.rbWordsearch.isChecked = !quizIsDefault
 
         view.startButton.setOnClickListener {
             val bundle = bundleOf("isWordsearch" to view.rbWordsearch.isChecked)

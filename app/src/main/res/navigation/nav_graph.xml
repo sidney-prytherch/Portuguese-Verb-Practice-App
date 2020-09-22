@@ -130,6 +130,9 @@
         <action
             android:id="@+id/action_options_to_tutorial"
             app:destination="@+id/tutorial_dialog"/>
+        <action
+            android:id="@+id/action_title_to_set_persons"
+            app:destination="@+id/setPersonsButton"/>
     </fragment>
     <dialog
         android:id="@+id/setCompIndTensesButton"
@@ -151,6 +154,11 @@
         android:name="com.sid.app.verbpractice.ui.options.SetSubjTensesFragment"
         android:label="@string/set_subj_tenses"
         tools:layout="@layout/tenses_options_subj"/>
+    <dialog
+        android:id="@+id/setPersonsButton"
+        android:name="com.sid.app.verbpractice.ui.options.SetPersonsFragment"
+        android:label="@string/set_enabled_third_person"
+        tools:layout="@layout/persons_options"/>
     <dialog
         android:id="@+id/tutorial_dialog"
         android:name="com.sid.app.verbpractice.ui.options.TutorialFragment"

@@ -79,6 +79,7 @@ class VerbSettingsManager(private val sharedPreferences: SharedPreferences) {
         const val IS_COUNT = "is_count"
         const val TIME_PREFERENCE = "time_preference"
         const val COUNT_PREFERENCE = "count_preference"
+        const val GRID_SIZE_PREFERENCE = "grid_size_preference"
 
         const val IS_PORTUGAL = "is_portugal"
 
@@ -107,5 +108,7 @@ class VerbSettingsManager(private val sharedPreferences: SharedPreferences) {
         const val REG_SUBTYPE = "reg_subtype"
         const val RADICAL_SUBTYPE = "radical_subtype"
         const val ORTHOGRAPHIC_SUBTYPE = "orthographic_subtype"
+
+        const val QUIZ_IS_DEFAULT = "quiz_is_default"
     }
 }

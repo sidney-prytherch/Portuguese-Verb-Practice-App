@@ -33,10 +33,7 @@ import com.sid.app.verbpractice.db.entity.PortugueseVerb
 import com.sid.app.verbpractice.enums.VerbForm
 import com.sid.app.verbpractice.helper.VerbSettingsManager
 import com.sid.app.verbpractice.ui.dictionary.WordFilterFragment
-import com.sid.app.verbpractice.ui.options.SetCompIndTensesFragment
-import com.sid.app.verbpractice.ui.options.SetProgIndTensesFragment
-import com.sid.app.verbpractice.ui.options.SetSimpIndTensesFragment
-import com.sid.app.verbpractice.ui.options.SetSubjTensesFragment
+import com.sid.app.verbpractice.ui.options.*
 import com.sid.app.verbpractice.viewmodel.PortugueseVerbViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.tenses_options_subj.view.*
@@ -49,6 +46,7 @@ class MainActivity : AppCompatActivity(),
     SetCompIndTensesFragment.SetAndGetPerfectSettings,
     SetProgIndTensesFragment.SetAndGetProgressiveSettings,
     SetSubjTensesFragment.SetAndGetSubjunctiveSettings,
+    SetPersonsFragment.SetAndGetPersonsSettings,
     WordFilterFragment.SetAndGetFilterSettings {
 
     private lateinit var mWordViewModel: PortugueseVerbViewModel
@@ -101,8 +99,8 @@ class MainActivity : AppCompatActivity(),
 
     override fun getSimpIndTenses(): BooleanArray {
         return booleanArrayOf(
-            verbSettingsManager.getBool(VerbSettingsManager.PRES_IND),
-            verbSettingsManager.getBool(VerbSettingsManager.PRET_IND),
+            verbSettingsManager.getBool(VerbSettingsManager.PRES_IND, true),
+            verbSettingsManager.getBool(VerbSettingsManager.PRET_IND, true),
             verbSettingsManager.getBool(VerbSettingsManager.IMP_IND),
             verbSettingsManager.getBool(VerbSettingsManager.SIMP_PLUP_IND),
             verbSettingsManager.getBool(VerbSettingsManager.SIMP_FUT_IND),
@@ -121,7 +119,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun getCompIndTenses(): BooleanArray {
         return booleanArrayOf(
-            verbSettingsManager.getBool(VerbSettingsManager.FUT_IND),
+            verbSettingsManager.getBool(VerbSettingsManager.FUT_IND, true),
             verbSettingsManager.getBool(VerbSettingsManager.PRES_PERF),
             verbSettingsManager.getBool(VerbSettingsManager.PLUP),
             verbSettingsManager.getBool(VerbSettingsManager.FUT_PERF),
@@ -175,6 +173,26 @@ class MainActivity : AppCompatActivity(),
             verbSettingsManager.getBool(VerbSettingsManager.PRES_PERF_SUBJ),
             verbSettingsManager.getBool(VerbSettingsManager.PLUP_SUBJ),
             verbSettingsManager.getBool(VerbSettingsManager.FUT_PERF_SUBJ)
+        )
+    }
+
+    override fun onSetPersons(dialog: DialogFragment, result: BooleanArray) {
+        verbSettingsManager.setBool(VerbSettingsManager.VC_ENABLED, result[0])
+        verbSettingsManager.setBool(VerbSettingsManager.VCS_ENABLED, result[1])
+        verbSettingsManager.setBool(VerbSettingsManager.ELE_ELA_ENABLED, result[2])
+        verbSettingsManager.setBool(VerbSettingsManager.ELES_ELAS_ENABLED, result[3])
+        verbSettingsManager.setBool(VerbSettingsManager.SENHOR_ENABLED, result[4])
+        verbSettingsManager.setBool(VerbSettingsManager.SENHORES_ENABLED, result[5])
+    }
+
+    override fun getPersons(): BooleanArray {
+        return booleanArrayOf(
+            verbSettingsManager.getBool(VerbSettingsManager.VC_ENABLED, true),
+            verbSettingsManager.getBool(VerbSettingsManager.VCS_ENABLED, true),
+            verbSettingsManager.getBool(VerbSettingsManager.ELE_ELA_ENABLED, true),
+            verbSettingsManager.getBool(VerbSettingsManager.ELES_ELAS_ENABLED, true),
+            verbSettingsManager.getBool(VerbSettingsManager.SENHOR_ENABLED, true),
+            verbSettingsManager.getBool(VerbSettingsManager.SENHORES_ENABLED, true)
         )
     }
 
@@ -289,6 +307,10 @@ class MainActivity : AppCompatActivity(),
         )
     }
 
+    fun getGridSizePreference(): Int {
+        return verbSettingsManager.getInt(VerbSettingsManager.GRID_SIZE_PREFERENCE, 2)
+    }
+
     fun onSetIntPreference(key: String, result: Int) {
         verbSettingsManager.setInt(key, result)
     }
@@ -335,6 +357,14 @@ class MainActivity : AppCompatActivity(),
             if (verbSettingsManager.getBool(VerbSettingsManager.RADICAL_SUBTYPE, true)) 2 else 0,
             if (verbSettingsManager.getBool(VerbSettingsManager.ORTHOGRAPHIC_SUBTYPE, true)) 3 else 0
         ).filter { it != 0 }
+    }
+
+    fun getQuizIsDefault(): Boolean {
+        return verbSettingsManager.getBool(VerbSettingsManager.QUIZ_IS_DEFAULT, true)
+    }
+
+    fun setQuizIsDefault(quizIsDefault: Boolean) {
+        verbSettingsManager.setBool(VerbSettingsManager.QUIZ_IS_DEFAULT, quizIsDefault)
     }
 
     fun updateWidget() {

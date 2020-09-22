@@ -149,12 +149,23 @@
     <string name="count_spinner_label">Count:</string>
 
     <string name="third_person_options">3rd Person Settings</string>
+    <string name="set_enabled_third_person">Set Enabled 3rd Person</string>
     <string name="vc">Você</string>
     <string name="ele_ela">Ele/Ela</string>
     <string name="senhor">O senhor/A senhora</string>
     <string name="vcs">Vocês</string>
     <string name="eles_elas" tools:ignore="Typos">Eles/Elas</string>
     <string name="senhores">Os senhores/As senhoras</string>
+
+    <string name="wordsearch_grid_size">Wordsearch Grid Size</string>
+    <string name="size">Size:</string>
+
+    <string-array name="wordsearch_grid_size_array">
+        <item>8 x 8</item>
+        <item>10 x 10</item>
+        <item>12 x 12</item>
+        <item>14 x 14</item>
+    </string-array>
 
     <string-array name="times_array">
         <item>1:00</item>

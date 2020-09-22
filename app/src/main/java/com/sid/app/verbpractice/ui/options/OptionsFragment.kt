@@ -58,7 +58,7 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         VerbSettingsManager.SENHORES_ENABLED
     )
     var switches = arrayOf<SwitchCompat>()
-    var thirdPersonSwitches = arrayOf<SwitchCompat>()
+//    var thirdPersonSwitches = arrayOf<SwitchCompat>()
     private lateinit var conjugationsSwitch: SwitchCompat
     private lateinit var fullConjugations: TextView
     private lateinit var partialConjugations: TextView
@@ -70,10 +70,13 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
     private lateinit var mContext: MainActivity
     private lateinit var enabledVerbTypes: Array<CheckBox>
     private lateinit var tenseTextBoxes: Array<TextView>
+    private lateinit var personsTextView: TextView
+
     private lateinit var indicatives: Array<String>
     private lateinit var perfects: Array<String>
     private lateinit var progressives: Array<String>
     private lateinit var subjunctives: Array<String>
+    private lateinit var persons: Array<String>
     private lateinit var timeOrCountSwitch: SwitchCompat
     private lateinit var timeOption: TextView
     private lateinit var countOption: TextView
@@ -133,6 +136,15 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             resources.getString(R.string.future_perfect_subjunctive)
         )
 
+        persons = arrayOf(
+            resources.getString(R.string.vc),
+            resources.getString(R.string.vcs),
+            resources.getString(R.string.ele_ela),
+            resources.getString(R.string.eles_elas),
+            resources.getString(R.string.senhor),
+            resources.getString(R.string.senhores)
+        )
+
         val view = inflater.inflate(R.layout.fragment_options, container, false)
 
         enabledVerbTypes = arrayOf(
@@ -151,14 +163,14 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             view.findViewById(R.id.vcsElesElasSwitch)
         )
 
-        thirdPersonSwitches = arrayOf(
-            view.vcEnabledSwitch,
-            view.eleElaEnabledSwitch,
-            view.senhorEnabledSwitch,
-            view.vcsEnabledSwitch,
-            view.elesElasEnabledSwitch,
-            view.senhoresEnabledSwitch
-        )
+//        thirdPersonSwitches = arrayOf(
+//            view.vcEnabledSwitch,
+//            view.eleElaEnabledSwitch,
+//            view.senhorEnabledSwitch,
+//            view.vcsEnabledSwitch,
+//            view.elesElasEnabledSwitch,
+//            view.senhoresEnabledSwitch
+//        )
 
         bars = arrayOf(
             view.findViewById(R.id.euBar),
@@ -186,16 +198,19 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         }
 
         tenseTextBoxes = arrayOf(
-            view.findViewById(R.id.setSimpIndTenses),
-            view.findViewById(R.id.setCompIndTenses),
-            view.findViewById(R.id.setProgIndTenses),
-            view.findViewById(R.id.setSubjTenses)
+            view.setSimpIndTenses,
+            view.setCompIndTenses,
+            view.setProgIndTenses,
+            view.setSubjTenses
         )
+
+        personsTextView = view.setEnabledThirdPersons
 
         resetSimpIndTextView()
         resetCompIndTextView()
         resetProgIndTextView()
         resetSubjTextView()
+        resetPersonsTextView()
 
         disabledColor = ContextCompat.getColor(view.context, R.color.disabled)
         enabledColor = ContextCompat.getColor(view.context, R.color.black)
@@ -226,14 +241,14 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             mContext.onSetBooleanPreference(VerbSettingsManager.IS_PORTUGAL, isChecked)
         }
 
-        val thirdPersonSingSwitchesEnabled = mContext.getThirdPersonSwitches()
+//        val thirdPersonSingSwitchesEnabled = mContext.getThirdPersonSwitches()
 
-        thirdPersonSwitches.forEachIndexed { index, switch ->
-            switch.isChecked = thirdPersonSingSwitchesEnabled[index]
-            switch.setOnCheckedChangeListener { _, _ ->
-                mContext.onSetBooleanPreference(thirdPersonKeys[index], switch.isChecked)
-            }
-        }
+//        thirdPersonSwitches.forEachIndexed { index, switch ->
+//            switch.isChecked = thirdPersonSingSwitchesEnabled[index]
+//            switch.setOnCheckedChangeListener { _, _ ->
+//                mContext.onSetBooleanPreference(thirdPersonKeys[index], switch.isChecked)
+//            }
+//        }
 
         val frequencies = mContext.getFrequencies()
 
@@ -263,6 +278,7 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         timeOrCountSwitch.isChecked = isTimeDefault
 
         val (timePreference, countPreference) = mContext.getTimeAndCountPreference()
+        val gridSizePreference = mContext.getGridSizePreference()
 
 
         timeOrCountSwitch.setOnCheckedChangeListener { _, _ ->
@@ -313,6 +329,27 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             }
         }
 
+        val gridSizeSpinner = view.wordsearchSpinner
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.wordsearch_grid_size_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            gridSizeSpinner.adapter = adapter
+        }
+        gridSizeSpinner.setSelection(gridSizePreference)
+        gridSizeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                mContext.onSetIntPreference(VerbSettingsManager.GRID_SIZE_PREFERENCE, position)
+            }
+        }
+
         view.findViewById<Button>(R.id.setSimpIndTensesButton).setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_title_to_set_simp_ind)
         }
@@ -324,6 +361,10 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         }
         view.findViewById<Button>(R.id.setSubjTensesButton).setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_title_to_set_subj)
+        }
+
+        view.findViewById<Button>(R.id.setEnabledThirdPersonsButton).setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_title_to_set_persons)
         }
 
         verbSettingsManager =
@@ -413,6 +454,12 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         tenseTextBoxes[3].text =
             mContext.getSubjTenses().mapIndexed { index, boolean ->
                 if (boolean) " \u2022 " + subjunctives[index] else null
+            }.filterNotNull().joinToString("\n")
+    }
+    fun resetPersonsTextView() {
+        personsTextView.text =
+            mContext.getPersons().mapIndexed { index, boolean ->
+                if (boolean) " \u2022 " + persons[index] else null
             }.filterNotNull().joinToString("\n")
     }
 

@@ -1,6 +1,8 @@
 package com.sid.app.verbpractice.ui.practice.wordsearch
 
+import android.content.Context
 import android.graphics.*
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,10 +10,12 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.*
 import com.sid.app.verbpractice.ui.practice.PracticeFragment
@@ -28,9 +32,23 @@ import kotlin.math.sqrt
  */
 class WordsearchFragment : Fragment() {
 
+    private lateinit var mContext: MainActivity
     private lateinit var wordsearchCells:Array<Array<WordsearchCell>>
     private lateinit var constraintLayout:ConstraintLayout
     private var lines = mutableListOf<FloatArray>()
+    private var wordsearchSize = 12
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            mContext = context as MainActivity
+        } catch (e: ClassCastException) {
+            throw ClassCastException(
+                (context.toString() +
+                        " must implement ChangeIndicativeTensesDialogListener")
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,9 +59,24 @@ class WordsearchFragment : Fragment() {
 
         val wordsearchCellData = (arguments?.get("wordsearch") as WordsearchParcel).wordsearchCells
 
+
+
         constraintLayout = view.container
 
-        val wordsearchRows = arrayOf(
+        wordsearchSize = when (mContext.getGridSizePreference()) {
+            0 -> 8
+            1 -> 10
+            3 -> 14
+            else -> 12
+        }
+
+        val weightParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            14.0F/wordsearchSize
+        )
+
+        val allWordsearchRows = arrayOf(
             view.wordsearch.row0,
             view.wordsearch.row1,
             view.wordsearch.row2,
@@ -59,8 +92,17 @@ class WordsearchFragment : Fragment() {
             view.wordsearch.row12,
             view.wordsearch.row13
         )
+        Array(14 - wordsearchSize) {i -> allWordsearchRows[wordsearchSize + i]}.forEach { row ->
+            row.visibility = View.GONE
+        }
+
+        val wordsearchRows = Array(wordsearchSize) {
+            allWordsearchRows[it].layoutParams = weightParams
+            allWordsearchRows[it]
+        }
+
         wordsearchCells = wordsearchRows.mapIndexed { row, it ->
-            arrayOf(
+            val allCells = arrayOf(
                 it.cell0,
                 it.cell1,
                 it.cell2,
@@ -75,7 +117,15 @@ class WordsearchFragment : Fragment() {
                 it.cell11,
                 it.cell12,
                 it.cell13
-            ).mapIndexed { index, textView -> WordsearchCell(textView, row, index) }.toTypedArray()
+            )
+//            it.row.weightSum = wordsearchSize.toFloat()
+            Array(14 - wordsearchSize) {i -> allCells[wordsearchSize + i]}.forEach { cell ->
+                cell.visibility = View.GONE
+            }
+            Array(wordsearchSize) {i ->
+                allCells[i].layoutParams = weightParams
+                allCells[i]
+            }.mapIndexed { index, textView -> WordsearchCell(textView, row, index) }.toTypedArray()
         }.toTypedArray()
 
         val transparent = ContextCompat.getColor(view.context, R.color.transparency)
@@ -94,10 +144,10 @@ class WordsearchFragment : Fragment() {
                         val yDiff = cell2.y - cell.y
                         val length = sqrt(xDiff.toFloat().pow(2) + yDiff.toFloat().pow(2)) + 1
 
-                        val x1 = (cell.x + .15F) / 14.0F
-                        val y1 = (cell.y + .15F) / 14.0F
-                        val x2 = (cell.x + length - .15F) / 14.0F
-                        val y2 = (cell.y + 1 - .15F) / 14.0F
+                        val x1 = (cell.x + .15F) / wordsearchSize
+                        val y1 = (cell.y + .15F) / wordsearchSize
+                        val x2 = (cell.x + length - .15F) / wordsearchSize
+                        val y2 = (cell.y + 1 - .15F) / wordsearchSize
 
                         lines.add(floatArrayOf(x1, y1,x2, y2, arcTan(xDiff, yDiff)))
                         repaint(view.canvas)
@@ -146,7 +196,7 @@ class WordsearchFragment : Fragment() {
         lines.forEach { (x1, y1, x2, y2, rot) ->
             val borderPath = Path()
             val rect = RectF(canvasView.width * x1, canvasView.height * y1, canvasView.width * x2, canvasView.height * y2)
-
+            Log.v("testingRadius", (canvasView.height * y2 - canvasView.height * y1).toString())
             borderPaint.color = ContextCompat.getColor(canvasView.context, when (rot) {
                 0F -> R.color.purpleb
                 45F -> R.color.redpurpleb
@@ -168,10 +218,11 @@ class WordsearchFragment : Fragment() {
                 270F -> R.color.bluegreent
                 else -> R.color.bluet
             })
-            borderPath.addRoundRect(rect, 32F, 32F, Path.Direction.CW)
+            val radius = (canvasView.height * y2 - canvasView.height * y1) / 1.98F
+            borderPath.addRoundRect(rect, radius, radius, Path.Direction.CW)
             borderPath.fillType = Path.FillType.EVEN_ODD
             canvas.save()
-            canvas.rotate(rot, canvasView.width * (x1 + .35F/14.0F), canvasView.height * (y1 + .35F/14.0F))
+            canvas.rotate(rot, canvasView.width * (x1 + .35F/wordsearchSize), canvasView.height * (y1 + .35F/wordsearchSize))
             canvas.drawPath(borderPath, borderPaint)
             canvas.drawRoundRect(rect, 32F, 32F, fillPaint)
             canvas.restore()

@@ -51,10 +51,12 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
     private var isFullConjugation = true
     private var isPortugal = true
     private var navConditionsMet = 0
+    private var wordsearchSize = 0
     private var isWordsearch = false
     private var isConjugationView = false
     private lateinit var conjugationArrayParcel: ConjugationArrayParcel
     private var singleVerb: String? = null
+    private lateinit var timer: CountDownTimer
 
 
     override val coroutineContext: CoroutineContext
@@ -85,7 +87,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
 //        (view.imageView.drawable as Animatable).start()
         val rotate = AnimationUtils.loadAnimation(view.imageView.context, R.anim.rotate_animation)
         view.imageView.animation = rotate
-        object: CountDownTimer(3000,1000) {
+        timer = object: CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
@@ -93,7 +95,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 Log.v("navConditions", "timer")
                 if (navConditionsMet == 2) {
                     if (isWordsearch) {
-                        val bundle = bundleOf("wordsearch" to Wordsearch(14, conjugationArrayParcel).convertToWordsearchParcel())
+                        val bundle = bundleOf("wordsearch" to Wordsearch(wordsearchSize, conjugationArrayParcel).convertToWordsearchParcel())
                             Navigation.findNavController(view).navigate(R.id.action_loading_to_wordsearch, bundle)
                     } else if (!isConjugationView) {
                         val bundle = bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
@@ -110,12 +112,23 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
         return view
     }
 
+    override fun onDestroy() {
+        timer.cancel()
+        super.onDestroy()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         launch {
             singleVerb = arguments?.get("verb") as String?
             isConjugationView = arguments?.get("isConjugationView") as Boolean
             isWordsearch = arguments?.get("isWordsearch") as Boolean
+            wordsearchSize = when (mContext.getGridSizePreference()) {
+                0 -> 8
+                1 -> 10
+                3 -> 14
+                else -> 12
+            }
 
             Log.v("theThing", mContext.getVerbPool().toString())
 
@@ -283,7 +296,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             Log.v("navConditions", navConditionsMet.toString())
             if (navConditionsMet == 2){
             if (isWordsearch) {
-                val bundle = bundleOf("wordsearch" to Wordsearch(14, conjugationArrayParcel).convertToWordsearchParcel())
+                val bundle = bundleOf("wordsearch" to Wordsearch(wordsearchSize, conjugationArrayParcel).convertToWordsearchParcel())
                 withContext(Dispatchers.Main){
                     Navigation.findNavController(view).navigate(R.id.action_loading_to_wordsearch, bundle)
                 }

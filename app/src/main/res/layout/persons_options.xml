@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="8dp"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:stretchColumns="*"
+    android:shrinkColumns="*">
+
+    <TableRow android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/vcCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/vc" />
+
+        <CheckBox
+            android:id="@+id/vcsCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/vcs" />
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/eleElaCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/ele_ela" />
+
+        <CheckBox
+            android:id="@+id/elesElasCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/eles_elas" />
+
+    </TableRow>
+
+    <TableRow android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/senhorCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/senhor" />
+        <CheckBox
+            android:id="@+id/senhoresCheckbox"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="2dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/senhores" />
+    </TableRow>
+</TableLayout>
