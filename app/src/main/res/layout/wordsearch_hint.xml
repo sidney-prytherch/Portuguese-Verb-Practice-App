@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:gravity="center"
+        android:padding="3dp">
+
+        <TextView
+            android:id="@+id/english_hint"
+            style="@style/BigText"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:padding="3dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/answer_button"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:padding="3dp"
+            android:layout_height="wrap_content"
+            android:text="@string/show_answer"/>
+
+        <TextView
+            android:id="@+id/answer_text"
+            style="@style/BigText"
+            android:textAlignment="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:padding="3dp"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/show_english_verb_info"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:tint="@color/black"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"/>
+
+        <ImageButton
+            android:visibility="gone"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:tint="@color/black"
+            android:id="@+id/hide_english_verb_info"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_keyboard_arrow_up_24"/>
+
+    <!--    <EditText-->
+    <!--        android:hint="@string/enter_translation"-->
+    <!--        android:id="@+id/translation"-->
+    <!--        style="@style/BigText"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_weight="4"-->
+    <!--        android:autofillHints=""-->
+    <!--        android:background="@drawable/verb_input_edittext"-->
+    <!--        android:inputType="textNoSuggestions"-->
+    <!--        android:padding="4dp" />-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/english_info"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/english_verb_info"
+            style="@style/BigText"
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:padding="3dp"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/show_portuguese_verb_info"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:tint="@color/black"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"/>
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/hide_portuguese_verb_info"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:tint="@color/black"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_keyboard_arrow_up_24"/>
+
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/portuguese_verb"
+            android:visibility="gone"
+            style="@style/BigText"
+            android:layout_width="match_parent"
+            android:padding="3dp"
+            android:layout_height="wrap_content" />
+
+</LinearLayout>

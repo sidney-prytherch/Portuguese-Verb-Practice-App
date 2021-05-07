@@ -36,132 +36,132 @@ import org.junit.Test
 
 class BottomNavigationTest {
 
-    @get:Rule var instantTaskExecutorRule = InstantTaskExecutorRule()
-
-    @get:Rule var activityTestRule = ActivityTestRule(MainActivity::class.java)
-
-    @Test
-    fun bottomNavView_clickOnAllItems() {
-        // All screens open at their first destinations
-        assertFirstScreen()
-
-        openThirdScreen()
-
-        assertThirdScreen()
-
-        openSecondScreen()
-
-        assertSecondScreen()
-
-        openFirstScreen()
-
-        assertFirstScreen()
-    }
-
-    @Test
-    fun bottomNavView_backGoesToFirstItem() {
-        // From the 2nd or 3rd screens, back takes you to the 1st.
-        openThirdScreen()
-
-        pressBack()
-
-        assertFirstScreen()
-    }
-
-    @Test(expected = NoActivityResumedException::class)
-    fun bottomNavView_backfromFirstItemExits() {
-        // From the first screen, back finishes the activity
-        assertFirstScreen()
-
-        pressBack() // This should throw NoActivityResumedException
-
-        fail() // If it doesn't throw
-    }
-
-    @Test
-    fun bottomNavView_backstackMaintained() {
-        // The back stack of any screen is maintained when returning to it
-        openThirdScreen()
-
-        onView(withContentDescription(R.string.sign_up))
-                .perform(click())
-
-        assertDeeperThirdScreen()
-
-        openFirstScreen()
-
-        // Return to 3rd
-        openThirdScreen()
-
-        // Assert it maintained the back stack
-        assertDeeperThirdScreen()
-    }
-
-    @Test
-    fun bottomNavView_registerBackRegister() {
-        openThirdScreen()
-
-        pressBack() // This is handled in a especial way in code.
-
-        openThirdScreen()
-
-        onView(withContentDescription(R.string.sign_up))
-            .perform(click())
-
-        // Assert it maintained the back stack
-        assertDeeperThirdScreen()
-    }
-
-    @Test
-    fun bottomNavView_itemReselected_goesBackToStart() {
-        openThirdScreen()
-
-        assertThirdScreen()
-
-        onView(withContentDescription(R.string.sign_up))
-            .perform(click())
-
-        assertDeeperThirdScreen()
-
-        // Reselect the current item
-        openThirdScreen()
-
-        // Verify that it popped the back stack until the start destination.
-        assertThirdScreen()
-    }
-
-    private fun assertSecondScreen() {
-        onView(allOf(withText(R.string.title_list), isDescendantOfA(withId(R.id.action_bar))))
-                .check(matches(isDisplayed()))
-    }
-
-    private fun openSecondScreen() {
-        onView(allOf(withContentDescription(R.string.title_list), isDisplayed()))
-                .perform(click())
-    }
-
-    private fun assertDeeperThirdScreen() {
-        onView(withText(R.string.done))
-                .check(matches(isDisplayed()))
-    }
-
-    private fun openFirstScreen() {
-        onView(allOf(withContentDescription(R.string.title_home), isDisplayed()))
-                .perform(click())
-    }
-
-    private fun assertFirstScreen() {
-        onView(withText(R.string.welcome))
-                .check(matches(isDisplayed()))
-    }
-
-    private fun openThirdScreen() {
-        onView(allOf(withContentDescription(R.string.title_register), isDisplayed()))
-                .perform(click())
-    }
-
-    private fun assertThirdScreen() {
-        onView(withText(R.string.select_an_avatar))
-                .check(matches(isDisplayed()))
-    }
+//    @get:Rule var instantTaskExecutorRule = InstantTaskExecutorRule()
+//
+//    @get:Rule var activityTestRule = ActivityTestRule(MainActivity::class.java)
+//
+//    @Test
+//    fun bottomNavView_clickOnAllItems() {
+//        // All screens open at their first destinations
+//        assertFirstScreen()
+//
+//        openThirdScreen()
+//
+//        assertThirdScreen()
+//
+//        openSecondScreen()
+//
+//        assertSecondScreen()
+//
+//        openFirstScreen()
+//
+//        assertFirstScreen()
+//    }
+//
+//    @Test
+//    fun bottomNavView_backGoesToFirstItem() {
+//        // From the 2nd or 3rd screens, back takes you to the 1st.
+//        openThirdScreen()
+//
+//        pressBack()
+//
+//        assertFirstScreen()
+//    }
+//
+//    @Test(expected = NoActivityResumedException::class)
+//    fun bottomNavView_backfromFirstItemExits() {
+//        // From the first screen, back finishes the activity
+//        assertFirstScreen()
+//
+//        pressBack() // This should throw NoActivityResumedException
+//
+//        fail() // If it doesn't throw
+//    }
+//
+//    @Test
+//    fun bottomNavView_backstackMaintained() {
+//        // The back stack of any screen is maintained when returning to it
+//        openThirdScreen()
+//
+//        onView(withContentDescription(R.string.sign_up))
+//                .perform(click())
+//
+//        assertDeeperThirdScreen()
+//
+//        openFirstScreen()
+//
+//        // Return to 3rd
+//        openThirdScreen()
+//
+//        // Assert it maintained the back stack
+//        assertDeeperThirdScreen()
+//    }
+//
+//    @Test
+//    fun bottomNavView_registerBackRegister() {
+//        openThirdScreen()
+//
+//        pressBack() // This is handled in a especial way in code.
+//
+//        openThirdScreen()
+//
+//        onView(withContentDescription(R.string.sign_up))
+//            .perform(click())
+//
+//        // Assert it maintained the back stack
+//        assertDeeperThirdScreen()
+//    }
+//
+//    @Test
+//    fun bottomNavView_itemReselected_goesBackToStart() {
+//        openThirdScreen()
+//
+//        assertThirdScreen()
+//
+//        onView(withContentDescription(R.string.sign_up))
+//            .perform(click())
+//
+//        assertDeeperThirdScreen()
+//
+//        // Reselect the current item
+//        openThirdScreen()
+//
+//        // Verify that it popped the back stack until the start destination.
+//        assertThirdScreen()
+//    }
+//
+//    private fun assertSecondScreen() {
+//        onView(allOf(withText(R.string.title_list), isDescendantOfA(withId(R.id.action_bar))))
+//                .check(matches(isDisplayed()))
+//    }
+//
+//    private fun openSecondScreen() {
+//        onView(allOf(withContentDescription(R.string.title_list), isDisplayed()))
+//                .perform(click())
+//    }
+//
+//    private fun assertDeeperThirdScreen() {
+//        onView(withText(R.string.done))
+//                .check(matches(isDisplayed()))
+//    }
+//
+//    private fun openFirstScreen() {
+//        onView(allOf(withContentDescription(R.string.title_home), isDisplayed()))
+//                .perform(click())
+//    }
+//
+//    private fun assertFirstScreen() {
+//        onView(withText(R.string.welcome))
+//                .check(matches(isDisplayed()))
+//    }
+//
+//    private fun openThirdScreen() {
+//        onView(allOf(withContentDescription(R.string.title_register), isDisplayed()))
+//                .perform(click())
+//    }
+//
+//    private fun assertThirdScreen() {
+//        onView(withText(R.string.select_an_avatar))
+//                .check(matches(isDisplayed()))
+//    }
 }

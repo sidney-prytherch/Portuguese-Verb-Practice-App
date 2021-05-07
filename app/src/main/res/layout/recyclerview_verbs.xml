@@ -42,9 +42,9 @@
             app:layout_constraintDimensionRatio="1"
             android:id="@+id/practiceVerb"
             style="@style/Widget.AppCompat.Button.Borderless"
+            android:tint="@color/black"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:tint="@color/black"
             android:src="@drawable/ic_outline_practice_24"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

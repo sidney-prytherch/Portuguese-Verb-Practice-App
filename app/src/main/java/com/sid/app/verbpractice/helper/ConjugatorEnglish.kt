@@ -8,6 +8,18 @@ import java.util.*
 
 object ConjugatorEnglish {
 
+    private fun getGeneralizedSubject(ptString: String): String {
+        return when (ptString) {
+            "Eu" -> "I"
+            "Tu" -> "you"
+            "Você", "Você/Ele/Ela", "A senhora", "O senhor", "Ele", "Ela" -> "(you/he/she)"
+            "Nós" -> "we"
+            "Vós" -> "you all (obsolete)"
+            "Vocês", "As senhoras", "Os senhores", "Vocês/Eles/Elas", "Eles", "Elas" -> "(you all/they)"
+            else -> ""
+        }
+    }
+
     private fun getSubject(ptString: String): String {
         return when (ptString) {
             "Eu" -> "I"
@@ -63,10 +75,20 @@ object ConjugatorEnglish {
     }
 
     fun conjugate(infinitiveUnformatted: String, verbForm: VerbForm, ptPersonStrings: Array<String>,
-        gerund: String, pastPart: String, presOne: String, presTwo: String, past: String): Array<String> {
+                          gerund: String, pastPart: String, presOne: String, presTwo: String, past: String): Array<String> {
+        return conjugateHelper(infinitiveUnformatted, verbForm, ptPersonStrings, gerund, pastPart, presOne, presTwo, past, false)
+    }
+
+    fun conjugate(infinitiveUnformatted: String, verbForm: VerbForm, ptPersonStrings: Array<String>,
+                  gerund: String, pastPart: String, presOne: String, presTwo: String, past: String, generalPronouns: Boolean): Array<String> {
+        return conjugateHelper(infinitiveUnformatted, verbForm, ptPersonStrings, gerund, pastPart, presOne, presTwo, past, generalPronouns)
+    }
+
+    private fun conjugateHelper(infinitiveUnformatted: String, verbForm: VerbForm, ptPersonStrings: Array<String>,
+        gerund: String, pastPart: String, presOne: String, presTwo: String, past: String, generalPronouns: Boolean): Array<String> {
         val infinitive = infinitiveUnformatted.toLowerCase(Locale.ROOT)
         val persons = ptPersonStrings.map { getPersonFromPtString(it) }.toTypedArray()
-        val subjectStrings = ptPersonStrings.map{ getSubject(it) }.toTypedArray()
+        val subjectStrings = ptPersonStrings.map{ if (generalPronouns) getGeneralizedSubject(it) else getSubject(it) }.toTypedArray()
         val objectStrings = ptPersonStrings.map{ getObjectPronounFromPtString(it) }.toTypedArray()
         val subjectStringsSimplified = subjectStrings.map{ it.replace(Regex("\\(.+\\)"), "").trim() }.toTypedArray()
         val objectStringsSimplified = objectStrings.map{ it.replace(Regex("\\(.+\\)"), "").trim() }.toTypedArray()

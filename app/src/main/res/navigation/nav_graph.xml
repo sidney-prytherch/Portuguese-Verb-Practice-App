@@ -21,6 +21,12 @@
         <argument
             android:name="wordsearchData"
             app:argType="com.sid.app.verbpractice.helper.WordsearchParcel"/>
+        <action
+            android:id="@+id/action_wordsearch_to_practice_start"
+            app:destination="@id/practiceStart" />
+        <action
+            android:id="@+id/action_wordsearch_to_practice_loading"
+            app:destination="@id/practice_loading" />
     </fragment>
     <fragment
         android:id="@+id/practice_loading"
@@ -86,6 +92,10 @@
             android:name="verb"
             android:defaultValue=""
             app:argType="string"/>
+        <argument
+            android:name="showRelativeResults"
+            android:defaultValue="false"
+            app:argType="boolean"/>
         <action
             android:id="@+id/action_results_to_loading"
             app:destination="@id/practice_loading"/>

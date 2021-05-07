@@ -32,7 +32,7 @@ class PracticeResultsFragment : Fragment() {
         }
 
         val results = (arguments?.get("results") as ResultArrayParcel).results.toList()
-        val singleVerb = (arguments?.get("verb") as String?)
+        val singleVerb = (arguments?.getString("verb"))
 
         val recyclerView: RecyclerView = view.resultsRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(activity)

@@ -66,7 +66,7 @@ class ResultsListAdapter(private val context: Context?) : RecyclerView.Adapter<R
             }
         }
         val formattedInputString = SpannableString(inputString)
-        if (!result.input.isBlank()) {
+        if (result.input.isNotBlank()) {
             formattedInputString.setSpan(UnderlineSpan(), inputString.length - input.length, inputString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         holder.resultsRows.input.text = formattedInputString

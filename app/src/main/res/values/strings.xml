@@ -20,6 +20,7 @@
     <string name="title_practice">Practice</string>
     <string name="title_dictionary">Dictionary</string>
     <string name="title_results">Results</string>
+    <string name="title_wordsearch">Wordsearch</string>
 
     <string name="verb_pool">Verb Pool</string>
     <string name="selected_verbs">Selected verbs</string>
@@ -44,6 +45,11 @@
     <string name="practice_mode">Practice Mode</string>
     <string name="quiz">Quiz</string>
     <string name="wordsearch">Wordsearch</string>
+
+    <string name="play_again">Play Again</string>
+    <string name="return_home">Return Home</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
 
     <string name="portugal">Portugal</string>
     <string name="brazil">Brazil</string>
@@ -104,6 +110,7 @@
     <string name="personal_infinitive">Personal Infinitive</string>
 
     <string name="search_hint">Search for verb</string>
+    <string name="enter_translation"> </string>
 
     <string name="subject_pronoun_frequency">Subject Pronoun Frequency</string>
     <string name="eu">Eu</string>

@@ -1,6 +1,5 @@
 package com.sid.app.verbpractice.ui.practice
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -80,7 +79,6 @@ class PracticeFragment : Fragment() {
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -433,9 +431,8 @@ class PracticeFragment : Fragment() {
         }
     }
 
-    @SuppressLint("InflateParams")
     private fun getDefaultCellLayout(): LinearLayout {
-        val cellLayout: LinearLayout = layoutInflater.inflate(R.layout.conjugation_cell_view, null) as LinearLayout
+        val cellLayout: LinearLayout =  View.inflate(context, R.layout.conjugation_cell_view, null) as LinearLayout // layoutInflater.inflate(R.layout.conjugation_cell_view, null) as LinearLayout
         cellLayout.ptVerbInput.addTextChangedListener {
             cellLayout.ptVerbInput.setBackgroundResource(R.drawable.verb_input_edittext)
         }

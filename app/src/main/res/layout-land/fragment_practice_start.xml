@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sid.app.verbpractice.ui.options.OptionsFragment"
+    tools:layout_editor_absoluteY="81dp">
+
+    <ScrollView
+        android:id="@+id/verbFormsScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:id="@+id/verbPool"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <TextView
+                        style="@style/BiggerText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="@string/verb_pool" />
+
+                    <RadioButton
+                        android:id="@+id/rbSelectedVerbs"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/selected_verbs" />
+
+                    <RadioButton
+                        android:id="@+id/rbTop100"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/top_100_verbs" />
+
+                    <RadioButton
+                        android:id="@+id/rbTop500"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/top_500_verbs" />
+
+                    <RadioButton
+                        android:id="@+id/rbTop2000"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/top_2000_verbs" />
+
+                    <RadioButton
+                        android:id="@+id/rbAllVerbs"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/all_verbs" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/verbTypes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <TextView
+                        style="@style/BiggerText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="@string/verb_types" />
+
+                    <CheckBox
+                        android:id="@+id/cbArVerbs"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/ar_verbs" />
+
+                    <CheckBox
+                        android:id="@+id/cbErVerbs"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/er_verbs" />
+
+                    <CheckBox
+                        android:id="@+id/cbIrVerbs"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/ir_verbs" />
+
+                    <CheckBox
+                        android:id="@+id/cbIrregVerbs"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/irreg_verbs" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/verbSubtypes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <TextView
+                        style="@style/BiggerText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="@string/verb_subtypes" />
+
+                    <CheckBox
+                        android:id="@+id/cbRegVerbs"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/regular_verbs" />
+
+                    <CheckBox
+                        android:id="@+id/cbOrthographic"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/orthographic_verbs" />
+
+                    <CheckBox
+                        android:id="@+id/cbRadical"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/radical_verbs" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/practiceType"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <TextView
+                        style="@style/BiggerText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="@string/practice_mode" />
+
+                    <RadioButton
+                        android:id="@+id/rbQuiz"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/quiz" />
+
+                    <RadioButton
+                        android:id="@+id/rbWordsearch"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wordsearch" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/startButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/start"
+                android:textSize="20sp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

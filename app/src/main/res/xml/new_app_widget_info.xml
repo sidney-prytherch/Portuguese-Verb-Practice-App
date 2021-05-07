@@ -6,7 +6,7 @@
     android:minHeight="30dp"
     android:minResizeWidth="80dp"
     android:minResizeHeight="30dp"
-    android:previewImage="@mipmap/ic_launcher"
+    android:previewImage="@mipmap/finalicon"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="3600000"
     android:widgetCategory="home_screen" />

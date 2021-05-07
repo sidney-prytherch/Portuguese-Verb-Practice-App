@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.os.bundleOf
 import androidx.fragment.app.findFragment
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.sid.app.verbpractice.MainActivity
@@ -94,10 +93,11 @@ class WordListAdapter(private val context: Context?) : RecyclerView.Adapter<Word
         return words.size
     }
 
+
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun publishResults(charSequence: CharSequence?, filterResults: FilterResults) {
-                words = filterResults.values as List<PortugueseVerb>
+                words = (filterResults.values as List<*>).filterIsInstance<PortugueseVerb>()
                 notifyDataSetChanged()
             }
 

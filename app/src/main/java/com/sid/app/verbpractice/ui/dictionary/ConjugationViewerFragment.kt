@@ -1,6 +1,5 @@
 package com.sid.app.verbpractice.ui.dictionary
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.SpannableString
@@ -61,7 +60,6 @@ class ConjugationViewerFragment : Fragment() {
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -225,9 +223,8 @@ class ConjugationViewerFragment : Fragment() {
         }
     }
 
-    @SuppressLint("InflateParams")
     private fun getDefaultCellLayout(): LinearLayout {
-        return layoutInflater.inflate(R.layout.conjugation_view, null) as LinearLayout
+        return View.inflate(context, R.layout.conjugation_view, null) as LinearLayout// layoutInflater.inflate(R.layout.conjugation_view, null, false) as LinearLayout
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

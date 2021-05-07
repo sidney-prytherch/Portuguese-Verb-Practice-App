@@ -21,12 +21,16 @@ import android.content.ComponentName
 import android.content.Intent
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sid.app.verbpractice.db.entity.PortugueseVerb
@@ -36,7 +40,6 @@ import com.sid.app.verbpractice.ui.dictionary.WordFilterFragment
 import com.sid.app.verbpractice.ui.options.*
 import com.sid.app.verbpractice.viewmodel.PortugueseVerbViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.tenses_options_subj.view.*
 
 /**
  * An activity that inflates a layout that has a [BottomNavigationView].
@@ -51,12 +54,16 @@ class MainActivity : AppCompatActivity(),
 
     private lateinit var mWordViewModel: PortugueseVerbViewModel
     private lateinit var verbSettingsManager: VerbSettingsManager
+    private var mDrawerToggle: ActionBarDrawerToggle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
+        mDrawerToggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.open, R.string.close)
+        mDrawerToggle!!.syncState()
         if (savedInstanceState == null) {
-            setupBottomNavigationBar()
+            setupNavigation()
         }
         verbSettingsManager = VerbSettingsManager(PreferenceManager.getDefaultSharedPreferences(this))
 
@@ -68,16 +75,21 @@ class MainActivity : AppCompatActivity(),
         if (savedInstanceState != null) {
             super.onRestoreInstanceState(savedInstanceState)
         }
-        setupBottomNavigationBar()
+        setupNavigation()
     }
 
     /**
      * Called on first creation and when restoring state.
      */
-    private fun setupBottomNavigationBar() {
+    private fun setupNavigation() {
         val navController = Navigation.findNavController(this, R.id.nav_host_container)
-        setupWithNavController(bottom_nav, navController)
-        setupActionBarWithNavController(this, navController)
+        bottom_nav?.setupWithNavController(navController)
+        nav_view.setupWithNavController(navController)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.practiceStart, R.id.wordsearch, R.id.practice_loading, R.id.conjugations_view, R.id.practice, R.id.practice_results, R.id.dictionary, R.id.options),
+            drawer_layout
+        )
+        setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -394,4 +406,5 @@ class MainActivity : AppCompatActivity(),
     override fun getCommonVerbValue(): Int {
         return verbSettingsManager.getInt(VerbSettingsManager.VERB_FREQUENCY, 1)
     }
+
 }

@@ -27,6 +27,7 @@
 
     <color name="background">#FAFAFA</color>
     <color name="lightGray">#EEEEEE</color>
+    <color name="word_found">#E3E3E3</color>
     <color name="transparentBackground">#80FAFAFA</color>
     <color name="disabled">#AAA</color>
     <color name="black">#000</color>
@@ -60,30 +61,76 @@
     <color name="purplet">#448e7cc3</color>
     <color name="redpurplet">#44c27ba0</color>
 
+    <color name="icon_detail">#FF000000</color>
+    <color name="icon_outline">#FF000000</color>
+    <color name="icon_us_red">#70bdec</color>
+    <color name="icon_us_white">#70bdec</color>
+    <color name="icon_us_blue">#70bdec</color>
+    <color name="icon_us_darkred">#70bdec</color>
+    <color name="icon_us_skin">#70bdec</color>
+    <color name="icon_us_hair">#70bdec</color>
+    <color name="icon_us_hat">#70bdec</color>
+    <color name="icon_br_green">#70bdec</color>
+    <color name="icon_br_blue">#70bdec</color>
+    <color name="icon_br_yellow">#70bdec</color>
+    <color name="icon_br_white">#70bdec</color>
+    <color name="icon_br_darkgreen">#70bdec</color>
+    <color name="icon_br_skin">#70bdec</color>
+    <color name="icon_br_hair">#70bdec</color>
+    <color name="icon_br_hat">#70bdec</color>
+
+<!--    <color name="icon_detail">#FF000000</color>-->
 <!--    <color name="icon_outline">#FF000000</color>-->
-<!--    <color name="icon_back">#bfbfbf</color>-->
+<!--    <color name="icon_back">#70bdec</color>-->
 <!--    <color name="icon_blue">#002776</color>-->
 <!--    <color name="icon_green">#009b3a</color>-->
 <!--    <color name="icon_yellow">#fedf00</color>-->
 <!--    <color name="icon_red">#da231c</color>-->
 <!--    <color name="icon_white">#fff</color>-->
-<!--    <color name="icon_speech">#bfbfbf</color>-->
+<!--    <color name="icon_speech1">#f7c8c6</color>-->
 <!--    <color name="icon_skin1">#cc7438</color>-->
 <!--    <color name="icon_hair1">#35211f</color>-->
+<!--    <color name="icon_speech2">#aaffc9</color>-->
 <!--    <color name="icon_skin2">#dda179</color>-->
 <!--    <color name="icon_hair2">#bf9000</color>-->
 
-    <color name="icon_outline">#18294C</color>
-    <color name="icon_back">#FBFAF6</color>
-    <color name="icon_blue">#233B6B</color>
-    <color name="icon_green">#0c5c2e</color>
-    <color name="icon_yellow">#F6E82F</color>
-    <color name="icon_red">#E31F29</color>
-    <color name="icon_white">#fff</color>
-    <color name="icon_speech">#FBFAF6</color>
-    <color name="icon_skin1">#FBFAF6</color>
-    <color name="icon_hair1">#F6E82F</color>
-    <color name="icon_skin2">#FBFAF6</color>
-    <color name="icon_hair2">#F6E82F</color>
+<!--    <color name="icon_speech2">#bababa</color>-->
+<!--    <color name="icon_speech1">#bababa</color>-->
+
+<!--    <color name="icon_back">#70bdec</color>-->
+<!--    <color name="icon_detail">#18294C</color>-->
+<!--    <color name="icon_outline">#18294C</color>-->
+<!--    <color name="icon_blue">#233B6B</color>-->
+<!--    <color name="icon_green">#0c5c2e</color>-->
+<!--    <color name="icon_yellow">#F6E82F</color>-->
+<!--    <color name="icon_red">#E31F29</color>-->
+<!--    <color name="icon_white">#fff</color>-->
+<!--    <color name="icon_skin1">#FBFAF6</color>-->
+<!--    <color name="icon_hair1">#9C5E10</color>-->
+<!--    <color name="icon_skin2">#FBFAF6</color>-->
+<!--    <color name="icon_hair2">#F6E82F</color>-->
+
+<!--    <color name="icon_speech1">#f8c9cb</color>-->
+<!--    <color name="icon_speech2">#a9f3c8</color>-->
+
+
+
+<!--    <color name="icon_outline">#3E40BE</color>-->
+<!--    <color name="icon_blue">#233B6B</color>-->
+
+<!--        <color name="icon_detail">#0E3A93</color>-->
+<!--        <color name="icon_outline">#0E3A93</color>-->
+<!--        <color name="icon_back">#222</color>-->
+<!--        <color name="icon_blue">#2353B3</color>-->
+<!--        <color name="icon_green">#009b3a</color>-->
+<!--        <color name="icon_yellow">#fedf00</color>-->
+<!--        <color name="icon_red">#da231c</color>-->
+<!--        <color name="icon_white">#fff</color>-->
+<!--        <color name="icon_speech1">#f7c8c6</color>-->
+<!--        <color name="icon_skin1">#cc7438</color>-->
+<!--        <color name="icon_hair1">#35211f</color>-->
+<!--        <color name="icon_speech2">#aaffc9</color>-->
+<!--        <color name="icon_skin2">#dda179</color>-->
+<!--        <color name="icon_hair2">#bf9000</color>-->
 
 </resources>

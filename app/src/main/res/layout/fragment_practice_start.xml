@@ -34,7 +34,6 @@
             android:layout_marginEnd="10dp"
             android:stretchColumns="*">
 
-
                 <TableRow
                     android:layout_height="match_parent"
                     android:layout_width="0dp">
@@ -45,7 +44,6 @@
                     android:text="@string/verb_pool"
                     android:layout_span="2" />
             </TableRow>
-
 
                 <TableRow
                     android:layout_height="match_parent"

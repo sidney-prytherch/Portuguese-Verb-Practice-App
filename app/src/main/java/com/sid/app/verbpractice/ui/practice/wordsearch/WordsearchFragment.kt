@@ -4,25 +4,38 @@ import android.content.Context
 import android.graphics.*
 import android.opengl.Visibility
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.*
 import com.sid.app.verbpractice.ui.practice.PracticeFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.conjugation_cell_view.view.*
+import kotlinx.android.synthetic.main.fragment_practice_start.view.*
 import kotlinx.android.synthetic.main.fragment_wordsearch.view.*
+import kotlinx.android.synthetic.main.wordsearch_hint.view.*
 import kotlinx.android.synthetic.main.fragment_wordsearch_grid.view.*
 import kotlinx.android.synthetic.main.fragment_wordsearch_row.view.*
+import kotlinx.android.synthetic.main.wordsearch_hint.*
+import java.util.*
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -32,8 +45,15 @@ import kotlin.math.sqrt
  */
 class WordsearchFragment : Fragment() {
 
+
     private lateinit var mContext: MainActivity
+    private lateinit var hintsLinearLayout: LinearLayout
+    private lateinit var continueButtons: Array<Button>
+    private lateinit var wordAtIndexIsPlaced: BooleanArray
+    private lateinit var separationViews: Array<View>
+    private lateinit var hintViews: Array<View>
     private lateinit var wordsearchCells:Array<Array<WordsearchCell>>
+    private lateinit var wordCoordinates:Array<Pair<Pair<Int, Int>, Pair<Int, Int>>>
     private lateinit var constraintLayout:ConstraintLayout
     private var lines = mutableListOf<FloatArray>()
     private var wordsearchSize = 12
@@ -50,6 +70,23 @@ class WordsearchFragment : Fragment() {
         }
     }
 
+    private fun placeWord(index: Int) {
+        wordAtIndexIsPlaced[index] = true
+        hintViews[index].answer_button.visibility = View.GONE
+        hintViews[index].answer_text.visibility = View.VISIBLE
+        hintViews[index].answer_text.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+        hintViews[index].setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.word_found))
+        hintsLinearLayout.getChildAt(hintsLinearLayout.size - 1).visibility = View.VISIBLE
+        hintsLinearLayout.removeView(hintViews[index])
+        hintsLinearLayout.addView(hintViews[index])
+        hintsLinearLayout.removeView(separationViews[index])
+        separationViews[index].visibility = View.GONE
+        hintsLinearLayout.addView(separationViews[index])
+        if (!wordAtIndexIsPlaced.contains(false)) {
+            continueButtons.forEach { it.visibility = View.VISIBLE }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -57,9 +94,86 @@ class WordsearchFragment : Fragment() {
         var previouslyClickedCell: WordsearchCell? = null
         val view = inflater.inflate(R.layout.fragment_wordsearch, container, false)
 
-        val wordsearchCellData = (arguments?.get("wordsearch") as WordsearchParcel).wordsearchCells
+        (activity as MainActivity?)?.supportActionBar?.setTitle(R.string.title_wordsearch)
 
+        hintsLinearLayout = view.wordsearch_hints
 
+        val wordsearchParcel = (arguments?.get("wordsearch") as WordsearchParcel)
+        val hints = wordsearchParcel.wordsearchHints
+        val words = wordsearchParcel.wordsearchWords
+        val ptInfinitives = wordsearchParcel.wordsearchPtInfinitives
+        val enTranslations = wordsearchParcel.wordsearchEnTranslations
+        val coordinates = wordsearchParcel.wordsearchCoordinates.toList()
+        val letters = wordsearchParcel.wordsearchLetters
+
+        wordAtIndexIsPlaced = BooleanArray(hints.size) {false}
+        val defaultView = View(context)
+        hintViews = Array(hints.size) {defaultView}
+        separationViews = Array(hints.size) {defaultView}
+        continueButtons = arrayOf(view.play_again, view.return_home)
+
+        wordCoordinates = coordinates.chunked(4).map { (startX, startY, endX, endY) -> (startX to startY) to (endX to endY) }.toTypedArray()
+
+//        val hints = wordsearchCellData[0][0].hints.filterNotNull()
+//        val words = wordsearchCellData[0][0].words.filterNotNull()
+//        val ptInfinitives = wordsearchCellData[0][0].ptInfinitives.filterNotNull()
+//        val enTranslations = wordsearchCellData[0][0].enTranslations.filterNotNull()
+
+        //val inflater = requireActivity().layoutInflater
+        for (index in hints.indices) {
+
+            var finalHint = enTranslations[index]
+            val hintView = View.inflate(context, R.layout.wordsearch_hint, null) as View
+            hintViews[index] = hintView
+            val formattedEnglishConjugation = SpannableString(enTranslations[index].replace("<", "").replace(">", ""))
+            while (finalHint.indexOf("<") != -1) {
+                val start = finalHint.indexOf("<")
+                val end = finalHint.indexOf(">") - 1
+                formattedEnglishConjugation.setSpan(UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                finalHint = finalHint.replaceFirst("<", "").replaceFirst(">", "")
+            }
+            hintView.english_verb_info.text = hints[index]
+            hintView.portuguese_verb.text = ptInfinitives[index]
+            hintView.english_hint.text = formattedEnglishConjugation
+            hintView.answer_text.text = words[index]
+
+            hintView.answer_button.setOnClickListener {
+                it.visibility = View.GONE
+                hintView.answer_text.visibility = View.VISIBLE
+            }
+            hintView.show_english_verb_info.setOnClickListener {
+                hintView.english_info.visibility = View.VISIBLE
+                it.visibility = View.GONE
+                hintView.hide_english_verb_info.visibility = View.VISIBLE
+            }
+            hintView.hide_english_verb_info.setOnClickListener {
+                hintView.portuguese_verb.visibility = View.GONE
+                it.visibility = View.GONE
+                hintView.show_english_verb_info.visibility = View.VISIBLE
+                hintView.english_info.visibility = View.GONE
+                hintView.hide_portuguese_verb_info.visibility = View.GONE
+                hintView.show_portuguese_verb_info.visibility = View.VISIBLE
+            }
+            hintView.show_portuguese_verb_info.setOnClickListener {
+                hintView.portuguese_verb.visibility = View.VISIBLE
+                it.visibility = View.GONE
+                hintView.hide_portuguese_verb_info.visibility = View.VISIBLE
+            }
+            hintView.hide_portuguese_verb_info.setOnClickListener {
+                hintView.portuguese_verb.visibility = View.GONE
+                it.visibility = View.GONE
+                hintView.show_portuguese_verb_info.visibility = View.VISIBLE
+
+            }
+            view.wordsearch_hints.addView(hintView)
+
+            val divider =  View.inflate(context, R.layout.divider_view, null)
+            view.wordsearch_hints.addView(divider)
+            separationViews[index] = divider
+            if (index == hints.size - 1) {
+                divider.visibility = View.GONE
+            }
+        }
 
         constraintLayout = view.container
 
@@ -133,23 +247,39 @@ class WordsearchFragment : Fragment() {
 
         //val wordsearch = Wordsearch(14, arrayOf(""))
 
-        wordsearchCells.forEachIndexed { y, row ->
-            row.forEachIndexed { x, cell ->
+        view.return_home.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_wordsearch_to_practice_start)
+        }
+
+        view.play_again.setOnClickListener {
+            val bundle = bundleOf("isWordsearch" to true)
+            Navigation.findNavController(view).navigate(R.id.action_wordsearch_to_practice_loading, bundle)
+        }
+
+        wordsearchCells.forEachIndexed { i, row ->
+            row.forEachIndexed { j, cell ->
+                cell.view.text = letters[i * wordsearchSize + j].toString()// wordsearchCellData[i][j].letter.toString()
                 //cell.node = wordsearch.ws[y][x]
                 cell.view.setOnClickListener {clickedCellView ->
                     val setToNull = previouslyClickedCell != null
                     val cell2 = previouslyClickedCell
-                    if (cell2 != null && cellsFormLine(cell, cell2)) {// && cell.node.isRelatedTo(cell2.node)) {
-                        val xDiff = cell2.x - cell.x
-                        val yDiff = cell2.y - cell.y
+                    val indexOfCoordPair = indexOfCoordPair(cell, cell2)
+                    val coordsAreReversed = indexOfCoordPair < 0
+                    val modifiedCoordIndex = abs(indexOfCoordPair) - 1
+                    if (cell2 != null && cellsFormLine(cell, cell2) && indexOfCoordPair != wordCoordinates.size + 1 && !wordAtIndexIsPlaced[modifiedCoordIndex]) {// && cell.node.isRelatedTo(cell2.node)) {
+                        val firstCell = if (coordsAreReversed) cell2 else cell
+                        val secondCell = if (coordsAreReversed) cell else cell2
+                        placeWord(modifiedCoordIndex)
+                        val xDiff = secondCell.x - firstCell.x
+                        val yDiff = secondCell.y - firstCell.y
                         val length = sqrt(xDiff.toFloat().pow(2) + yDiff.toFloat().pow(2)) + 1
 
-                        val x1 = (cell.x + .15F) / wordsearchSize
-                        val y1 = (cell.y + .15F) / wordsearchSize
-                        val x2 = (cell.x + length - .15F) / wordsearchSize
-                        val y2 = (cell.y + 1 - .15F) / wordsearchSize
+                        val x1 = (firstCell.x + .15F) / wordsearchSize
+                        val y1 = (firstCell.y + .15F) / wordsearchSize
+                        val x2 = (firstCell.x + length - .15F) / wordsearchSize
+                        val y2 = (firstCell.y + 1 - .15F) / wordsearchSize
 
-                        lines.add(floatArrayOf(x1, y1,x2, y2, arcTan(xDiff, yDiff)))
+                        lines.add(floatArrayOf(x1, y1, x2, y2, arcTan(xDiff, yDiff)))
                         repaint(view.canvas)
                     }
                     previouslyClickedCell?.view?.setBackgroundColor(transparent)
@@ -160,13 +290,6 @@ class WordsearchFragment : Fragment() {
                         cell
                     }
                 }
-            }
-        }
-
-
-        wordsearchCells.forEachIndexed { i, row ->
-            row.forEachIndexed { j, cell ->
-                cell.view.text = wordsearchCellData[i][j].letter.toString()
             }
         }
 
@@ -235,6 +358,20 @@ class WordsearchFragment : Fragment() {
             if (from.x < to.x) 1 else if (from.x > to.x) -1 else 0,
             if (from.y < to.y) 1 else if (from.y > to.y) -1 else 0
         )
+    }
+
+    private fun indexOfCoordPair(from: WordsearchCell?, to: WordsearchCell?): Int {
+        if (from == null || to == null) {
+            return wordCoordinates.size + 1
+        }
+
+        val pair1 = (from.y to from.x)
+        val pair2 = (to.y to to.x)
+
+        val oneToTwoIndex = wordCoordinates.indexOf(pair1 to pair2) + 1
+        val twoToOneIndex = wordCoordinates.indexOf(pair2 to pair1) + 1
+
+        return if (oneToTwoIndex > 0) oneToTwoIndex else if (twoToOneIndex > 0) -1 * twoToOneIndex else wordCoordinates.size + 1
     }
 
     private fun cellsFormLine(from: WordsearchCell?, to: WordsearchCell?): Boolean {

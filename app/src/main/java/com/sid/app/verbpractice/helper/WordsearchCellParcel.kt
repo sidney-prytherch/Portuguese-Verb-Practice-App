@@ -10,5 +10,8 @@ class WordsearchCellParcel(
     val letter: Char,
     val direction: Array<Direction>,
     val relatedCellCoords: Array<Array<Int>>,
-    val hints: Array<String?>
+    val hints: Array<String?>,
+    val words: Array<String?>,
+    val ptInfinitives: Array<String?>,
+    val enTranslations: Array<String?>
 ) : Parcelable

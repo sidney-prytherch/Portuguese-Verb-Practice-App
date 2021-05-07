@@ -1,6 +1,5 @@
 package com.sid.app.verbpractice.ui.dictionary
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
@@ -30,7 +29,6 @@ class WordFilterFragment : DialogFragment() {
         }
     }
 
-    @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)

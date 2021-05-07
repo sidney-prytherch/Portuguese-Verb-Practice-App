@@ -1,6 +1,5 @@
 package com.sid.app.verbpractice.ui.options
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
@@ -29,7 +28,6 @@ class SetProgIndTensesFragment : DialogFragment() {
         }
     }
 
-    @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)

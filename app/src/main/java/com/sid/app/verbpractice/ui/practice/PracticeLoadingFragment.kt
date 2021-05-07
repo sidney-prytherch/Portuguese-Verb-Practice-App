@@ -33,6 +33,7 @@ import com.sid.app.verbpractice.db.entity.PortugueseVerb
 import com.sid.app.verbpractice.enums.Person
 import com.sid.app.verbpractice.enums.VerbForm
 import com.sid.app.verbpractice.helper.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_practice_loading.view.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -55,8 +56,10 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
     private var isWordsearch = false
     private var isConjugationView = false
     private lateinit var conjugationArrayParcel: ConjugationArrayParcel
+    private lateinit var enabledThirdPersons: BooleanArray
     private var singleVerb: String? = null
     private lateinit var timer: CountDownTimer
+    private var timerIsRunning = false
 
 
     override val coroutineContext: CoroutineContext
@@ -83,11 +86,19 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_practice_loading, container, false)
 
+        isWordsearch = arguments?.get("isWordsearch") as Boolean
+
+        if (isWordsearch) {
+            (activity as MainActivity?)?.supportActionBar?.setTitle(R.string.title_wordsearch)
+        }
 //        view.imageView.setImageResource(R.drawable.animated_logo2)
 //        (view.imageView.drawable as Animatable).start()
         val rotate = AnimationUtils.loadAnimation(view.imageView.context, R.anim.rotate_animation)
         view.imageView.animation = rotate
-        timer = object: CountDownTimer(3000, 1000) {
+
+        enabledThirdPersons = mContext.getThirdPersonSwitches()
+
+        timer = object: CountDownTimer(2100, 1000) {
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
@@ -95,7 +106,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 Log.v("navConditions", "timer")
                 if (navConditionsMet == 2) {
                     if (isWordsearch) {
-                        val bundle = bundleOf("wordsearch" to Wordsearch(wordsearchSize, conjugationArrayParcel).convertToWordsearchParcel())
+                        val bundle = bundleOf("wordsearch" to Wordsearch(wordsearchSize, conjugationArrayParcel, enabledThirdPersons, resources).convertToWordsearchParcel())
                             Navigation.findNavController(view).navigate(R.id.action_loading_to_wordsearch, bundle)
                     } else if (!isConjugationView) {
                         val bundle = bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
@@ -109,11 +120,15 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 }
             }
         }.start()
+        timerIsRunning = true
         return view
     }
 
     override fun onDestroy() {
-        timer.cancel()
+        if (timerIsRunning) {
+            timer.cancel()
+            timerIsRunning = false
+        }
         super.onDestroy()
     }
 
@@ -122,7 +137,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
         launch {
             singleVerb = arguments?.get("verb") as String?
             isConjugationView = arguments?.get("isConjugationView") as Boolean
-            isWordsearch = arguments?.get("isWordsearch") as Boolean
+
             wordsearchSize = when (mContext.getGridSizePreference()) {
                 0 -> 8
                 1 -> 10
@@ -296,7 +311,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             Log.v("navConditions", navConditionsMet.toString())
             if (navConditionsMet == 2){
             if (isWordsearch) {
-                val bundle = bundleOf("wordsearch" to Wordsearch(wordsearchSize, conjugationArrayParcel).convertToWordsearchParcel())
+                val bundle = bundleOf("wordsearch" to Wordsearch(wordsearchSize, conjugationArrayParcel, enabledThirdPersons, resources).convertToWordsearchParcel())
                 withContext(Dispatchers.Main){
                     Navigation.findNavController(view).navigate(R.id.action_loading_to_wordsearch, bundle)
                 }
@@ -317,9 +332,6 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
         }
     }
 
-    private fun generateWordsearch(): Array<CharArray> {
-        return arrayOf(charArrayOf())
-    }
 
     private fun getRandomVerbs(verbPool: Int, verbTypes: List<Int>, verbSubtypes: List<Int>) = runBlocking {
         val task = async(Dispatchers.IO) {
@@ -331,7 +343,6 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
     }
 
     private fun getRandomSelectedVerbs(verbTypes: List<Int>, verbSubtypes: List<Int>) = runBlocking {
-        Log.v("theThing", "YAS")
         val task = async(Dispatchers.IO) {
             Log.v("listCheck", verbTypes.toString())
             Log.v("listCheck", verbSubtypes.toString())

@@ -24,6 +24,9 @@ class Conjugation() {
         tense = conjugationParcel.tense
         personMap = hashMapOf(*(conjugationParcel.persons).zip(conjugationParcel.verbConjugations).toTypedArray())
         person = conjugationParcel.person
+        Log.v("parcelTest", verb)
+        Log.v("parcelTest", enVerb)
+        Log.v("parcelTest", tense.toString())
         conjugationParcel.persons.forEachIndexed { index, person ->
             Log.v("parcelTest", person.toString() + ": " + conjugationParcel.verbConjugations[index])
         }
