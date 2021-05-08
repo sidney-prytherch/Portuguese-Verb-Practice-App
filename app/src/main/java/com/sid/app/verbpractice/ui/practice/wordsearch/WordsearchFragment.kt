@@ -46,19 +46,53 @@ import kotlin.math.sqrt
  */
 class WordsearchFragment : Fragment() {
 
-
     private lateinit var mContext: MainActivity
     private lateinit var hintsLinearLayout: LinearLayout
+    private lateinit var canvas: ImageView
     private lateinit var continueButtons: Array<Button>
     private lateinit var buttonDivider: View
-    private lateinit var wordAtIndexIsPlaced: BooleanArray
+    private var placedWordsCount = -1
+    private lateinit var wordAtIndexIsPlaced: IntArray
     private lateinit var separationViews: Array<View>
     private lateinit var hintViews: Array<View>
-    private lateinit var wordsearchCells:Array<Array<WordsearchCell>>
-    private lateinit var wordCoordinates:Array<Pair<Pair<Int, Int>, Pair<Int, Int>>>
-    private lateinit var constraintLayout:ConstraintLayout
+    private lateinit var wordsearchCells: Array<Array<WordsearchCell>>
+    private lateinit var wordCoordinates: Array<Pair<Pair<Int, Int>, Pair<Int, Int>>>
+    private lateinit var constraintLayout: ConstraintLayout
     private var lines = mutableListOf<FloatArray>()
     private var wordsearchSize = 12
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putIntArray("wordAtIndexIsPlaced", wordAtIndexIsPlaced)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        wordAtIndexIsPlaced =
+            savedInstanceState?.getIntArray("wordAtIndexIsPlaced") ?: wordAtIndexIsPlaced
+        orderLoop@ for (i in wordAtIndexIsPlaced.indices) {
+            for (j in wordAtIndexIsPlaced.indices) {
+                if (wordAtIndexIsPlaced[j] == i) {
+                    placeWord(j)
+                    val xDiff = wordCoordinates[j].second.second - wordCoordinates[j].first.second
+                    val yDiff = wordCoordinates[j].second.first - wordCoordinates[j].first.first
+                    val length = sqrt(xDiff.toFloat().pow(2) + yDiff.toFloat().pow(2)) + 1
+
+                    val x1 = (wordCoordinates[j].first.second + .15F) / wordsearchSize
+                    val y1 = (wordCoordinates[j].first.first + .15F) / wordsearchSize
+                    val x2 = (wordCoordinates[j].first.second + length - .15F) / wordsearchSize
+                    val y2 = (wordCoordinates[j].first.first + 1 - .15F) / wordsearchSize
+
+                    lines.add(floatArrayOf(x1, y1, x2, y2, arcTan(xDiff, yDiff)))
+                    continue@orderLoop
+                }
+            }
+            break
+        }
+        canvas.post {
+            repaint(canvas)
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -73,18 +107,23 @@ class WordsearchFragment : Fragment() {
     }
 
     private fun placeWord(index: Int) {
-        wordAtIndexIsPlaced[index] = true
+        wordAtIndexIsPlaced[index] = ++placedWordsCount
         hintViews[index].answer_button.visibility = View.GONE
         hintViews[index].answer_text.visibility = View.VISIBLE
         hintViews[index].answer_text.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-        hintViews[index].setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.word_found))
+        hintViews[index].setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.word_found
+            )
+        )
         hintsLinearLayout.getChildAt(hintsLinearLayout.size - 1).visibility = View.VISIBLE
         hintsLinearLayout.removeView(hintViews[index])
         hintsLinearLayout.addView(hintViews[index])
         hintsLinearLayout.removeView(separationViews[index])
         separationViews[index].visibility = View.GONE
         hintsLinearLayout.addView(separationViews[index])
-        if (!wordAtIndexIsPlaced.contains(false)) {
+        if (!wordAtIndexIsPlaced.contains(-1)) {
             continueButtons.forEach { it.visibility = View.VISIBLE }
             buttonDivider.visibility = View.VISIBLE
         }
@@ -109,14 +148,16 @@ class WordsearchFragment : Fragment() {
         val coordinates = wordsearchParcel.wordsearchCoordinates.toList()
         val letters = wordsearchParcel.wordsearchLetters
 
-        wordAtIndexIsPlaced = BooleanArray(hints.size) {false}
+        wordAtIndexIsPlaced = IntArray(hints.size) { -1 }
         val defaultView = View(context)
-        hintViews = Array(hints.size) {defaultView}
-        separationViews = Array(hints.size) {defaultView}
+        hintViews = Array(hints.size) { defaultView }
+        separationViews = Array(hints.size) { defaultView }
         continueButtons = arrayOf(view.play_again, view.return_home)
         buttonDivider = view.button_divider
 
-        wordCoordinates = coordinates.chunked(4).map { (startX, startY, endX, endY) -> (startX to startY) to (endX to endY) }.toTypedArray()
+        wordCoordinates = coordinates.chunked(4)
+            .map { (startX, startY, endX, endY) -> (startX to startY) to (endX to endY) }
+            .toTypedArray()
 
 //        val hints = wordsearchCellData[0][0].hints.filterNotNull()
 //        val words = wordsearchCellData[0][0].words.filterNotNull()
@@ -129,11 +170,17 @@ class WordsearchFragment : Fragment() {
             var finalHint = enTranslations[index]
             val hintView = View.inflate(context, R.layout.wordsearch_hint, null) as View
             hintViews[index] = hintView
-            val formattedEnglishConjugation = SpannableString(enTranslations[index].replace("<", "").replace(">", ""))
+            val formattedEnglishConjugation =
+                SpannableString(enTranslations[index].replace("<", "").replace(">", ""))
             while (finalHint.indexOf("<") != -1) {
                 val start = finalHint.indexOf("<")
                 val end = finalHint.indexOf(">") - 1
-                formattedEnglishConjugation.setSpan(UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                formattedEnglishConjugation.setSpan(
+                    UnderlineSpan(),
+                    start,
+                    end,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
                 finalHint = finalHint.replaceFirst("<", "").replaceFirst(">", "")
             }
             hintView.english_verb_info.text = hints[index]
@@ -171,13 +218,15 @@ class WordsearchFragment : Fragment() {
             }
             view.wordsearch_hints.addView(hintView)
 
-            val divider =  View.inflate(context, R.layout.wordsearch_hint_divider_view, null)
+            val divider = View.inflate(context, R.layout.wordsearch_hint_divider_view, null)
             view.wordsearch_hints.addView(divider)
             separationViews[index] = divider
             if (index == hints.size - 1) {
                 divider.visibility = View.GONE
             }
         }
+
+        canvas = view.canvas
 
         constraintLayout = view.container
 
@@ -191,7 +240,7 @@ class WordsearchFragment : Fragment() {
         val weightParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT,
-            14.0F/wordsearchSize
+            14.0F / wordsearchSize
         )
 
         val allWordsearchRows = arrayOf(
@@ -210,7 +259,7 @@ class WordsearchFragment : Fragment() {
             view.wordsearch.row12,
             view.wordsearch.row13
         )
-        Array(14 - wordsearchSize) {i -> allWordsearchRows[wordsearchSize + i]}.forEach { row ->
+        Array(14 - wordsearchSize) { i -> allWordsearchRows[wordsearchSize + i] }.forEach { row ->
             row.visibility = View.GONE
         }
 
@@ -237,10 +286,10 @@ class WordsearchFragment : Fragment() {
                 it.cell13
             )
 //            it.row.weightSum = wordsearchSize.toFloat()
-            Array(14 - wordsearchSize) {i -> allCells[wordsearchSize + i]}.forEach { cell ->
+            Array(14 - wordsearchSize) { i -> allCells[wordsearchSize + i] }.forEach { cell ->
                 cell.visibility = View.GONE
             }
-            Array(wordsearchSize) {i ->
+            Array(wordsearchSize) { i ->
                 allCells[i].layoutParams = weightParams
                 allCells[i]
             }.mapIndexed { index, textView -> WordsearchCell(textView, row, index) }.toTypedArray()
@@ -257,20 +306,26 @@ class WordsearchFragment : Fragment() {
 
         view.play_again.setOnClickListener {
             val bundle = bundleOf("isWordsearch" to true)
-            Navigation.findNavController(view).navigate(R.id.action_wordsearch_to_practice_loading, bundle)
+            Navigation.findNavController(view)
+                .navigate(R.id.action_wordsearch_to_practice_loading, bundle)
         }
 
         wordsearchCells.forEachIndexed { i, row ->
             row.forEachIndexed { j, cell ->
-                cell.view.text = letters[i * wordsearchSize + j].toString()// wordsearchCellData[i][j].letter.toString()
+                cell.view.text =
+                    letters[i * wordsearchSize + j].toString()// wordsearchCellData[i][j].letter.toString()
                 //cell.node = wordsearch.ws[y][x]
-                cell.view.setOnClickListener {clickedCellView ->
+                cell.view.setOnClickListener { clickedCellView ->
                     val setToNull = previouslyClickedCell != null
                     val cell2 = previouslyClickedCell
                     val indexOfCoordPair = indexOfCoordPair(cell, cell2)
                     val coordsAreReversed = indexOfCoordPair < 0
                     val modifiedCoordIndex = abs(indexOfCoordPair) - 1
-                    if (cell2 != null && cellsFormLine(cell, cell2) && indexOfCoordPair != wordCoordinates.size + 1 && !wordAtIndexIsPlaced[modifiedCoordIndex]) {// && cell.node.isRelatedTo(cell2.node)) {
+                    if (cell2 != null && cellsFormLine(
+                            cell,
+                            cell2
+                        ) && indexOfCoordPair != wordCoordinates.size + 1 && wordAtIndexIsPlaced[modifiedCoordIndex] == -1
+                    ) {// && cell.node.isRelatedTo(cell2.node)) {
                         val firstCell = if (coordsAreReversed) cell2 else cell
                         val secondCell = if (coordsAreReversed) cell else cell2
                         placeWord(modifiedCoordIndex)
@@ -284,7 +339,7 @@ class WordsearchFragment : Fragment() {
                         val y2 = (firstCell.y + 1 - .15F) / wordsearchSize
 
                         lines.add(floatArrayOf(x1, y1, x2, y2, arcTan(xDiff, yDiff)))
-                        repaint(view.canvas)
+                        repaint(canvas)
                     }
                     previouslyClickedCell?.view?.setBackgroundColor(transparent)
                     previouslyClickedCell = if (setToNull) {
@@ -306,12 +361,13 @@ class WordsearchFragment : Fragment() {
         return view
     }
 
-    private fun avg(a: Float, b: Float) : Float {
+    private fun avg(a: Float, b: Float): Float {
         return (a + b) / 2
     }
 
     private fun repaint(canvasView: ImageView) {
-        val bitmap = Bitmap.createBitmap(canvasView.width, canvasView.height, Bitmap.Config.ARGB_8888)
+        val bitmap =
+            Bitmap.createBitmap(canvasView.width, canvasView.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         val fillPaint = Paint()
         val borderPaint = Paint()
@@ -322,34 +378,47 @@ class WordsearchFragment : Fragment() {
         fillPaint.isAntiAlias = true
         lines.forEach { (x1, y1, x2, y2, rot) ->
             val borderPath = Path()
-            val rect = RectF(canvasView.width * x1, canvasView.height * y1, canvasView.width * x2, canvasView.height * y2)
+            val rect = RectF(
+                canvasView.width * x1,
+                canvasView.height * y1,
+                canvasView.width * x2,
+                canvasView.height * y2
+            )
             Log.v("testingRadius", (canvasView.height * y2 - canvasView.height * y1).toString())
-            borderPaint.color = ContextCompat.getColor(canvasView.context, when (rot) {
-                0F -> R.color.purpleb
-                45F -> R.color.redpurpleb
-                90F -> R.color.redb
-                135F -> R.color.orangeb
-                180F -> R.color.yellowb
-                225F -> R.color.greenb
-                270F -> R.color.bluegreenb
-                else -> R.color.blueb
-            })
+            borderPaint.color = ContextCompat.getColor(
+                canvasView.context, when (rot) {
+                    0F -> R.color.purpleb
+                    45F -> R.color.redpurpleb
+                    90F -> R.color.redb
+                    135F -> R.color.orangeb
+                    180F -> R.color.yellowb
+                    225F -> R.color.greenb
+                    270F -> R.color.bluegreenb
+                    else -> R.color.blueb
+                }
+            )
 
-            fillPaint.color = ContextCompat.getColor(canvasView.context, when (rot) {
-                0F -> R.color.purplet
-                45F -> R.color.redpurplet
-                90F -> R.color.redt
-                135F -> R.color.oranget
-                180F -> R.color.yellowt
-                225F -> R.color.greent
-                270F -> R.color.bluegreent
-                else -> R.color.bluet
-            })
+            fillPaint.color = ContextCompat.getColor(
+                canvasView.context, when (rot) {
+                    0F -> R.color.purplet
+                    45F -> R.color.redpurplet
+                    90F -> R.color.redt
+                    135F -> R.color.oranget
+                    180F -> R.color.yellowt
+                    225F -> R.color.greent
+                    270F -> R.color.bluegreent
+                    else -> R.color.bluet
+                }
+            )
             val radius = (canvasView.height * y2 - canvasView.height * y1) / 1.98F
             borderPath.addRoundRect(rect, radius, radius, Path.Direction.CW)
             borderPath.fillType = Path.FillType.EVEN_ODD
             canvas.save()
-            canvas.rotate(rot, canvasView.width * (x1 + .35F/wordsearchSize), canvasView.height * (y1 + .35F/wordsearchSize))
+            canvas.rotate(
+                rot,
+                canvasView.width * (x1 + .35F / wordsearchSize),
+                canvasView.height * (y1 + .35F / wordsearchSize)
+            )
             canvas.drawPath(borderPath, borderPaint)
             canvas.drawRoundRect(rect, 32F, 32F, fillPaint)
             canvas.restore()
@@ -357,7 +426,7 @@ class WordsearchFragment : Fragment() {
         canvasView.setImageBitmap(bitmap)
     }
 
-    private fun cellOrder(from: WordsearchCell, to: WordsearchCell) : IntArray {
+    private fun cellOrder(from: WordsearchCell, to: WordsearchCell): IntArray {
         return intArrayOf(
             if (from.x < to.x) 1 else if (from.x > to.x) -1 else 0,
             if (from.y < to.y) 1 else if (from.y > to.y) -1 else 0
