@@ -90,6 +90,7 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
         //Log.v("wordsearch", "???????????????????????" )
         //conjugations.forEach { conjugation -> Log.v("wordsearch", conjugation[0]) }
         var errorCount = 0
+        val lettersUsed = mutableSetOf<Char>()
         val wordList = mutableListOf<String>()
         val hintList = mutableListOf<String>()
         val ptInfinitives = mutableListOf<String>()
@@ -214,6 +215,7 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
                     }
                     // if here has been reached, a valid location has been found - add the word, and stop the loop from finding more locations
                     wordPlaced = true
+                    lettersUsed.addAll(ptWord.toCharArray().toTypedArray())
                     val (englishHint, englishTranslation) = getEnglishHint(conjugation)
                     hintList.add(englishHint)
                     enTranslations.add(englishTranslation)
@@ -239,8 +241,37 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
 //                }
             }
         }
+        val randomLetters = lettersUsed.toTypedArray()
         for (row in ws) {
             for (node in row) {
+                if (node.char == ' ') {
+                    randomLetters.shuffle()
+                    letterLoop@for (letter in randomLetters) {
+                        node.char = letter
+                        val wordsFoundInWordsearch = IntArray(wordList.size) {0}
+                        for (line in getStringLinesWithNode(node)) {
+                            for (wordIndex in 0 until wordList.size) {
+                                val word = wordList[wordIndex]
+                                val wordIsPalindrome = word == word.reversed()
+                                val wordStartIndex = line.indexOf(word)
+                                if (wordStartIndex > -1) {
+                                    wordsFoundInWordsearch[wordIndex]++
+                                }
+                                // if the word is found in the same line twice, or if it has been now found more than once in the whole wordsearch, find a new location
+                                if ((wordStartIndex > -1 && line.indexOf(
+                                        word,
+                                        wordStartIndex + 1
+                                    ) > -1) || wordsFoundInWordsearch[wordIndex] > (if (wordIsPalindrome) 2 else 1)
+                                ) {
+                                    node.char = ' '
+                                    continue@letterLoop
+                                }
+                            }
+                        }
+                        //found letter - move on
+                        break
+                    }
+                }
                 node.letter = node.char.toString()
                 ws[0][0].hints = hintList.toMutableList()
                 ws[0][0].words = wordList.toMutableList()
@@ -254,10 +285,19 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
                 wordsearchLetters = CharArray(size * size) {i -> ws[i / size][i % size].letter[0]}
             }
         }
-        Log.v("wordsearch word", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        for (word in wordList) {
-            Log.v("wordsearch word", word)
-        }
+    }
+
+    private fun getStringLinesWithNode(node: Node): Array<String> {
+        return arrayOf(
+            node.getEndNodeInDirection(Direction.NORTH).getNodeLineString(Direction.SOUTH),
+            node.getEndNodeInDirection(Direction.SOUTH).getNodeLineString(Direction.NORTH),
+            node.getEndNodeInDirection(Direction.WEST).getNodeLineString(Direction.EAST),
+            node.getEndNodeInDirection(Direction.EAST).getNodeLineString(Direction.WEST),
+            node.getEndNodeInDirection(Direction.NORTHEAST).getNodeLineString(Direction.SOUTHWEST),
+            node.getEndNodeInDirection(Direction.SOUTHWEST).getNodeLineString(Direction.NORTHEAST),
+            node.getEndNodeInDirection(Direction.NORTHWEST).getNodeLineString(Direction.SOUTHEAST),
+            node.getEndNodeInDirection(Direction.SOUTHEAST).getNodeLineString(Direction.NORTHWEST)
+        ).filter { line -> line.length >= maxWordLength }.toTypedArray()
     }
 
     private fun getLinesOfWordsearch(): Array<String> {
@@ -288,9 +328,6 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
                 )
             }
         ).map { it.flatten() }.flatten().filter { line -> line.length >= maxWordLength }.toTypedArray()
-        for (thing in a) {
-            Log.v("lineTest", thing)
-        }
 
         return a
 
@@ -347,6 +384,10 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
         var ptInfinitives = mutableListOf<String?>()
         var enTranslations = mutableListOf<String?>()
         var orientations = mutableListOf<Direction>()
+
+        fun getEndNodeInDirection(direction: Direction): Node {
+            return this.getNextNode(direction)?.getEndNodeInDirection(direction) ?: this
+        }
 
         fun lineFitsWord(direction: Direction, word: String): Boolean {
             return lineFitsWordHelper(direction, word, 0)
