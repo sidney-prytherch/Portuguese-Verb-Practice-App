@@ -118,7 +118,7 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
         //Log.v("wordsearch", "new word:" + conjugation[0]  )
             // if the word is invalid, continue (if it contains or is contained by an already used word)
             for (word in wordList) {
-                if (word.contains(ptWord) || ptWord.contains(word)) {
+                if (word.contains(ptWord) || ptWord.contains(word) || word.contains(ptWord.reversed()) || ptWord.contains(word.reversed()) ) {
                     continue@wordLoop
                 }
             }
@@ -261,8 +261,9 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
     }
 
     private fun getLinesOfWordsearch(): Array<String> {
-        return arrayOf(
-            Array(size - 1) { i ->
+        Log.v("lineTest", "hello?")
+        val a = arrayOf(
+            Array(size) { i ->
                 arrayOf(
                     ws[0][i].getNodeLineString(Direction.SOUTH),
                     ws[i][size - 1].getNodeLineString(Direction.WEST),
@@ -287,6 +288,11 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
                 )
             }
         ).map { it.flatten() }.flatten().filter { line -> line.length >= maxWordLength }.toTypedArray()
+        for (thing in a) {
+            Log.v("lineTest", thing)
+        }
+
+        return a
 
 //        return Array(size - 1) { i ->
 //            arrayOf(ws[0][i].getNodeLineString(Direction.SOUTH),

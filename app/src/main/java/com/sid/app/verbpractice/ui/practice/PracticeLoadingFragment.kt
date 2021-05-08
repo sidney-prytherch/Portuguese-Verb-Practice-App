@@ -124,12 +124,12 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
         return view
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         if (timerIsRunning) {
             timer.cancel()
             timerIsRunning = false
         }
-        super.onDestroy()
+        super.onPause()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

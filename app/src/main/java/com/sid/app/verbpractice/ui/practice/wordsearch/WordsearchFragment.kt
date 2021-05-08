@@ -30,6 +30,7 @@ import com.sid.app.verbpractice.ui.practice.PracticeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.conjugation_cell_view.view.*
 import kotlinx.android.synthetic.main.fragment_practice_start.view.*
+import kotlinx.android.synthetic.main.fragment_wordsearch.*
 import kotlinx.android.synthetic.main.fragment_wordsearch.view.*
 import kotlinx.android.synthetic.main.wordsearch_hint.view.*
 import kotlinx.android.synthetic.main.fragment_wordsearch_grid.view.*
@@ -49,6 +50,7 @@ class WordsearchFragment : Fragment() {
     private lateinit var mContext: MainActivity
     private lateinit var hintsLinearLayout: LinearLayout
     private lateinit var continueButtons: Array<Button>
+    private lateinit var buttonDivider: View
     private lateinit var wordAtIndexIsPlaced: BooleanArray
     private lateinit var separationViews: Array<View>
     private lateinit var hintViews: Array<View>
@@ -84,6 +86,7 @@ class WordsearchFragment : Fragment() {
         hintsLinearLayout.addView(separationViews[index])
         if (!wordAtIndexIsPlaced.contains(false)) {
             continueButtons.forEach { it.visibility = View.VISIBLE }
+            buttonDivider.visibility = View.VISIBLE
         }
     }
 
@@ -111,6 +114,7 @@ class WordsearchFragment : Fragment() {
         hintViews = Array(hints.size) {defaultView}
         separationViews = Array(hints.size) {defaultView}
         continueButtons = arrayOf(view.play_again, view.return_home)
+        buttonDivider = view.button_divider
 
         wordCoordinates = coordinates.chunked(4).map { (startX, startY, endX, endY) -> (startX to startY) to (endX to endY) }.toTypedArray()
 
@@ -167,7 +171,7 @@ class WordsearchFragment : Fragment() {
             }
             view.wordsearch_hints.addView(hintView)
 
-            val divider =  View.inflate(context, R.layout.divider_view, null)
+            val divider =  View.inflate(context, R.layout.wordsearch_hint_divider_view, null)
             view.wordsearch_hints.addView(divider)
             separationViews[index] = divider
             if (index == hints.size - 1) {

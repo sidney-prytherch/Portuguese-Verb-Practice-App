@@ -514,6 +514,7 @@
                         android:text="@string/time_spinner_label"/>
                     <Spinner
                         style="@style/BigText"
+                        android:backgroundTint="@color/black"
                         android:id="@+id/timeSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"/>
@@ -535,6 +536,7 @@
                         android:text="@string/count_spinner_label"/>
                     <Spinner
                         style="@style/BigText"
+                        android:backgroundTint="@color/black"
                         android:id="@+id/countSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"/>
@@ -579,6 +581,7 @@
                         android:text="@string/size"/>
                     <Spinner
                         style="@style/BigText"
+                        android:backgroundTint="@color/black"
                         android:id="@+id/wordsearchSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"/>

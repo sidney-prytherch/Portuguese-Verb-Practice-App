@@ -24,12 +24,7 @@ class PracticeResultsFragment : Fragment() {
         setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.fragment_practice_results, container, false)
 
-        val supportActionBar =  (activity as MainActivity?)?.supportActionBar
-
-        if (supportActionBar != null) {
-            supportActionBar.setTitle(R.string.title_results)
-            supportActionBar.setHomeAsUpIndicator(null)
-        }
+        (activity as MainActivity?)?.supportActionBar?.setTitle(R.string.title_results)
 
         val results = (arguments?.get("results") as ResultArrayParcel).results.toList()
         val singleVerb = (arguments?.getString("verb"))

@@ -31,7 +31,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/return_home"
+        app:layout_constraintBottom_toTopOf="@+id/button_divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/wordsearch">
@@ -43,6 +43,16 @@
             android:orientation="vertical" />
 
     </ScrollView>
+
+    <View
+        android:visibility="gone"
+        android:id="@+id/button_divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/lightGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/return_home"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         style="@style/Widget.AppCompat.Button.Colored"

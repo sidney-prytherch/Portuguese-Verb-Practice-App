@@ -57,10 +57,7 @@ class DictionaryFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        val actionBar = mainActivity.supportActionBar
-        if (actionBar != null) {
-            actionBar.elevation = 0f
-        }
+        mainActivity.supportActionBar?.elevation = 0f
         return inflater.inflate(R.layout.fragment_dictionary, container, false)
     }
 
