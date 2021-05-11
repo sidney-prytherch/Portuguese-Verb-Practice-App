@@ -51,13 +51,13 @@ class WordsearchFragment : Fragment() {
     private lateinit var canvas: ImageView
     private lateinit var continueButtons: Array<Button>
     private lateinit var buttonDivider: View
-    private var placedWordsCount = -1
     private lateinit var wordAtIndexIsPlaced: IntArray
     private lateinit var separationViews: Array<View>
     private lateinit var hintViews: Array<View>
     private lateinit var wordsearchCells: Array<Array<WordsearchCell>>
     private lateinit var wordCoordinates: Array<Pair<Pair<Int, Int>, Pair<Int, Int>>>
     private lateinit var constraintLayout: ConstraintLayout
+    private var placedWordsCount = -1
     private var lines = mutableListOf<FloatArray>()
     private var wordsearchSize = 12
 
@@ -74,16 +74,14 @@ class WordsearchFragment : Fragment() {
             for (j in wordAtIndexIsPlaced.indices) {
                 if (wordAtIndexIsPlaced[j] == i) {
                     placeWord(j)
-                    val xDiff = wordCoordinates[j].second.second - wordCoordinates[j].first.second
-                    val yDiff = wordCoordinates[j].second.first - wordCoordinates[j].first.first
-                    val length = sqrt(xDiff.toFloat().pow(2) + yDiff.toFloat().pow(2)) + 1
-
-                    val x1 = (wordCoordinates[j].first.second + .15F) / wordsearchSize
-                    val y1 = (wordCoordinates[j].first.first + .15F) / wordsearchSize
-                    val x2 = (wordCoordinates[j].first.second + length - .15F) / wordsearchSize
-                    val y2 = (wordCoordinates[j].first.first + 1 - .15F) / wordsearchSize
-
-                    lines.add(floatArrayOf(x1, y1, x2, y2, arcTan(xDiff, yDiff)))
+                    lines.add(
+                        getLine(
+                            wordCoordinates[j].first.second,
+                            wordCoordinates[j].first.first,
+                            wordCoordinates[j].second.second,
+                            wordCoordinates[j].second.first
+                        )
+                    )
                     continue@orderLoop
                 }
             }
@@ -92,6 +90,19 @@ class WordsearchFragment : Fragment() {
         canvas.post {
             repaint(canvas)
         }
+    }
+
+    private fun getLine(a1: Int, b1: Int, a2: Int, b2: Int): FloatArray {
+        val xDiff = a2 - a1
+        val yDiff = b2 - b1
+        val length = sqrt(xDiff.toFloat().pow(2) + yDiff.toFloat().pow(2)) + 1
+
+        val x1 = (a1 + .15F) / wordsearchSize
+        val y1 = (b1 + .15F) / wordsearchSize
+        val x2 = (a1 + length - .15F) / wordsearchSize
+        val y2 = (b1 + 1 - .15F) / wordsearchSize
+
+        return floatArrayOf(x1, y1, x2, y2, arcTan(xDiff, yDiff))
     }
 
     override fun onAttach(context: Context) {
@@ -329,16 +340,7 @@ class WordsearchFragment : Fragment() {
                         val firstCell = if (coordsAreReversed) cell2 else cell
                         val secondCell = if (coordsAreReversed) cell else cell2
                         placeWord(modifiedCoordIndex)
-                        val xDiff = secondCell.x - firstCell.x
-                        val yDiff = secondCell.y - firstCell.y
-                        val length = sqrt(xDiff.toFloat().pow(2) + yDiff.toFloat().pow(2)) + 1
-
-                        val x1 = (firstCell.x + .15F) / wordsearchSize
-                        val y1 = (firstCell.y + .15F) / wordsearchSize
-                        val x2 = (firstCell.x + length - .15F) / wordsearchSize
-                        val y2 = (firstCell.y + 1 - .15F) / wordsearchSize
-
-                        lines.add(floatArrayOf(x1, y1, x2, y2, arcTan(xDiff, yDiff)))
+                        lines.add(getLine(firstCell.x, firstCell.y, secondCell.x, secondCell.y))
                         repaint(canvas)
                     }
                     previouslyClickedCell?.view?.setBackgroundColor(transparent)

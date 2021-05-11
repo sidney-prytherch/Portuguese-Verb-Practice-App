@@ -11,8 +11,8 @@ object ConjugatorEnglish {
     private fun getGeneralizedSubject(ptString: String): String {
         return when (ptString) {
             "Eu" -> "I"
-            "Tu" -> "you"
-            "Você", "Você/Ele/Ela", "A senhora", "O senhor", "Ele", "Ela" -> "(you/he/she)"
+            "Tu", "Você" -> "you"
+            "Você/Ele/Ela", "A senhora", "O senhor", "Ele", "Ela" -> "(you/he/she)"
             "Nós" -> "we"
             "Vós" -> "you all (obsolete)"
             "Vocês", "As senhoras", "Os senhores", "Vocês/Eles/Elas", "Eles", "Elas" -> "(you all/they)"
@@ -74,35 +74,81 @@ object ConjugatorEnglish {
         }
     }
 
-    fun conjugate(infinitiveUnformatted: String, verbForm: VerbForm, ptPersonStrings: Array<String>,
-                          gerund: String, pastPart: String, presOne: String, presTwo: String, past: String): Array<String> {
-        return conjugateHelper(infinitiveUnformatted, verbForm, ptPersonStrings, gerund, pastPart, presOne, presTwo, past, false)
+    fun conjugate(
+        infinitiveUnformatted: String, verbForm: VerbForm, ptPersonStrings: Array<String>,
+        gerund: String, pastPart: String, presOne: String, presTwo: String, past: String
+    ): Array<String> {
+        return conjugateHelper(
+            infinitiveUnformatted,
+            verbForm,
+            ptPersonStrings,
+            gerund,
+            pastPart,
+            presOne,
+            presTwo,
+            past,
+            false
+        )
     }
 
-    fun conjugate(infinitiveUnformatted: String, verbForm: VerbForm, ptPersonStrings: Array<String>,
-                  gerund: String, pastPart: String, presOne: String, presTwo: String, past: String, generalPronouns: Boolean): Array<String> {
-        return conjugateHelper(infinitiveUnformatted, verbForm, ptPersonStrings, gerund, pastPart, presOne, presTwo, past, generalPronouns)
+    fun conjugate(
+        infinitiveUnformatted: String,
+        verbForm: VerbForm,
+        ptPersonStrings: Array<String>,
+        gerund: String,
+        pastPart: String,
+        presOne: String,
+        presTwo: String,
+        past: String,
+        generalPronouns: Boolean
+    ): Array<String> {
+        return conjugateHelper(
+            infinitiveUnformatted,
+            verbForm,
+            ptPersonStrings,
+            gerund,
+            pastPart,
+            presOne,
+            presTwo,
+            past,
+            generalPronouns
+        )
     }
 
-    private fun conjugateHelper(infinitiveUnformatted: String, verbForm: VerbForm, ptPersonStrings: Array<String>,
-        gerund: String, pastPart: String, presOne: String, presTwo: String, past: String, generalPronouns: Boolean): Array<String> {
+    private fun conjugateHelper(
+        infinitiveUnformatted: String,
+        verbForm: VerbForm,
+        ptPersonStrings: Array<String>,
+        gerund: String,
+        pastPart: String,
+        presOne: String,
+        presTwo: String,
+        past: String,
+        generalPronouns: Boolean
+    ): Array<String> {
         val infinitive = infinitiveUnformatted.toLowerCase(Locale.ROOT)
         val persons = ptPersonStrings.map { getPersonFromPtString(it) }.toTypedArray()
-        val subjectStrings = ptPersonStrings.map{ if (generalPronouns) getGeneralizedSubject(it) else getSubject(it) }.toTypedArray()
-        val objectStrings = ptPersonStrings.map{ getObjectPronounFromPtString(it) }.toTypedArray()
-        val subjectStringsSimplified = subjectStrings.map{ it.replace(Regex("\\(.+\\)"), "").trim() }.toTypedArray()
-        val objectStringsSimplified = objectStrings.map{ it.replace(Regex("\\(.+\\)"), "").trim() }.toTypedArray()
+        val subjectStrings =
+            ptPersonStrings.map { if (generalPronouns) getGeneralizedSubject(it) else getSubject(it) }
+                .toTypedArray()
+        val objectStrings = ptPersonStrings.map { getObjectPronounFromPtString(it) }.toTypedArray()
+        val subjectStringsSimplified =
+            subjectStrings.map { it.replace(Regex("\\(.+\\)"), "").trim() }.toTypedArray()
+        val objectStringsSimplified =
+            objectStrings.map { it.replace(Regex("\\(.+\\)"), "").trim() }.toTypedArray()
         val verbData =
             if (gerund != "") VerbData(infinitive, gerund, pastPart, presOne, presTwo, past)
             else VerbData("do", "doing", "done", "do", "does", "did")
         val conjugatedVerbs = conjugateVerbForm(verbData, verbForm)
         return persons.mapIndexed { i, it ->
-            StringHelper.specialCapWords(conjugatedVerbs[it]
-                ?.replaceFirst("_", subjectStrings[i])
-                ?.replace("_", subjectStringsSimplified[i])
-                ?.replaceFirst("~", objectStrings[i])
-                ?.replace("~", objectStringsSimplified[i])
-                ?: "").replace("\\", "/")
+            StringHelper.specialCapWords(
+                conjugatedVerbs[it]
+                    ?.replaceFirst("_", subjectStrings[i])
+                    ?.replace("_", subjectStringsSimplified[i])
+                    ?.replaceFirst("~", objectStrings[i])
+                    ?.replace("~", objectStringsSimplified[i])
+                    ?: ""
+            ).replace("\\", "/")
         }.toTypedArray()
     }
 
@@ -119,7 +165,7 @@ object ConjugatorEnglish {
             }.toTypedArray()
             VerbForm.SIMP_PLUP_IND -> Array(6) { "<_ had ${verbData.pastPart}> [simp]" }
             VerbForm.SIMP_FUT_IND -> Array(6) { "<_ will ${verbData.infinitive}>" }
-            VerbForm.COND_IND -> Array(6) {"<_ would ${verbData.infinitive}> (if...)"}
+            VerbForm.COND_IND -> Array(6) { "<_ would ${verbData.infinitive}> (if...)" }
             VerbForm.FUT_IND -> getConjugatedHelper(EnglishHelper.TO_BE_PRES).map {
                 "<$it going to ${verbData.infinitive}>"
             }.toTypedArray()
@@ -164,9 +210,9 @@ object ConjugatorEnglish {
             VerbForm.FUT_PERF_SUBJ -> getConjugatedHelper(EnglishHelper.TO_HAVE_PRES).map {
                 "when <$it ${verbData.pastPart}>, (something will happen)/as soon as <$it ${verbData.pastPart}>, (something will happen)"
             }.toTypedArray()
-            VerbForm.IMP_AFF -> Array(6) {verbData.infinitive}.map { "<$it>" }.toTypedArray()
-            VerbForm.IMP_NEG -> Array(6) {verbData.infinitive}.map { "<$it>" }.toTypedArray()
-            VerbForm.PERS_INF -> Array(6) {"for <_ to ${verbData.infinitive}>"}
+            VerbForm.IMP_AFF -> Array(6) { verbData.infinitive }.map { "<$it>" }.toTypedArray()
+            VerbForm.IMP_NEG -> Array(6) { verbData.infinitive }.map { "<$it>" }.toTypedArray()
+            VerbForm.PERS_INF -> Array(6) { "for <_ to ${verbData.infinitive}>" }
         }
         return mapOf(*allPersons.zip(conjugation).toTypedArray())
     }
@@ -174,8 +220,22 @@ object ConjugatorEnglish {
     private fun getConjugatedHelper(helper: EnglishHelper): Array<String> {
         return when (helper) {
             EnglishHelper.TO_BE_PRES -> arrayOf("_ am", "_ are", "_ is", "_ are", "_ are", "_ are")
-            EnglishHelper.TO_BE_PAST -> arrayOf("_ was", "_ were", "_ was", "_ were", "_ were", "_ were")
-            EnglishHelper.TO_HAVE_PRES -> arrayOf("_ have", "_ have", "_ has", "_ have", "_ have", "_ have")
+            EnglishHelper.TO_BE_PAST -> arrayOf(
+                "_ was",
+                "_ were",
+                "_ was",
+                "_ were",
+                "_ were",
+                "_ were"
+            )
+            EnglishHelper.TO_HAVE_PRES -> arrayOf(
+                "_ have",
+                "_ have",
+                "_ has",
+                "_ have",
+                "_ have",
+                "_ have"
+            )
         }
     }
 
@@ -192,6 +252,14 @@ object ConjugatorEnglish {
             else -> Array(6) { "_ ${verbData.past}" }
         }
     }
+
     //ivate class verbData(val       TO DO                 DOING                DONE                  DO                 DOES                DID
-    private class VerbData(val infinitive: String, val gerund: String, val pastPart: String, val presOne: String, val presTwo: String, val past: String)
+    private class VerbData(
+        val infinitive: String,
+        val gerund: String,
+        val pastPart: String,
+        val presOne: String,
+        val presTwo: String,
+        val past: String
+    )
 }

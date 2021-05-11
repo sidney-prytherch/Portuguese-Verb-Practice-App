@@ -46,8 +46,8 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
 
     private lateinit var mContext: MainActivity
     var pages: Array<Array<String>> = arrayOf()
-    private var enabledVerbs:Array<String> = arrayOf()
-    private var enabledEnglishVerbs:Array<String> = arrayOf()
+    private var enabledVerbs: Array<String> = arrayOf()
+    private var enabledEnglishVerbs: Array<String> = arrayOf()
     private var enabledTenses: Array<VerbForm> = arrayOf()
     private var isFullConjugation = true
     private var isPortugal = true
@@ -98,7 +98,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
 
         enabledThirdPersons = mContext.getThirdPersonSwitches()
 
-        timer = object: CountDownTimer(2100, 1000) {
+        timer = object : CountDownTimer(2100, 1000) {
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
@@ -106,16 +106,25 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 Log.v("navConditions", "timer")
                 if (navConditionsMet == 2) {
                     if (isWordsearch) {
-                        val bundle = bundleOf("wordsearch" to Wordsearch(wordsearchSize, conjugationArrayParcel, enabledThirdPersons, resources).convertToWordsearchParcel())
-                            Navigation.findNavController(view).navigate(R.id.action_loading_to_wordsearch, bundle)
+                        val bundle = bundleOf(
+                            "wordsearch" to Wordsearch(
+                                wordsearchSize,
+                                conjugationArrayParcel,
+                                enabledThirdPersons,
+                                resources
+                            ).convertToWordsearchParcel()
+                        )
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_loading_to_wordsearch, bundle)
                     } else if (!isConjugationView) {
-                        val bundle = bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
-                            Navigation.findNavController(view)
-                                .navigate(R.id.action_loading_to_practice, bundle)
+                        val bundle =
+                            bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_loading_to_practice, bundle)
                     } else {
                         val bundle = bundleOf("conjugations" to conjugationArrayParcel)
-                            Navigation.findNavController(view)
-                                .navigate(R.id.action_loading_to_conjugations, bundle)
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_loading_to_conjugations, bundle)
                     }
                 }
             }
@@ -175,7 +184,9 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 Person.SECOND_PLUR,
                 Person.THIRD_PLUR
             )
-            var personFrequencyMap = mapOf(*allPersons.zip(personsFrequencies).toTypedArray()).filterValues { freq -> freq > 0 }
+            var personFrequencyMap = mapOf(
+                *allPersons.zip(personsFrequencies).toTypedArray()
+            ).filterValues { freq -> freq > 0 }
             //get enabled tenses
             enabledTenses = mContext.getAllTenses()
             isFullConjugation = if (isWordsearch) false else mContext.getIsFullConjugation()
@@ -214,27 +225,28 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
 
             val englishVerbMap = mapOf(*enabledVerbs.zip(enabledEnglishVerbs).toTypedArray())
 
-            val conjugatedVerbsMap = hashMapOf(*enabledVerbs.zip(conjugatedVerbs).toTypedArray()).filterValues { verb ->
-                val badTenses = mutableListOf<VerbForm>()
-                verb.forEach { (tense, conjugation) ->
-                    val badPersons = mutableListOf<Person>()
-                    conjugation.forEach { (person, conjugatedVerb) ->
-                        if (conjugatedVerb == null || person !in personFrequencyMap.keys) {
-                            badPersons += person
+            val conjugatedVerbsMap =
+                hashMapOf(*enabledVerbs.zip(conjugatedVerbs).toTypedArray()).filterValues { verb ->
+                    val badTenses = mutableListOf<VerbForm>()
+                    verb.forEach { (tense, conjugation) ->
+                        val badPersons = mutableListOf<Person>()
+                        conjugation.forEach { (person, conjugatedVerb) ->
+                            if (conjugatedVerb == null || person !in personFrequencyMap.keys) {
+                                badPersons += person
+                            }
+                        }
+                        for (badPerson in badPersons) {
+                            conjugation.remove(badPerson)
+                        }
+                        if (conjugation.isEmpty()) {
+                            badTenses += tense
                         }
                     }
-                    for (badPerson in badPersons) {
-                        conjugation.remove(badPerson)
+                    for (badTense in badTenses) {
+                        verb.remove(badTense)
                     }
-                    if (conjugation.isEmpty()) {
-                        badTenses += tense
-                    }
+                    verb.isNotEmpty()
                 }
-                for (badTense in badTenses) {
-                    verb.remove(badTense)
-                }
-                verb.isNotEmpty()
-            }
 
             if (conjugatedVerbsMap.isEmpty()) {
                 return@launch
@@ -252,6 +264,8 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                     )
                 }
             }
+
+
 
             val selectedConjugations = mutableListOf<Conjugation>()
             if (isConjugationView) {
@@ -309,47 +323,59 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             )
             navConditionsMet++
             Log.v("navConditions", navConditionsMet.toString())
-            if (navConditionsMet == 2){
-            if (isWordsearch) {
-                val bundle = bundleOf("wordsearch" to Wordsearch(wordsearchSize, conjugationArrayParcel, enabledThirdPersons, resources).convertToWordsearchParcel())
-                withContext(Dispatchers.Main){
-                    Navigation.findNavController(view).navigate(R.id.action_loading_to_wordsearch, bundle)
-                }
+            if (navConditionsMet == 2) {
+                if (isWordsearch) {
+                    val bundle = bundleOf(
+                        "wordsearch" to Wordsearch(
+                            wordsearchSize,
+                            conjugationArrayParcel,
+                            enabledThirdPersons,
+                            resources
+                        ).convertToWordsearchParcel()
+                    )
+                    withContext(Dispatchers.Main) {
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_loading_to_wordsearch, bundle)
+                    }
 
-            } else if (!isConjugationView) {
-                val bundle = bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
-                withContext(Dispatchers.Main) {
-                    Navigation.findNavController(view)
-                        .navigate(R.id.action_loading_to_practice, bundle)
-                }
-            } else {
-                val bundle = bundleOf("conjugations" to conjugationArrayParcel)
+                } else if (!isConjugationView) {
+                    val bundle =
+                        bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
+                    withContext(Dispatchers.Main) {
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_loading_to_practice, bundle)
+                    }
+                } else {
+                    val bundle = bundleOf("conjugations" to conjugationArrayParcel)
                     withContext(Dispatchers.Main) {
                         Navigation.findNavController(view)
                             .navigate(R.id.action_loading_to_conjugations, bundle)
                     }
-            }}
+                }
+            }
         }
     }
 
 
-    private fun getRandomVerbs(verbPool: Int, verbTypes: List<Int>, verbSubtypes: List<Int>) = runBlocking {
-        val task = async(Dispatchers.IO) {
-            Log.v("listCheck", verbTypes.toString())
-            Log.v("listCheck", verbSubtypes.toString())
-            mContext.getRandomVerbs(verbPool, verbTypes, verbSubtypes)
+    private fun getRandomVerbs(verbPool: Int, verbTypes: List<Int>, verbSubtypes: List<Int>) =
+        runBlocking {
+            val task = async(Dispatchers.IO) {
+                Log.v("listCheck", verbTypes.toString())
+                Log.v("listCheck", verbSubtypes.toString())
+                mContext.getRandomVerbs(verbPool, verbTypes, verbSubtypes)
+            }
+            setVerbs(task.await())
         }
-        setVerbs(task.await())
-    }
 
-    private fun getRandomSelectedVerbs(verbTypes: List<Int>, verbSubtypes: List<Int>) = runBlocking {
-        val task = async(Dispatchers.IO) {
-            Log.v("listCheck", verbTypes.toString())
-            Log.v("listCheck", verbSubtypes.toString())
-            mContext.getRandomEnabledVerbs(verbTypes, verbSubtypes)
+    private fun getRandomSelectedVerbs(verbTypes: List<Int>, verbSubtypes: List<Int>) =
+        runBlocking {
+            val task = async(Dispatchers.IO) {
+                Log.v("listCheck", verbTypes.toString())
+                Log.v("listCheck", verbSubtypes.toString())
+                mContext.getRandomEnabledVerbs(verbTypes, verbSubtypes)
+            }
+            setVerbs(task.await())
         }
-        setVerbs(task.await())
-    }
 
     private fun getVerb(verb: String) = runBlocking {
         val task = async(Dispatchers.IO) {
@@ -362,13 +388,16 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
         enabledVerbs = verbs?.map { it.verb }?.toTypedArray() ?: arrayOf()
         verbs?.forEach { Log.v("theThing", it.verb_group.toString()) }
         enabledEnglishVerbs = verbs?.map {
-            val toFly = if (it.to_fly.startsWith("to ") || it.to_fly.startsWith("To ")) it.to_fly.substring(
-                3
-            ).split(" ")[0] else it.to_fly.split(" ")[0]
+            val toFly =
+                if (it.to_fly.startsWith("to ") || it.to_fly.startsWith("To ")) it.to_fly.substring(
+                    3
+                ).split(" ")[0] else it.to_fly.split(" ")[0]
             it.main_def + "~" + it.main_def.split(";")[0].split(",")[0].replace(
                 Regex("\\(.*\\)"),
                 ""
-            ).trim() + "|" + it.fly + "|" + it.flies + "|" + it.flew + "|" + it.flown + "|" + it.flying + "|" + toFly }?.toTypedArray() ?: arrayOf()
+            )
+                .trim() + "|" + it.fly + "|" + it.flies + "|" + it.flew + "|" + it.flown + "|" + it.flying + "|" + toFly
+        }?.toTypedArray() ?: arrayOf()
     }
 
 }

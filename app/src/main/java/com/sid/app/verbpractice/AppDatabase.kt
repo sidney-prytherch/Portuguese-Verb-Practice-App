@@ -16,6 +16,7 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
+
         @Synchronized
         fun get(context: Context): AppDatabase {
             val tempInstance = INSTANCE

@@ -7,7 +7,12 @@ import android.text.style.UnderlineSpan
 import android.util.Log
 import com.sid.app.verbpractice.enums.Person
 
-class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, private val enabledThirdPersons: BooleanArray, private val resources: Resources) {
+class Wordsearch(
+    val size: Int,
+    conjugationArrayParcel: ConjugationArrayParcel,
+    private val enabledThirdPersons: BooleanArray,
+    private val resources: Resources
+) {
 
     private lateinit var wordsearchHints: Array<String>
     private lateinit var wordsearchWords: Array<String>
@@ -17,7 +22,14 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
     private lateinit var wordsearchLetters: CharArray
     private val maxWordLength = 3
     private val maxFailedWordLimit = 10
-    private val allPersons = arrayOf(Person.FIRST_SING, Person.SECOND_SING, Person.THIRD_SING, Person.FIRST_PLUR, Person.SECOND_PLUR, Person.THIRD_PLUR)
+    private val allPersons = arrayOf(
+        Person.FIRST_SING,
+        Person.SECOND_SING,
+        Person.THIRD_SING,
+        Person.FIRST_PLUR,
+        Person.SECOND_PLUR,
+        Person.THIRD_PLUR
+    )
     private val conjugations = conjugationArrayParcel.conjugations.map { conjugationParcel ->
         Conjugation(conjugationParcel)
     }
@@ -29,14 +41,14 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
     val ws = Array(size) { r -> Array(size) { c -> Node(r, c) } } // row, column
 
     val lines: Map<Direction, Array<Array<Node>>> = mapOf(
-        Direction.NORTH to Array(size) {x -> ws[size - 1][x]},
-        Direction.NORTHEAST to Array(size * 2 - 3) {n -> if (n < size - 2) ws[n + 1][0] else ws[size - 1][n - (size - 2)]},
-        Direction.EAST to Array(size) {y -> ws[y][0]},
-        Direction.SOUTHEAST to Array(size * 2 - 3) {n -> if (n < size - 2) ws[0][size - 2 - n] else ws[n - (size - 2)][0]},
-        Direction.SOUTH to Array(size) {x -> ws[0][x]},
-        Direction.SOUTHWEST to Array(size * 2 - 3) {n -> if (n < size - 2) ws[size - 2 - n][size - 1] else ws[0][size * 2 - 3 - n]},
-        Direction.WEST to Array(size) {y -> ws[y][size - 1]},
-        Direction.NORTHWEST to Array(size * 2 - 3) {n -> if (n < size - 2) ws[size - 1][n + 1] else ws[size * 2 - 3 - n][size - 1]}
+        Direction.NORTH to Array(size) { x -> ws[size - 1][x] },
+        Direction.NORTHEAST to Array(size * 2 - 3) { n -> if (n < size - 2) ws[n + 1][0] else ws[size - 1][n - (size - 2)] },
+        Direction.EAST to Array(size) { y -> ws[y][0] },
+        Direction.SOUTHEAST to Array(size * 2 - 3) { n -> if (n < size - 2) ws[0][size - 2 - n] else ws[n - (size - 2)][0] },
+        Direction.SOUTH to Array(size) { x -> ws[0][x] },
+        Direction.SOUTHWEST to Array(size * 2 - 3) { n -> if (n < size - 2) ws[size - 2 - n][size - 1] else ws[0][size * 2 - 3 - n] },
+        Direction.WEST to Array(size) { y -> ws[y][size - 1] },
+        Direction.NORTHWEST to Array(size * 2 - 3) { n -> if (n < size - 2) ws[size - 1][n + 1] else ws[size * 2 - 3 - n][size - 1] }
     ).mapValues { (direction, startNodesArray) ->
         startNodesArray.map { startNode -> startNode.getNodeLine(direction) }.toTypedArray()
     }
@@ -83,7 +95,14 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
             englishParts[3],
             true
         )
-        return arrayOf("Verb: ${englishParts[0]}\nTense: ${ConjugatorPortuguese.getVerbFormString(conjugation.tense, resources)}", englishConjugations[0])
+        return arrayOf(
+            "Verb: ${englishParts[0]}\nTense: ${
+                ConjugatorPortuguese.getVerbFormString(
+                    conjugation.tense,
+                    resources
+                )
+            }", englishConjugations[0]
+        )
     }
 
     private fun generateWordsearch() {
@@ -106,20 +125,41 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
             Direction.WEST to 6,
             Direction.NORTHWEST to 7
         )
-        val commonDirections = arrayOf(Direction.EAST, Direction.SOUTHEAST, Direction.SOUTH).map { orderedDirections[it]!! }.toTypedArray()
-        val uncommonDirections = arrayOf(Direction.NORTHEAST, Direction.SOUTHWEST).map { orderedDirections[it]!! }.toTypedArray()
-        val rareDirections = arrayOf(Direction.NORTH, Direction.WEST).map { orderedDirections[it]!! }.toTypedArray()
+        val commonDirections = arrayOf(
+            Direction.EAST,
+            Direction.SOUTHEAST,
+            Direction.SOUTH
+        ).map { orderedDirections[it]!! }.toTypedArray()
+        val uncommonDirections =
+            arrayOf(Direction.NORTHEAST, Direction.SOUTHWEST).map { orderedDirections[it]!! }
+                .toTypedArray()
+        val rareDirections =
+            arrayOf(Direction.NORTH, Direction.WEST).map { orderedDirections[it]!! }.toTypedArray()
         // val mythicRareDirections = arrayOf(Direction.NORTHWEST).map { orderedDirections[it]!! }.toTypedArray()
-        val directionsCount = IntArray(8) {0}
-        val directions = arrayOf(Direction.NORTH, Direction.NORTHEAST, Direction.EAST, Direction.SOUTHEAST, Direction.SOUTH, Direction.SOUTHWEST, Direction.WEST, Direction.NORTHWEST)
+        val directionsCount = IntArray(8) { 0 }
+        val directions = arrayOf(
+            Direction.NORTH,
+            Direction.NORTHEAST,
+            Direction.EAST,
+            Direction.SOUTHEAST,
+            Direction.SOUTH,
+            Direction.SOUTHWEST,
+            Direction.WEST,
+            Direction.NORTHWEST
+        )
 
-        wordLoop@ for (conjugation in conjugations) {
-            val ptWord = (conjugation.personMap[allPersons[conjugation.person]] ?: "").replace(" ", "").split("/")[0].toUpperCase()
+        wordLoop@ for (conjugation in conjugations.shuffled()) {
+            val ptWord =
+                (conjugation.personMap[allPersons[conjugation.person]] ?: "").replace(" ", "")
+                    .split("/")[0].toUpperCase()
             if (ptWord.length !in maxWordLength..size) continue
-        //Log.v("wordsearch", "new word:" + conjugation[0]  )
+            //Log.v("wordsearch", "new word:" + conjugation[0]  )
             // if the word is invalid, continue (if it contains or is contained by an already used word)
             for (word in wordList) {
-                if (word.contains(ptWord) || ptWord.contains(word) || word.contains(ptWord.reversed()) || ptWord.contains(word.reversed()) ) {
+                if (word.contains(ptWord) || ptWord.contains(word) || word.contains(ptWord.reversed()) || ptWord.contains(
+                        word.reversed()
+                    )
+                ) {
                     continue@wordLoop
                 }
             }
@@ -182,15 +222,16 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
                     val changedNodes = mutableListOf<Node>()
                     //ws[row][col].getNodeLineUntil(direction, conjugation[0].length).forEach { Log.v("wordsearch debug", it.letter + "," + it.row) }
                     val endNode = ws[row][col].getNodeAfterDistance(direction, ptWord.length)
-                    ws[row][col].getNodeLineUntil(direction, ptWord.length).forEachIndexed { nodeIndex, node ->
-                        if (node.char == ' ') {
-                            changedNodes.add(node)
+                    ws[row][col].getNodeLineUntil(direction, ptWord.length)
+                        .forEachIndexed { nodeIndex, node ->
+                            if (node.char == ' ') {
+                                changedNodes.add(node)
+                            }
+                            node.char = ptWord[nodeIndex]
                         }
-                        node.char = ptWord[nodeIndex]
-                    }
                     //for each row/column/diagonal or wordsearch as String, ensure each word appears only once
                     wordList.add(ptWord)
-                    val wordsFoundInWordsearch = IntArray(wordList.size) {0}
+                    val wordsFoundInWordsearch = IntArray(wordList.size) { 0 }
                     for (line in getLinesOfWordsearch()) {
                         for (wordIndex in 0 until wordList.size) {
                             val word = wordList[wordIndex]
@@ -200,7 +241,11 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
                                 wordsFoundInWordsearch[wordIndex]++
                             }
                             // if the word is found in the same line twice, or if it has been now found more than once in the whole wordsearch, find a new location
-                            if ((wordStartIndex > -1 && line.indexOf(word, wordStartIndex + 1) > -1) || wordsFoundInWordsearch[wordIndex] > (if (wordIsPalindrome) 2 else 1)) {
+                            if ((wordStartIndex > -1 && line.indexOf(
+                                    word,
+                                    wordStartIndex + 1
+                                ) > -1) || wordsFoundInWordsearch[wordIndex] > (if (wordIsPalindrome) 2 else 1)
+                            ) {
 //                                Log.v(
 //                                    "wordsearch",
 //                                    "This word was found in 2 places: $word including in the line $line"
@@ -230,7 +275,7 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
                 if (wordPlaced) {
                     continue@wordLoop
                 }
-                    //if placed, break, goto new word
+                //if placed, break, goto new word
                 //if not placed, errorCount++
                 //if errorCount > 4?, break
             }
@@ -246,9 +291,9 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
             for (node in row) {
                 if (node.char == ' ') {
                     randomLetters.shuffle()
-                    letterLoop@for (letter in randomLetters) {
+                    letterLoop@ for (letter in randomLetters) {
                         node.char = letter
-                        val wordsFoundInWordsearch = IntArray(wordList.size) {0}
+                        val wordsFoundInWordsearch = IntArray(wordList.size) { 0 }
                         for (line in getStringLinesWithNode(node)) {
                             for (wordIndex in 0 until wordList.size) {
                                 val word = wordList[wordIndex]
@@ -282,7 +327,7 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
                 wordsearchPtInfinitives = ptInfinitives.toTypedArray()
                 wordsearchEnTranslations = enTranslations.toTypedArray()
                 wordsearchCoordinates = wordCoordinates.toIntArray()
-                wordsearchLetters = CharArray(size * size) {i -> ws[i / size][i % size].letter[0]}
+                wordsearchLetters = CharArray(size * size) { i -> ws[i / size][i % size].letter[0] }
             }
         }
     }
@@ -327,7 +372,8 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
                     ws[size - 2 - i][0].getNodeLineString(Direction.NORTHEAST)
                 )
             }
-        ).map { it.flatten() }.flatten().filter { line -> line.length >= maxWordLength }.toTypedArray()
+        ).map { it.flatten() }.flatten().filter { line -> line.length >= maxWordLength }
+            .toTypedArray()
 
         return a
 
@@ -395,7 +441,11 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
 
         private fun lineFitsWordHelper(direction: Direction, word: String, position: Int): Boolean {
             return (char == ' ' || word[position] == char) &&
-                    (position == word.length - 1 || getNextNode(direction)?.lineFitsWordHelper(direction, word, position + 1) ?: true)
+                    (position == word.length - 1 || getNextNode(direction)?.lineFitsWordHelper(
+                        direction,
+                        word,
+                        position + 1
+                    ) ?: true)
         }
 
         fun getNodeLineString(direction: Direction): String {
@@ -403,16 +453,21 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
         }
 
         private fun getNodeLineStringHelper(line: String, direction: Direction): String {
-            return getNextNode(direction)?.getNodeLineStringHelper(line + char, direction) ?: line + char
+            return getNextNode(direction)?.getNodeLineStringHelper(line + char, direction)
+                ?: line + char
         }
 
         fun getNodeLine(direction: Direction): Array<Node> {
             return getNodeLineHelper(mutableListOf(), direction)
         }
 
-        private fun getNodeLineHelper(nodeList: MutableList<Node>, direction: Direction): Array<Node> {
+        private fun getNodeLineHelper(
+            nodeList: MutableList<Node>,
+            direction: Direction
+        ): Array<Node> {
             nodeList.add(this)
-            return getNextNode(direction)?.getNodeLineHelper(nodeList, direction) ?: nodeList.toTypedArray()
+            return getNextNode(direction)?.getNodeLineHelper(nodeList, direction)
+                ?: nodeList.toTypedArray()
         }
 
         fun getNodeAfterDistance(direction: Direction, length: Int): Node {
@@ -426,12 +481,17 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
             return getNodeLineUntilHelper(mutableListOf(), direction, length)
         }
 
-        private fun getNodeLineUntilHelper(nodeList: MutableList<Node>, direction: Direction, length: Int): Array<Node> {
+        private fun getNodeLineUntilHelper(
+            nodeList: MutableList<Node>,
+            direction: Direction,
+            length: Int
+        ): Array<Node> {
             nodeList.add(this)
             if (length == 1) {
                 return nodeList.toTypedArray()
             }
-            return getNextNode(direction)?.getNodeLineUntilHelper(nodeList, direction, length - 1) ?: nodeList.toTypedArray()
+            return getNextNode(direction)?.getNodeLineUntilHelper(nodeList, direction, length - 1)
+                ?: nodeList.toTypedArray()
         }
 
         fun getRelatedNodeArray(): Array<Array<Int>> {
@@ -450,7 +510,7 @@ class Wordsearch(val size: Int, conjugationArrayParcel: ConjugationArrayParcel, 
                 Direction.NORTHEAST -> Coord(col + 1, row - 1)
                 Direction.EAST -> Coord(col + 1, row)
                 Direction.SOUTHEAST -> Coord(col + 1, row + 1)
-                Direction.SOUTH ->Coord(col, row + 1)
+                Direction.SOUTH -> Coord(col, row + 1)
                 Direction.SOUTHWEST -> Coord(col - 1, row + 1)
                 Direction.WEST -> Coord(col - 1, row)
                 Direction.NORTHWEST -> Coord(col - 1, row - 1)
