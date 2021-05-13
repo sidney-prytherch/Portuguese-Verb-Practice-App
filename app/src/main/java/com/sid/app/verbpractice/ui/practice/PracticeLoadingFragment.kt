@@ -265,7 +265,16 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 }
             }
 
+            // crossword test start
 
+            val allConjugations = possibleConjugations.map { it.personMap.values.toSet() }.flatten().filterNotNull().toTypedArray()
+            allConjugations.shuffle()
+            val crossword = Crossword(allConjugations)
+            crossword.generateCrossword()
+
+
+
+            // crossword test end
 
             val selectedConjugations = mutableListOf<Conjugation>()
             if (isConjugationView) {
