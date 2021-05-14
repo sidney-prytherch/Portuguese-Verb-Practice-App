@@ -6,21 +6,18 @@
     android:weightSum="14"
     android:layout_width="match_parent"
     android:layout_height="0dp">
-    <TextView style="@style/crosswordCell" android:id="@+id/cell0"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell1"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell2"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell3"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell4"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell5"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell6"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell7"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell8"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell9"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell10"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell11"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell12"/>
-    <TextView style="@style/crosswordCell" android:id="@+id/cell13"/>
-    <!--    <TextView style="@style/crosswordCell" android:id="@+id/cell14"/>-->
-    <!--    <TextView style="@style/crosswordCell" android:id="@+id/cell15"/>-->
-    <!--    <TextView style="@style/crosswordCell" android:id="@+id/cell16"/>-->
+    <TextView style="@style/puzzleCell" android:id="@+id/cell0"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell1"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell2"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell3"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell4"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell5"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell6"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell7"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell8"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell9"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell10"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell11"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell12"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell13"/>
 </LinearLayout>

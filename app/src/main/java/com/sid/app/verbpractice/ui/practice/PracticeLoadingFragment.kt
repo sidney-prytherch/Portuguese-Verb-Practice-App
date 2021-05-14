@@ -53,7 +53,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
     private var isPortugal = true
     private var navConditionsMet = 0
     private var wordsearchSize = 0
-    private var isWordsearch = false
+    private var practiceMode = 0
     private var isConjugationView = false
     private lateinit var conjugationArrayParcel: ConjugationArrayParcel
     private lateinit var enabledThirdPersons: BooleanArray
@@ -86,13 +86,16 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_practice_loading, container, false)
 
-        isWordsearch = arguments?.get("isWordsearch") as Boolean
+        practiceMode = arguments?.get("practiceMode") as Int
 
-        if (isWordsearch) {
+        Log.v("pracMode", practiceMode.toString())
+
+        if (practiceMode == 1) {
             (activity as MainActivity?)?.supportActionBar?.setTitle(R.string.title_wordsearch)
+        } else if (practiceMode == 2) {
+            (activity as MainActivity?)?.supportActionBar?.setTitle(R.string.title_crossword)
         }
-//        view.imageView.setImageResource(R.drawable.animated_logo2)
-//        (view.imageView.drawable as Animatable).start()
+
         val rotate = AnimationUtils.loadAnimation(view.imageView.context, R.anim.rotate_animation)
         view.imageView.animation = rotate
 
@@ -105,7 +108,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                 navConditionsMet++
                 Log.v("navConditions", "timer")
                 if (navConditionsMet == 2) {
-                    if (isWordsearch) {
+                    if (practiceMode == 1) {
                         val bundle = bundleOf(
                             "wordsearch" to Wordsearch(
                                 wordsearchSize,
@@ -116,6 +119,17 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                         )
                         Navigation.findNavController(view)
                             .navigate(R.id.action_loading_to_wordsearch, bundle)
+                    } else if (practiceMode == 2) {
+                        val bundle = bundleOf(
+                            "crossword" to Crossword(
+                                wordsearchSize,
+                                conjugationArrayParcel,
+                                enabledThirdPersons,
+                                resources
+                            ).convertToCrosswordParcel()
+                        )
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_loading_to_crossword, bundle)
                     } else if (!isConjugationView) {
                         val bundle =
                             bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)
@@ -189,7 +203,11 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             ).filterValues { freq -> freq > 0 }
             //get enabled tenses
             enabledTenses = mContext.getAllTenses()
-            isFullConjugation = if (isWordsearch) false else mContext.getIsFullConjugation()
+            isFullConjugation = when (practiceMode) {
+                1 -> false
+                2 -> false
+                else -> mContext.getIsFullConjugation()
+            }
             isPortugal = mContext.getIsPortugal()
 
             if (personFrequencyMap.isEmpty()) {
@@ -267,17 +285,17 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
 
             // crossword test start
 
-            val allConjugations = possibleConjugations.map { it.personMap.values.toSet() }.flatten().filterNotNull().toTypedArray()
-            allConjugations.shuffle()
-            val crossword = Crossword(allConjugations)
-            crossword.generateCrossword()
+//            val allConjugations = possibleConjugations.map { it.personMap.values.toSet() }.flatten().filterNotNull().toTypedArray()
+//            allConjugations.shuffle()
+//            val crossword = Crossword(allConjugations)
+//            crossword.generateCrossword()
 
 
 
             // crossword test end
 
             val selectedConjugations = mutableListOf<Conjugation>()
-            if (isConjugationView) {
+            if (isConjugationView || practiceMode == 2) {
                 possibleConjugations.forEach { selectedConjugations += Conjugation(it) }
             } else if (isFullConjugation) {
                 for (i in 0 until 100) {
@@ -333,7 +351,7 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             navConditionsMet++
             Log.v("navConditions", navConditionsMet.toString())
             if (navConditionsMet == 2) {
-                if (isWordsearch) {
+                if (practiceMode == 1) {
                     val bundle = bundleOf(
                         "wordsearch" to Wordsearch(
                             wordsearchSize,
@@ -347,6 +365,17 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                             .navigate(R.id.action_loading_to_wordsearch, bundle)
                     }
 
+                } else if (practiceMode == 2) {
+                    val bundle = bundleOf(
+                        "crossword" to Crossword(
+                            wordsearchSize,
+                            conjugationArrayParcel,
+                            enabledThirdPersons,
+                            resources
+                        ).convertToCrosswordParcel()
+                    )
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_loading_to_crossword, bundle)
                 } else if (!isConjugationView) {
                     val bundle =
                         bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)

@@ -21,6 +21,7 @@ import android.content.ComponentName
 import android.content.Intent
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -86,7 +87,7 @@ class MainActivity : AppCompatActivity(),
         bottom_nav?.setupWithNavController(navController)
         nav_view.setupWithNavController(navController)
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.practiceStart, R.id.wordsearch, R.id.practice_loading, R.id.conjugations_view, R.id.practice, R.id.practice_results, R.id.dictionary, R.id.options),
+            setOf(R.id.practiceStart, R.id.wordsearch, R.id.crossword, R.id.practice_loading, R.id.conjugations_view, R.id.practice, R.id.practice_results, R.id.dictionary, R.id.options),
             drawer_layout
         )
         setupActionBarWithNavController(this, navController, appBarConfiguration)
@@ -98,6 +99,14 @@ class MainActivity : AppCompatActivity(),
 
     fun setNavBarToPractice() {
         bottom_nav.menu.findItem(R.id.practiceStart).isChecked = true
+    }
+
+    fun hideNavBar() {
+        bottom_nav.visibility = View.GONE
+    }
+
+    fun showNavBar() {
+        bottom_nav.visibility = View.VISIBLE
     }
 
     override fun onSetSimpIndTenses(dialog: DialogFragment, result: BooleanArray) {
@@ -371,12 +380,12 @@ class MainActivity : AppCompatActivity(),
         ).filter { it != 0 }
     }
 
-    fun getQuizIsDefault(): Boolean {
-        return verbSettingsManager.getBool(VerbSettingsManager.QUIZ_IS_DEFAULT, true)
+    fun getDefaultPracticeMode(): Int {
+        return verbSettingsManager.getInt(VerbSettingsManager.DEFAULT_PRACTICE_MODE, 0)
     }
 
-    fun setQuizIsDefault(quizIsDefault: Boolean) {
-        verbSettingsManager.setBool(VerbSettingsManager.QUIZ_IS_DEFAULT, quizIsDefault)
+    fun setDefaultPracticeMode(defaultPracticeMode: Int) {
+        verbSettingsManager.setInt(VerbSettingsManager.DEFAULT_PRACTICE_MODE, defaultPracticeMode)
     }
 
     fun updateWidget() {

@@ -64,7 +64,7 @@
         <item name="android:layout_marginRight">10dp</item>
     </style>
 
-    <style name="crosswordCell">
+    <style name="puzzleCell">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:text">A</item>
@@ -73,5 +73,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
     </style>
+
+
 
 </resources>

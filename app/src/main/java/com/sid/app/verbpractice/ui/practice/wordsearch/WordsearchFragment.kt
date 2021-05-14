@@ -2,7 +2,6 @@ package com.sid.app.verbpractice.ui.practice.wordsearch
 
 import android.content.Context
 import android.graphics.*
-import android.opengl.Visibility
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -22,11 +21,9 @@ import androidx.core.os.bundleOf
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.*
-import com.sid.app.verbpractice.ui.practice.PracticeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.conjugation_cell_view.view.*
 import kotlinx.android.synthetic.main.fragment_practice_start.view.*
@@ -153,7 +150,7 @@ class WordsearchFragment : Fragment() {
 
         val wordsearchParcel = (arguments?.get("wordsearch") as WordsearchParcel)
         val hints = wordsearchParcel.wordsearchHints
-        val words = wordsearchParcel.wordsearchWords
+        val answers = wordsearchParcel.wordsearchWords
         val ptInfinitives = wordsearchParcel.wordsearchPtInfinitives
         val enTranslations = wordsearchParcel.wordsearchEnTranslations
         val coordinates = wordsearchParcel.wordsearchCoordinates.toList()
@@ -197,7 +194,7 @@ class WordsearchFragment : Fragment() {
             hintView.english_verb_info.text = hints[index]
             hintView.portuguese_verb.text = ptInfinitives[index]
             hintView.english_hint.text = formattedEnglishConjugation
-            hintView.answer_text.text = words[index]
+            hintView.answer_text.text = answers[index]
 
             hintView.answer_button.setOnClickListener {
                 it.visibility = View.GONE

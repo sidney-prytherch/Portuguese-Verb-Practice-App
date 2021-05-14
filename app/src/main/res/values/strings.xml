@@ -21,6 +21,7 @@
     <string name="title_dictionary">Dictionary</string>
     <string name="title_results">Results</string>
     <string name="title_wordsearch">Wordsearch</string>
+    <string name="title_crossword">Crossword</string>
 
     <string name="verb_pool">Verb Pool</string>
     <string name="selected_verbs">Selected verbs</string>
@@ -45,6 +46,7 @@
     <string name="practice_mode">Practice Mode</string>
     <string name="quiz">Quiz</string>
     <string name="wordsearch">Wordsearch</string>
+    <string name="crossword">Crossword</string>
 
     <string name="play_again">Play Again</string>
     <string name="return_home">Return Home</string>

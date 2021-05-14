@@ -18,6 +18,7 @@ package com.sid.app.verbpractice.ui.practice
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,7 +71,9 @@ class PracticeStartFragment : Fragment() {
 
         val defaultTypes = mContext.getVerbTypes()
         val defaultSubtypes = mContext.getVerbSubtypes()
-        val quizIsDefault = mContext.getQuizIsDefault()
+        val defaultPracticeMode = mContext.getDefaultPracticeMode()
+
+        Log.v("default", defaultPracticeMode.toString())
 
         setPrefListener(view.cbArVerbs, VerbSettingsManager.AR_ENABLED, defaultTypes.contains(1))
         setPrefListener(view.cbErVerbs, VerbSettingsManager.ER_ENABLED, defaultTypes.contains(2))
@@ -92,24 +95,40 @@ class PracticeStartFragment : Fragment() {
         verbPools[mContext.getVerbPool()].isChecked = true
 
         view.rbQuiz.setOnCheckedChangeListener { _, isChecked ->
-            mContext.setQuizIsDefault(isChecked)
             if (isChecked) {
+                mContext.setDefaultPracticeMode(0)
                 view.rbWordsearch.isChecked = false
+                view.rbCrossword.isChecked = false
             }
         }
 
         view.rbWordsearch.setOnCheckedChangeListener { _, isChecked ->
-            mContext.setQuizIsDefault(!isChecked)
             if (isChecked) {
+                mContext.setDefaultPracticeMode(1)
                 view.rbQuiz.isChecked = false
+                view.rbCrossword.isChecked = false
             }
         }
 
-        view.rbQuiz.isChecked = quizIsDefault
-        view.rbWordsearch.isChecked = !quizIsDefault
+        view.rbCrossword.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                mContext.setDefaultPracticeMode(2)
+                view.rbQuiz.isChecked = false
+                view.rbWordsearch.isChecked = false
+            }
+        }
+
+        view.rbQuiz.isChecked = defaultPracticeMode == 0
+        view.rbWordsearch.isChecked = defaultPracticeMode == 1
+        view.rbCrossword.isChecked = defaultPracticeMode == 2
 
         view.startButton.setOnClickListener {
-            val bundle = bundleOf("isWordsearch" to view.rbWordsearch.isChecked)
+            val practiceMode = when {
+                view.rbQuiz.isChecked -> 0
+                view.rbWordsearch.isChecked -> 1
+                else -> 2
+            }
+            val bundle = bundleOf("practiceMode" to practiceMode)
             Navigation.findNavController(view).navigate(R.id.action_start_to_loading, bundle)
         }
         return view

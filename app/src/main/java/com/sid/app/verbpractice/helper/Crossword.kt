@@ -1,25 +1,132 @@
 package com.sid.app.verbpractice.helper
 
+import android.content.res.Resources
 import android.util.Log
+import com.sid.app.verbpractice.enums.Person
+import com.sid.app.verbpractice.enums.VerbForm
 import java.util.*
 import kotlin.random.Random
 
 class Crossword(
-    private val words: Array<String>
+    val size: Int,
+    private val conjugationArrayParcel: ConjugationArrayParcel,
+    private val enabledThirdPersons: BooleanArray,
+    private val resources: Resources
 ) {
-
-    val size = 12
+    private lateinit var wordStartCoords: Array<Triple<Int, Int, Boolean>>
+    private lateinit var crosswordHints: Array<String>
+    private lateinit var crosswordWords: Array<String>
+    private lateinit var crosswordPtInfinitives: Array<String>
+    private lateinit var crosswordEnTranslations: Array<String>
     val cw = Array(size) { i -> Array(size) { j -> Node(i, j) } }
 
-    fun generateCrossword() {
+    fun convertToCrosswordParcel(): CrosswordParcel {
+        generateCrossword()
+        val crosswordLetters = CharArray(size * size) { i -> cw[i / size][i % size].char }
+        val acrossRoots = IntArray(size * size) { i -> cw[i / size][i % size].firstCoordInLine[Direction.EAST]!! }
+        val downRoots = IntArray(size * size) { i -> cw[i / size][i % size].firstCoordInLine[Direction.SOUTH]!! }
+        return CrosswordParcel(crosswordLetters, acrossRoots, downRoots, crosswordHints, crosswordWords, crosswordPtInfinitives, crosswordEnTranslations, wordStartCoords)
+    }
+
+    inner class SharedConjugationGroup(
+        val ptInfinitive: String,
+        val enVerb: String,
+        val tense: VerbForm
+    )
+
+    inner class IndividualConjugation(
+        val sharedConjugationGroup: SharedConjugationGroup,
+        val ptVerb: String,
+        val person: Person
+    )
+
+    private fun getEnglishHint(conjugation: IndividualConjugation): Array<String> {
+        val enVerb = conjugation.sharedConjugationGroup.enVerb
+        val tense = conjugation.sharedConjugationGroup.tense
+        val person = conjugation.person
+        val englishParts = enVerb.split("|")
+        val englishConjugations = ConjugatorEnglish.conjugate(
+            englishParts[6],
+            tense,
+            arrayOf(ConjugatorPortuguese.getSubject(person, enabledThirdPersons)),
+            englishParts[5],
+            englishParts[4],
+            englishParts[1],
+            englishParts[2],
+            englishParts[3],
+            true
+        )
+        return arrayOf(
+            "Verb: ${englishParts[0]}\nTense: ${
+                ConjugatorPortuguese.getVerbFormString(
+                    tense,
+                    resources
+                )
+            }", englishConjugations[0]
+        )
+    }
+
+
+
+    private fun generateCrossword() {
+        val coords = mutableListOf<Triple<Int, Int, Boolean>>()
         val placedVerbs = mutableListOf<String>()
-        val verbs =
-            words.map { it.replace(" ", "").split("/")[0].toUpperCase(Locale.ROOT) }
-                .filter { it.length in 3..size }.sortedByDescending { it.length }.toTypedArray()
+        val hintList = mutableListOf<String>()
+        val ptInfinitives = mutableListOf<String>()
+        val enTranslations = mutableListOf<String>()
+
+        fun addWord(
+            cell: Node,
+            conjugation: IndividualConjugation,
+            direction: Direction
+        ) {
+            placedVerbs.add(conjugation.ptVerb)
+            cell.setWord(direction, conjugation.ptVerb)
+            val (englishHint1, englishTranslation1) = getEnglishHint(conjugation)
+            coords.add(Triple(cell.row, cell.col, direction == Direction.EAST))
+            hintList.add(englishHint1)
+            enTranslations.add(englishTranslation1)
+            ptInfinitives.add(conjugation.sharedConjugationGroup.ptInfinitive)
+        }
+
+
+        val conjugations = conjugationArrayParcel.conjugations.map {
+            val sharedConjugationGroup = SharedConjugationGroup(it.verb, it.enVerb, it.tense)
+            it.persons.mapIndexed { index, person ->
+                IndividualConjugation(
+                    sharedConjugationGroup,
+                    (it.verbConjugations[index] ?: "").replace(" ", "").split("/")[0].toUpperCase(
+                        Locale.ROOT
+                    ),
+                    person
+                )
+            }.filter { conj -> conj.ptVerb.length in 3..size }
+        }.flatten().shuffled().toTypedArray()
+
+//        words = conjugationArrayParcel.conjugations.map { it.verbConjugations.toSet() }.flatten()
+//            .filterNotNull().toTypedArray()
+
+//        words = arrayOf("AAB", "BCD", "CEE", "FGD", "GHH")
+
+//        val verbs =
+//            words.map { it.replace(" ", "").split("/")[0].toUpperCase(Locale.ROOT) }
+//                .filter { it.length in 3..size }.shuffled()
+//                .toTypedArray()
         val directions = arrayOf(Direction.SOUTH, Direction.EAST)
-        val randomWord = verbs.random()
-        placedVerbs.add(randomWord)
-        cw[0][0].setWord(directions.random(), randomWord)
+        val randomDirection = directions.random()
+
+        addWord(cw[0][0], conjugations[0], randomDirection)
+
+        addWord(
+            if (randomDirection == Direction.SOUTH) {
+                cw[size - conjugations[1].ptVerb.length][size - 1]
+            } else {
+                cw[size - 1][size - conjugations[1].ptVerb.length]
+            },
+            conjugations[1],
+            randomDirection
+        )
+
         var canContinue = true
         loopUntilNewWordPlaced@ while (canContinue) {
             directions.shuffle()
@@ -27,20 +134,32 @@ class Crossword(
             for (direction in directions) {
                 val segments =
                     if (direction == Direction.SOUTH) allSegments.first else allSegments.second
+//                val downSegments = mutableListOf<Triple<Int, Int, String>>()
+//                val acrossSegments = mutableListOf<Triple<Int, Int, String>>()
+//                Array(size) { i ->
+//                    downSegments.add(Triple(0, i, cw[0][i].getNodeLineString(Direction.SOUTH)))
+//                    acrossSegments.add(Triple(i, 0, cw[i][0].getNodeLineString(Direction.EAST)))
+//                }
+//                val segments =
+//                    if (direction == Direction.SOUTH) downSegments.toTypedArray() else acrossSegments.toTypedArray()
+
                 for (segment in segments) {
-                    for (word in verbs) {
-                        if (word !in placedVerbs) {
-                            val startIndex = wordFitsInSegment(word, segment.third)
+                    for (conjugation in conjugations) {
+                        if (conjugation.ptVerb !in placedVerbs) {
+                            val startIndex = wordFitsInSegment(conjugation.ptVerb, segment.third)
                             if (startIndex > -1) {
-                                placedVerbs.add(word)
-                                when (direction) {
-                                    Direction.SOUTH -> {
-                                        cw[segment.first + startIndex][segment.second]
-                                    }
-                                    else -> {
-                                        cw[segment.first][segment.second + startIndex]
-                                    }
-                                }.setWord(direction, word)
+                                addWord(
+                                    when (direction) {
+                                        Direction.SOUTH -> {
+                                            cw[segment.first + startIndex][segment.second]
+                                        }
+                                        else -> {
+                                            cw[segment.first][segment.second + startIndex]
+                                        }
+                                    },
+                                    conjugation,
+                                    direction
+                                )
                                 continue@loopUntilNewWordPlaced
                             }
                         }
@@ -53,12 +172,12 @@ class Crossword(
             Log.v("crosswordTest", row.joinToString { it.char.toString() }.replace(",", ""))
         }
 
+        crosswordHints = hintList.toTypedArray()
+        crosswordWords = placedVerbs.toTypedArray()
+        crosswordPtInfinitives = ptInfinitives.toTypedArray()
+        crosswordEnTranslations = enTranslations.toTypedArray()
+        wordStartCoords = coords.toTypedArray()
 
-        // place word randomly
-        // get list of all segments of lines in which something can be placed (can't be next to a letter of same orientation),
-        // ordered by number of letters already in the segment
-        // go through words until a word that can be placed is found
-        // place word, repeat
     }
 
     private fun wordFitsInSegment(word: String, segment: String): Int {
@@ -79,7 +198,9 @@ class Crossword(
                     continue@startPlaceLoop
                 }
             }
+            Log.v("wordPlaceFound", segment.replace(" ", " _ ") + "    - " + word)
             return startIndex
+
         }
         return -1
     }
@@ -97,6 +218,12 @@ class Crossword(
             downSegments.addAll(getLineSegments(cw[0][i], Direction.SOUTH))
             acrossSegments.addAll(getLineSegments(cw[i][0], Direction.EAST))
         }
+//        downSegments.forEach {
+//            Log.v("wordPlacement", it.third.replace(" ", " _ "))
+//        }
+//        acrossSegments.forEach {
+//            Log.v("wordPlacement", it.third.replace(" ", " _ "))
+//        }
         return Pair(
             downSegments.filter { it.third.length > 2 && it.third.count { letter -> letter == ' ' } < it.third.length }
                 .sortedByDescending { it.third.count { letter -> letter != ' ' } + Random.nextDouble() }
@@ -107,16 +234,19 @@ class Crossword(
         )
     }
 
-    private fun getSubSegments(segment: Triple<Int, Int, String>, dir: Direction): Array<Triple<Int, Int, String>> {
+    private fun getSubSegments(
+        segment: Triple<Int, Int, String>,
+        dir: Direction
+    ): Array<Triple<Int, Int, String>> {
         Log.v("segments", segment.third)
         val allSubSegments = mutableListOf(segment)
         val letterIndices =
             segment.third.mapIndexed { index, c -> if (c != ' ') index else -1 }.filter { it != -1 }
         for (letterCount in 1 until letterIndices.size) {
-            for (index in 0..letterIndices.size-letterCount) {
+            for (index in 0..letterIndices.size - letterCount) {
                 val startIndex = if (index == 0) 0 else letterIndices[index - 1] + 2
                 val endIndex =
-                    if (index + letterCount == letterIndices.size) segment.third.length else letterIndices[index + letterCount] - 2
+                    if (index + letterCount == letterIndices.size) segment.third.length else letterIndices[index + letterCount] - 1
                 when (dir) {
                     Direction.SOUTH -> allSubSegments.add(
                         Triple(
@@ -166,13 +296,20 @@ class Crossword(
 
     inner class Node(val row: Int, val col: Int) {
         private val legals = mutableMapOf(Direction.SOUTH to true, Direction.EAST to true)
+
+        //        private val isPartOfWord = mutableMapOf(Direction.SOUTH to false, Direction.EAST to false)
         var char = ' '
         var letter: String = (col + 65).toChar().toString()
         var words = mutableListOf<String?>()
+        val firstCoordInLine = mutableMapOf(Direction.SOUTH to -1, Direction.EAST to -1)
 
         fun getLineSegment(dir: Direction, includeCurrentNode: Boolean): Triple<Int, Int, String>? {
+            val previousNode = getNextNode(Direction.getOppositeDirection(dir))
+            val previousNodeIsEmpty = previousNode == null || previousNode.char == ' '
             val startNode =
-                if (includeCurrentNode && legals[dir] == true) this else getNextLegalNode(dir)
+                if (includeCurrentNode && legals[dir] == true && previousNodeIsEmpty) this else getNextLegalNode(
+                    dir
+                )
             return if (startNode == null) {
                 null
             } else {
@@ -193,7 +330,7 @@ class Crossword(
                 nextNode == null -> {
                     null
                 }
-                nextNode.legals[dir] == true -> {
+                nextNode.legals[dir] == true && char == ' ' -> {
                     nextNode
                 }
                 else -> {
@@ -203,33 +340,68 @@ class Crossword(
         }
 
         fun setWord(direction: Direction, word: String) {
-            val endNode = setWordHelper(direction, word, 0)
-            val previousNode = getNextNode(if (direction == Direction.SOUTH) Direction.NORTH else Direction.WEST)
+            val endNode =
+                setWordHelper(direction, word, 0, if (direction == Direction.EAST) col else row)
+            val previousNode =
+                getNextNode(if (direction == Direction.SOUTH) Direction.NORTH else Direction.WEST)
             arrayOf(previousNode, endNode.getNextNode(direction)).forEach {
                 it?.legals?.set(Direction.SOUTH, false)
                 it?.legals?.set(Direction.EAST, false)
             }
         }
 
-        private fun setWordHelper(dir: Direction, word: String, currLetterIndex: Int): Node {
+        private fun setWordHelper(
+            dir: Direction,
+            word: String,
+            currLetterIndex: Int,
+            indexOfFirst: Int
+        ): Node {
             char = word[currLetterIndex]
+//            isPartOfWord[dir] = true
+            firstCoordInLine[dir] = indexOfFirst
             when (dir) {
                 Direction.SOUTH -> {
-                    getNextNode(Direction.EAST)?.legals?.set(Direction.SOUTH, false)
-                    getNextNode(Direction.WEST)?.legals?.set(Direction.SOUTH, false)
+                    val sideNodes =
+                        arrayOf(getNextNode(Direction.EAST), getNextNode(Direction.WEST))
+                    sideNodes.forEach {
+//                        if (it != null && it.isPartOfWord[Direction.EAST] == false) {
+                        if (it != null && it.firstCoordInLine[Direction.EAST]!! == -1) {
+                            it.legals[Direction.SOUTH] = false
+                        }
+                    }
+//                    if (isPartOfWord[Direction.EAST] == false) {
+                    if (firstCoordInLine[Direction.EAST] == -1) {
+                        legals[Direction.EAST] = true
+                    }
                 }
                 else -> {
-                    getNextNode(Direction.SOUTH)?.legals?.set(Direction.EAST, false)
-                    getNextNode(Direction.NORTH)?.legals?.set(Direction.EAST, false)
+                    val sideNodes =
+                        arrayOf(getNextNode(Direction.NORTH), getNextNode(Direction.SOUTH))
+                    sideNodes.forEach {
+//                        if (it != null && it.isPartOfWord[Direction.SOUTH] == false) {
+                        if (it != null && it.firstCoordInLine[Direction.SOUTH] == -1) {
+                            it.legals[Direction.EAST] = false
+                        }
+                    }
+//                    if (isPartOfWord[Direction.SOUTH] == false) {
+                    if (firstCoordInLine[Direction.SOUTH] == -1) {
+                        legals[Direction.SOUTH] = true
+                    }
                 }
             }
             this.legals[dir] = false
             val nextIndex = currLetterIndex + 1
             return if (nextIndex == word.length) {
+                Log.v("endNode", word + " - " + nextIndex + " - " + this.row + ", " + this.col)
                 this
             } else {
-                getNextNode(dir)?.setWordHelper(dir, word, nextIndex) ?: this
+                getNextNode(dir)?.setWordHelper(dir, word, nextIndex, indexOfFirst) ?: this
             }
+        }
+
+        private fun getNodeLineStringHelper(line: String, direction: Direction): String {
+            return getNextNode(direction)?.getNodeLineStringHelper(line + char, direction)
+                ?: line + char
         }
 
         private fun getNextNode(direction: Direction): Node? {

@@ -29,6 +29,15 @@
             app:destination="@id/practice_loading" />
     </fragment>
     <fragment
+        android:id="@+id/crossword"
+        android:name="com.sid.app.verbpractice.ui.practice.crossword.CrosswordFragment"
+        android:label="@string/crossword"
+        tools:layout="@layout/fragment_crossword">
+        <argument
+            android:name="crosswordData"
+            app:argType="com.sid.app.verbpractice.helper.CrosswordParcel"/>
+    </fragment>
+    <fragment
         android:id="@+id/practice_loading"
         android:name="com.sid.app.verbpractice.ui.practice.PracticeLoadingFragment"
         android:label="@string/title_practice"
@@ -42,9 +51,9 @@
             android:defaultValue="false"
             app:argType="boolean"/>
         <argument
-            android:name="isWordsearch"
-            android:defaultValue="false"
-            app:argType="boolean"/>
+            android:name="practiceMode"
+            android:defaultValue="0"
+            app:argType="integer"/>
         <action
             android:id="@+id/action_loading_to_practice"
             app:destination="@id/practice" />
@@ -54,6 +63,9 @@
         <action
             android:id="@+id/action_loading_to_wordsearch"
             app:destination="@id/wordsearch"/>
+        <action
+            android:id="@+id/action_loading_to_crossword"
+            app:destination="@id/crossword"/>
     </fragment>
     <fragment
         android:id="@+id/conjugations_view"

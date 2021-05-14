@@ -109,6 +109,6 @@ class VerbSettingsManager(private val sharedPreferences: SharedPreferences) {
         const val RADICAL_SUBTYPE = "radical_subtype"
         const val ORTHOGRAPHIC_SUBTYPE = "orthographic_subtype"
 
-        const val QUIZ_IS_DEFAULT = "quiz_is_default"
+        const val DEFAULT_PRACTICE_MODE = "default_practice_mode"
     }
 }

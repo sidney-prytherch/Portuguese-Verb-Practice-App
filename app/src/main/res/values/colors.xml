@@ -21,6 +21,7 @@
     <color name="colorAccent">#7754D5</color>
     <color name="timeCountColor">@color/colorAccent</color>
 
+    <color name="crossword">#000</color>
     <color name="appIconBackgroundColor">#A8D7EC</color>
 
     <color name="transparency">#00000000</color>

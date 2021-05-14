@@ -14,6 +14,18 @@ enum class Direction { NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST
                 Direction.NORTHWEST -> arrayOf(Direction.WEST, Direction.NORTH)
             }
         }
+        fun getOppositeDirection(direction: Direction): Direction {
+            return when (direction) {
+                Direction.NORTH -> Direction.SOUTH
+                Direction.EAST -> Direction.WEST
+                Direction.SOUTH -> Direction.NORTH
+                Direction.WEST -> Direction.EAST
+                Direction.NORTHEAST -> Direction.SOUTHWEST
+                Direction.SOUTHEAST -> Direction.NORTHWEST
+                Direction.SOUTHWEST -> Direction.NORTHEAST
+                Direction.NORTHWEST -> Direction.SOUTHEAST
+            }
+        }
     }
 
 }

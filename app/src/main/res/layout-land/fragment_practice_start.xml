@@ -218,6 +218,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/wordsearch" />
+
+                    <RadioButton
+                        android:id="@+id/rbCrossword"
+                        style="@style/BigText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/crossword" />
                 </LinearLayout>
 
             </LinearLayout>

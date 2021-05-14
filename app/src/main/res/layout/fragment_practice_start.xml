@@ -255,6 +255,19 @@
                     android:layout_height="match_parent"
                     android:text="@string/wordsearch"/>
             </TableRow>
+
+                <TableRow
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp">
+                    <RadioButton
+                        android:checked="false"
+                        style="@style/BigText"
+                        android:id="@+id/rbCrossword"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/crossword"/>
+                </TableRow>
+
             </TableLayout>
 
         </RelativeLayout>
