@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/popup_letters"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Button
+        android:id="@+id/acuteE"
+        style="@style/BigText"
+        android:text="É"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/circumflexE"
+        app:layout_constraintHorizontal_weight=".5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+    <Button
+        android:id="@+id/circumflexE"
+        style="@style/BigText"
+        android:text="Ê"
+        app:layout_constraintStart_toEndOf="@id/acuteE"
+        app:layout_constraintEnd_toStartOf="@id/graveE"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight=".5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+    <Button
+        android:id="@+id/graveE"
+        style="@style/BigText"
+        android:text="È"
+        app:layout_constraintStart_toEndOf="@id/circumflexE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight=".5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

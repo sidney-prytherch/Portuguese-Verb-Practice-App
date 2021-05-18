@@ -252,9 +252,9 @@ class WordsearchFragment : Fragment() {
         )
 
         val allWordsearchRows = arrayOf(
-            view.wordsearch.row0,
-            view.wordsearch.row1,
-            view.wordsearch.row2,
+            view.wordsearch.keyQ,
+            view.wordsearch.keyA,
+            view.wordsearch.keyZ,
             view.wordsearch.row3,
             view.wordsearch.row4,
             view.wordsearch.row5,
@@ -313,7 +313,7 @@ class WordsearchFragment : Fragment() {
         }
 
         view.play_again.setOnClickListener {
-            val bundle = bundleOf("isWordsearch" to true)
+            val bundle = bundleOf("practiceMode" to 1)
             Navigation.findNavController(view)
                 .navigate(R.id.action_wordsearch_to_practice_loading, bundle)
         }

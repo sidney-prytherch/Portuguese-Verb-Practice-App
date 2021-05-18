@@ -36,6 +36,12 @@
         <argument
             android:name="crosswordData"
             app:argType="com.sid.app.verbpractice.helper.CrosswordParcel"/>
+        <action
+            android:id="@+id/action_crossword_to_practice_start"
+            app:destination="@id/practiceStart" />
+        <action
+            android:id="@+id/action_crossword_to_practice_loading"
+            app:destination="@id/practice_loading" />
     </fragment>
     <fragment
         android:id="@+id/practice_loading"

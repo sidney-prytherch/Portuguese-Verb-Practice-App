@@ -21,6 +21,10 @@
     <color name="colorAccent">#7754D5</color>
     <color name="timeCountColor">@color/colorAccent</color>
 
+    <color name="button_material">#ffd6d7d7</color>
+
+    <color name="highlighted_letter">#CFF0FF</color>
+    <color name="selected_letter">#5ECDFF</color>
     <color name="crossword">#000</color>
     <color name="appIconBackgroundColor">#A8D7EC</color>
 
@@ -28,6 +32,7 @@
 
     <color name="background">#FAFAFA</color>
     <color name="lightGray">#EEEEEE</color>
+    <color name="darkGray">#BBB</color>
     <color name="word_found">#E3E3E3</color>
     <color name="transparentBackground">#80FAFAFA</color>
     <color name="disabled">#AAA</color>

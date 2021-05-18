@@ -141,6 +141,8 @@
     <string name="explain_compound_indicative_tenses">Explain Compound Indicative Tenses</string>
     <string name="explain_progressive_indicative_tenses">Explain Progressive Indicative Tenses</string>
     <string name="explain_subjunctive_tenses">Explain Subjunctive Tenses</string>
+    <string name="go_to_next_hint">Go to next Hint</string>
+    <string name="switch_orientation">Switch Orientation</string>
 
     <string name="show_selected">Selected Verbs</string>
     <string name="selected">Show Selected</string>

@@ -21,10 +21,15 @@ import android.content.ComponentName
 import android.content.Intent
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
+import android.view.Gravity
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +41,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sid.app.verbpractice.db.entity.PortugueseVerb
 import com.sid.app.verbpractice.enums.VerbForm
+import com.sid.app.verbpractice.helper.SwipelessDrawerLayout
 import com.sid.app.verbpractice.helper.VerbSettingsManager
 import com.sid.app.verbpractice.ui.dictionary.WordFilterFragment
 import com.sid.app.verbpractice.ui.options.*
@@ -62,10 +68,14 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         mDrawerToggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.open, R.string.close)
+        mDrawerToggle!!.setToolbarNavigationClickListener {
+
+        }
         mDrawerToggle!!.syncState()
         if (savedInstanceState == null) {
             setupNavigation()
         }
+
         verbSettingsManager = VerbSettingsManager(PreferenceManager.getDefaultSharedPreferences(this))
 
         mWordViewModel = ViewModelProvider(this).get(PortugueseVerbViewModel::class.java)

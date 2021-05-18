@@ -6,18 +6,18 @@
     android:weightSum="14"
     android:layout_width="match_parent"
     android:layout_height="0dp">
-    <TextView style="@style/puzzleCell" android:id="@+id/cell0" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell1" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell2" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell3" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell4" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell5" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell6" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell7" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell8" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell9" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell10" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell11" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell12" android:background="@drawable/crossword_cell_border"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell13" android:background="@drawable/crossword_cell_border"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell0" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell1" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell2" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell3" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell4" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell5" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell6" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell7" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell8" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell9" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell10" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell11" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell12" android:background="@drawable/crossword_cell"/>
+    <TextView style="@style/puzzleCell" android:id="@+id/cell13" android:background="@drawable/crossword_cell"/>
 </LinearLayout>
