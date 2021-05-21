@@ -245,16 +245,10 @@ class WordsearchFragment : Fragment() {
             else -> 12
         }
 
-        val weightParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            14.0F / wordsearchSize
-        )
-
         val allWordsearchRows = arrayOf(
-            view.wordsearch.keyQ,
-            view.wordsearch.keyA,
-            view.wordsearch.keyZ,
+            view.wordsearch.row0,
+            view.wordsearch.row1,
+            view.wordsearch.row2,
             view.wordsearch.row3,
             view.wordsearch.row4,
             view.wordsearch.row5,
@@ -272,7 +266,6 @@ class WordsearchFragment : Fragment() {
         }
 
         val wordsearchRows = Array(wordsearchSize) {
-            allWordsearchRows[it].layoutParams = weightParams
             allWordsearchRows[it]
         }
 
@@ -298,7 +291,6 @@ class WordsearchFragment : Fragment() {
                 cell.visibility = View.GONE
             }
             Array(wordsearchSize) { i ->
-                allCells[i].layoutParams = weightParams
                 allCells[i]
             }.mapIndexed { index, textView -> WordsearchCell(textView, row, index) }.toTypedArray()
         }.toTypedArray()

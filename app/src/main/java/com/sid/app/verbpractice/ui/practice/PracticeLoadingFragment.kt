@@ -291,7 +291,6 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
 //            crossword.generateCrossword()
 
 
-
             // crossword test end
 
             val selectedConjugations = mutableListOf<Conjugation>()
@@ -374,8 +373,10 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
                             resources
                         ).convertToCrosswordParcel()
                     )
-                    Navigation.findNavController(view)
-                        .navigate(R.id.action_loading_to_crossword, bundle)
+                    withContext(Dispatchers.Main) {
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_loading_to_crossword, bundle)
+                    }
                 } else if (!isConjugationView) {
                     val bundle =
                         bundleOf("conjugations" to conjugationArrayParcel, "verb" to singleVerb)

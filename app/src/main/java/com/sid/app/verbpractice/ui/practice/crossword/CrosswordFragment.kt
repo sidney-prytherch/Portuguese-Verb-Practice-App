@@ -1,17 +1,13 @@
 package com.sid.app.verbpractice.ui.practice.crossword
 
 import android.content.Context
-import android.graphics.BlendModeColorFilter
-import android.graphics.ColorFilter
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.UnderlineSpan
-import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -22,7 +18,6 @@ import com.sid.app.verbpractice.helper.*
 import kotlinx.android.synthetic.main.fragment_crossword.*
 import kotlinx.android.synthetic.main.fragment_crossword.view.*
 import kotlinx.android.synthetic.main.fragment_crossword_grid.view.*
-import kotlinx.android.synthetic.main.fragment_wordsearch.view.*
 import kotlinx.android.synthetic.main.fragment_wordsearch_row.view.*
 import kotlinx.android.synthetic.main.keyboard.view.*
 import kotlinx.android.synthetic.main.popup_letters_a.view.*
@@ -160,15 +155,10 @@ class CrosswordFragment : Fragment() {
             3 -> 14
             else -> 12
         }
-        val weightParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            14.0F / crosswordSize
-        )
         val allCrosswordRows = arrayOf(
-            view.crossword.key0,
-            view.crossword.key1,
-            view.crossword.key2,
+            view.crossword.row0,
+            view.crossword.row1,
+            view.crossword.row2,
             view.crossword.row3,
             view.crossword.row4,
             view.crossword.row5,
@@ -186,7 +176,6 @@ class CrosswordFragment : Fragment() {
         }
 
         val crosswordRows = Array(crosswordSize) {
-            allCrosswordRows[it].layoutParams = weightParams
             allCrosswordRows[it]
         }
 
@@ -223,7 +212,6 @@ class CrosswordFragment : Fragment() {
                 }
                 allCells[i].text = " "
                 //allCells[i].text = letters[longArrayIndex].toString()
-                allCells[i].layoutParams = weightParams
                 allCells[i].setOnClickListener {
                     selectWord(crosswordCells[row][i])
                 }

@@ -1,23 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/row"
-    android:weightSum="14"
     android:layout_width="match_parent"
     android:layout_height="0dp">
-    <TextView style="@style/puzzleCell" android:id="@+id/cell0" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell1" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell2" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell3" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell4" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell5" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell6" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell7" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell8" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell9" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell10" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell11" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell12" android:background="@drawable/crossword_cell"/>
-    <TextView style="@style/puzzleCell" android:id="@+id/cell13" android:background="@drawable/crossword_cell"/>
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/cell0"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cell1"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell1"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell0"
+        app:layout_constraintEnd_toStartOf="@id/cell2"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell2"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell1"
+        app:layout_constraintEnd_toStartOf="@id/cell3"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell3"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell2"
+        app:layout_constraintEnd_toStartOf="@id/cell4"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell4"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell3"
+        app:layout_constraintEnd_toStartOf="@id/cell5"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell5"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell4"
+        app:layout_constraintEnd_toStartOf="@id/cell6"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell6"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell5"
+        app:layout_constraintEnd_toStartOf="@id/cell7"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell7"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell6"
+        app:layout_constraintEnd_toStartOf="@id/cell8"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell8"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell7"
+        app:layout_constraintEnd_toStartOf="@id/cell9"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell9"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell8"
+        app:layout_constraintEnd_toStartOf="@id/cell10"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell10"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell9"
+        app:layout_constraintEnd_toStartOf="@id/cell11"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell11"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell10"
+        app:layout_constraintEnd_toStartOf="@id/cell12"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell12"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell11"
+        app:layout_constraintEnd_toStartOf="@id/cell13"
+        android:background="@drawable/crossword_cell" />
+
+    <TextView
+        android:id="@+id/cell13"
+        style="@style/puzzleCell"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cell12"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/crossword_cell" />
+</androidx.constraintlayout.widget.ConstraintLayout>
