@@ -23,6 +23,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyQ"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -35,6 +36,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyW"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -47,6 +49,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyE"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -59,6 +62,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyR"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -71,6 +75,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyT"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -83,6 +88,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyY"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -95,6 +101,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyU"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -107,6 +114,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyI"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -119,6 +127,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyO"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -131,6 +140,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyP"
         android:text="P"
         android:layout_width="0dp"
@@ -143,6 +153,7 @@
     
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyA"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -155,6 +166,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyS"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -167,6 +179,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyD"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -179,6 +192,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyF"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -191,6 +205,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyG"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -203,6 +218,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyH"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -215,6 +231,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyJ"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -227,6 +244,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyK"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -239,6 +257,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyL"
         android:text="L"
         android:layout_width="0dp"
@@ -251,6 +270,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyZ"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -263,6 +283,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyX"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -275,6 +296,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyC"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -287,6 +309,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyV"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -299,6 +322,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyB"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -311,6 +335,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyN"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -323,6 +348,7 @@
 
     <Button
         style="@style/BigText"
+        android:padding="0dp"
         android:id="@+id/keyM"
         android:text="M"
         android:layout_width="0dp"

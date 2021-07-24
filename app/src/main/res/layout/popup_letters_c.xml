@@ -8,6 +8,7 @@
     <Button
         android:id="@+id/cadillaC"
         style="@style/BigText"
+        android:padding="0dp"
         android:text="Ç"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

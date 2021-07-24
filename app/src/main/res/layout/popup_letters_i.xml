@@ -8,6 +8,7 @@
     <Button
         android:id="@+id/acuteI"
         style="@style/BigText"
+        android:padding="0dp"
         android:text="Í"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/graveI"
@@ -19,6 +20,7 @@
     <Button
         android:id="@+id/graveI"
         style="@style/BigText"
+        android:padding="0dp"
         android:text="Ì"
         app:layout_constraintStart_toEndOf="@id/acuteI"
         app:layout_constraintEnd_toEndOf="parent"

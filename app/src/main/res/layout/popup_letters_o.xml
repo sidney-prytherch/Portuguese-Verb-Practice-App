@@ -8,6 +8,7 @@
     <Button
         android:id="@+id/acuteO"
         style="@style/BigText"
+        android:padding="0dp"
         android:text="Ó"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/circumflexO"
@@ -19,6 +20,7 @@
     <Button
         android:id="@+id/circumflexO"
         style="@style/BigText"
+        android:padding="0dp"
         android:text="Ô"
         app:layout_constraintStart_toEndOf="@id/acuteO"
         app:layout_constraintEnd_toStartOf="@id/graveO"
@@ -30,6 +32,7 @@
     <Button
         android:id="@+id/graveO"
         style="@style/BigText"
+        android:padding="0dp"
         android:text="Ò"
         app:layout_constraintStart_toEndOf="@id/circumflexO"
         app:layout_constraintEnd_toStartOf="@id/tildeO"
@@ -41,6 +44,7 @@
     <Button
         android:id="@+id/tildeO"
         style="@style/BigText"
+        android:padding="0dp"
         android:text="Õ"
         app:layout_constraintStart_toEndOf="@id/graveO"
         app:layout_constraintEnd_toEndOf="parent"

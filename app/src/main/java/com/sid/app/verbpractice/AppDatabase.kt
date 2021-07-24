@@ -24,8 +24,8 @@ abstract class AppDatabase : RoomDatabase() {
                 tempInstance
             } else {
                 Log.v("confusion", "started fresh")
-                val instance = Room.databaseBuilder(context, AppDatabase::class.java, "verbens5.db")
-                    .createFromAsset("databases/verbens5.db")
+                val instance = Room.databaseBuilder(context, AppDatabase::class.java, "verbens6.db")
+                    .createFromAsset("databases/verbens6.db")
                     .build()
                 INSTANCE = instance
                 instance
