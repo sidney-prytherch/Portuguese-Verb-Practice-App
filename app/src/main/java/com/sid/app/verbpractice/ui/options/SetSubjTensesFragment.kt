@@ -7,7 +7,8 @@ import android.widget.CheckBox
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.sid.app.verbpractice.R
-import kotlinx.android.synthetic.main.tenses_options_subj.view.*
+import com.sid.app.verbpractice.databinding.TensesOptionsSubjBinding
+
 
 class SetSubjTensesFragment : DialogFragment() {
 
@@ -36,12 +37,12 @@ class SetSubjTensesFragment : DialogFragment() {
             val view = inflater.inflate(R.layout.tenses_options_subj, null)
 
             checkBoxes = arrayOf(
-                view.presSubjCheckbox,
-                view.impeSubjCheckbox,
-                view.futuSubjCheckbox,
-                view.presPerfSubjCheckbox,
-                view.plupSubjCheckbox,
-                view.futuPerfSubjCheckbox
+                view.findViewById(R.id.presSubjCheckbox),
+                view.findViewById(R.id.impeSubjCheckbox),
+                view.findViewById(R.id.futuSubjCheckbox),
+                view.findViewById(R.id.presPerfSubjCheckbox),
+                view.findViewById(R.id.plupSubjCheckbox),
+                view.findViewById(R.id.futuPerfSubjCheckbox)
             )
             listener.getSubjTenses().forEachIndexed{ index, isSet -> checkBoxes[index].isChecked = isSet}
 

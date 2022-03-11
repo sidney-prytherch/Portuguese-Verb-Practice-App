@@ -7,7 +7,8 @@ import android.widget.CheckBox
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.sid.app.verbpractice.R
-import kotlinx.android.synthetic.main.tenses_options_prog_ind.view.*
+import com.sid.app.verbpractice.databinding.TensesOptionsProgIndBinding
+
 
 class SetProgIndTensesFragment : DialogFragment() {
 
@@ -36,16 +37,16 @@ class SetProgIndTensesFragment : DialogFragment() {
             val view = inflater.inflate(R.layout.tenses_options_prog_ind, null)
 
             checkBoxes = arrayOf(
-                view.presProgCheckbox,
-                view.pretProgCheckbox,
-                view.impeProgCheckbox,
-                view.simpPlupProgCheckbox,
-                view.futuProgCheckbox,
-                view.condProgCheckbox,
-                view.presPerfProgCheckbox,
-                view.plupProgCheckbox,
-                view.futuPerfProgCheckbox,
-                view.condPerfProgCheckbox
+                view.findViewById(R.id.presProgCheckbox),
+                view.findViewById(R.id.pretProgCheckbox),
+                view.findViewById(R.id.impeProgCheckbox),
+                view.findViewById(R.id.simpPlupProgCheckbox),
+                view.findViewById(R.id.futuProgCheckbox),
+                view.findViewById(R.id.condProgCheckbox),
+                view.findViewById(R.id.presPerfProgCheckbox),
+                view.findViewById(R.id.plupProgCheckbox),
+                view.findViewById(R.id.futuPerfProgCheckbox),
+                view.findViewById(R.id.condPerfProgCheckbox)
             )
             listener.getProgIndTenses().forEachIndexed{ index, isSet -> checkBoxes[index].isChecked = isSet}
 

@@ -4,26 +4,26 @@ enum class Direction { NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST
     companion object {
         fun getDirectionalComponents(direction: Direction): Array<Direction> {
             return when (direction) {
-                Direction.NORTH -> arrayOf(Direction.NORTH)
-                Direction.NORTHEAST -> arrayOf(Direction.NORTH, Direction.EAST)
-                Direction.EAST -> arrayOf(Direction.EAST)
-                Direction.SOUTHEAST -> arrayOf(Direction.SOUTH, Direction.EAST)
-                Direction.SOUTH -> arrayOf(Direction.SOUTH)
-                Direction.SOUTHWEST -> arrayOf(Direction.SOUTH, Direction.WEST)
-                Direction.WEST -> arrayOf(Direction.WEST)
-                Direction.NORTHWEST -> arrayOf(Direction.WEST, Direction.NORTH)
+                NORTH -> arrayOf(NORTH)
+                NORTHEAST -> arrayOf(NORTH, EAST)
+                EAST -> arrayOf(EAST)
+                SOUTHEAST -> arrayOf(SOUTH, EAST)
+                SOUTH -> arrayOf(SOUTH)
+                SOUTHWEST -> arrayOf(SOUTH, WEST)
+                WEST -> arrayOf(WEST)
+                NORTHWEST -> arrayOf(WEST, NORTH)
             }
         }
         fun getOppositeDirection(direction: Direction): Direction {
             return when (direction) {
-                Direction.NORTH -> Direction.SOUTH
-                Direction.EAST -> Direction.WEST
-                Direction.SOUTH -> Direction.NORTH
-                Direction.WEST -> Direction.EAST
-                Direction.NORTHEAST -> Direction.SOUTHWEST
-                Direction.SOUTHEAST -> Direction.NORTHWEST
-                Direction.SOUTHWEST -> Direction.NORTHEAST
-                Direction.NORTHWEST -> Direction.SOUTHEAST
+                NORTH -> SOUTH
+                EAST -> WEST
+                SOUTH -> NORTH
+                WEST -> EAST
+                NORTHEAST -> SOUTHWEST
+                SOUTHEAST -> NORTHWEST
+                SOUTHWEST -> NORTHEAST
+                NORTHWEST -> SOUTHEAST
             }
         }
     }

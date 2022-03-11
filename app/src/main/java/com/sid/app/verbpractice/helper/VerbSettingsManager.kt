@@ -1,7 +1,6 @@
 package com.sid.app.verbpractice.helper
 
 import android.content.SharedPreferences
-import android.util.Log
 
 
 class VerbSettingsManager(private val sharedPreferences: SharedPreferences) {
@@ -64,9 +63,9 @@ class VerbSettingsManager(private val sharedPreferences: SharedPreferences) {
         const val FUT_SUBJ = "fut_subj"
         const val FUT_PERF_SUBJ = "fut_perf_subj"
 
-        const val IMP_AFF = "imp_aff"
-        const val IMP_NEG = "imp_neg"
-        const val PERS_INF = "pers_inf"
+//        const val IMP_AFF = "imp_aff"
+//        const val IMP_NEG = "imp_neg"
+//        const val PERS_INF = "pers_inf"
 
         const val VC_ENABLED = "vc_enabled"
         const val ELE_ELA_ENABLED = "ele_ela_enabled"

@@ -21,9 +21,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
+import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,8 +32,7 @@ import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.db.entity.PortugueseVerb
 import com.sid.app.verbpractice.viewmodel.PortugueseVerbViewModel
-import kotlinx.android.synthetic.main.fragment_dictionary.*
-import kotlinx.android.synthetic.main.fragment_dictionary.view.*
+import com.sid.app.verbpractice.databinding.FragmentDictionaryBinding
 
 
 class DictionaryFragment : Fragment() {
@@ -78,7 +77,7 @@ class DictionaryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView: RecyclerView = view.verbs_recyclerview
+        val recyclerView: RecyclerView = view.findViewById(R.id.verbs_recyclerview)
 
         filterResults = mainActivity.getFilterSettings()
         commonVerbVal = mainActivity.getCommonVerbValue()
@@ -91,7 +90,7 @@ class DictionaryFragment : Fragment() {
         adapter = WordListAdapter(context)
         searchBar = view.findViewById(R.id.search_bar)
         recyclerView.adapter = adapter
-        mWordViewModel.allPortugueseVerbs.observe(viewLifecycleOwner, Observer { words:List<PortugueseVerb> ->
+        mWordViewModel.allPortugueseVerbs.observe(viewLifecycleOwner, { words:List<PortugueseVerb> ->
             adapter.setWords(words)
             resetFilter(filterResults, commonVerbVal)
         })
@@ -104,7 +103,7 @@ class DictionaryFragment : Fragment() {
             }
         })
 
-        clearButton.setOnClickListener {
+        view.findViewById<Button>(R.id.clearButton).setOnClickListener {
             searchBar.setText("")
         }
     }

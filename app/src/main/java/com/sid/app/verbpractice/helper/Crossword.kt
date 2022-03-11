@@ -5,7 +5,6 @@ import android.util.Log
 import com.sid.app.verbpractice.enums.Person
 import com.sid.app.verbpractice.enums.VerbForm
 import java.util.*
-import kotlin.random.Random
 
 class Crossword(
     val size: Int,
@@ -225,13 +224,16 @@ class Crossword(
 //            Log.v("wordPlacement", it.third.replace(" ", " _ "))
 //        }
 
+
+
+
         //potential error here, with sortedByDescending: "Comparison method violates its general contract!"
         return Pair(
             downSegments.filter { it.third.length > 2 && it.third.count { letter -> letter == ' ' } < it.third.length }
-                .sortedByDescending { it.third.count { letter -> letter != ' ' } + Random.nextDouble() }
+                .sortedByDescending { it.third.count { letter -> letter != ' ' } } //+ Random.nextDouble() }
                 .toTypedArray(),
             acrossSegments.filter { it.third.length > 2 && it.third.count { letter -> letter == ' ' } < it.third.length }
-                .sortedByDescending { it.third.count { letter -> letter != ' ' } + Random.nextDouble() }
+                .sortedByDescending { it.third.count { letter -> letter != ' ' } } //+ Random.nextDouble() }
                 .toTypedArray()
         )
     }

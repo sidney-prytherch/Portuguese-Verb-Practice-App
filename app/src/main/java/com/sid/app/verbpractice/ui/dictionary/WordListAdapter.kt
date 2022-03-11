@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.db.entity.PortugueseVerb
-import kotlinx.android.synthetic.main.recyclerview_verbs.view.*
+import com.sid.app.verbpractice.databinding.RecyclerviewVerbsBinding
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -38,10 +38,10 @@ class WordListAdapter(private val context: Context?) : RecyclerView.Adapter<Word
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val wordView: CheckBox = itemView.verbTextView
-        val defView: TextView = itemView.definition
-        val practiceButton: AppCompatImageButton = itemView.practiceVerb
-        val conjugationButton: AppCompatImageButton = itemView.viewConjugations
+        val wordView: CheckBox = itemView.findViewById(R.id.verbTextView)
+        val defView: TextView = itemView.findViewById(R.id.definition)
+        val practiceButton: AppCompatImageButton = itemView.findViewById(R.id.practiceVerb)
+        val conjugationButton: AppCompatImageButton = itemView.findViewById(R.id.viewConjugations)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

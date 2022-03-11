@@ -8,7 +8,8 @@ import android.widget.CheckBox
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.sid.app.verbpractice.R
-import kotlinx.android.synthetic.main.tenses_options_simp_ind.view.*
+import com.sid.app.verbpractice.databinding.TensesOptionsSimpIndBinding
+
 
 class SetSimpIndTensesFragment : DialogFragment() {
 
@@ -37,12 +38,12 @@ class SetSimpIndTensesFragment : DialogFragment() {
             val view = inflater.inflate(R.layout.tenses_options_simp_ind, null)
 
             checkBoxes = arrayOf(
-                view.presIndCheckbox,
-                view.pretIndCheckbox,
-                view.impeIndCheckbox,
-                view.plupIndCheckbox,
-                view.futuSimpIndCheckbox,
-                view.condIndCheckbox
+                view.findViewById(R.id.presIndCheckbox),
+                view.findViewById(R.id.pretIndCheckbox),
+                view.findViewById(R.id.impeIndCheckbox),
+                view.findViewById(R.id.plupIndCheckbox),
+                view.findViewById(R.id.futuSimpIndCheckbox),
+                view.findViewById(R.id.condIndCheckbox)
             )
             listener.getSimpIndTenses().forEachIndexed{ index, isSet -> checkBoxes[index].isChecked = isSet}
 

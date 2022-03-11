@@ -7,7 +7,7 @@ import android.widget.CheckBox
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.sid.app.verbpractice.R
-import kotlinx.android.synthetic.main.persons_options.view.*
+
 
 class SetPersonsFragment : DialogFragment() {
 
@@ -37,12 +37,12 @@ class SetPersonsFragment : DialogFragment() {
             val view = inflater.inflate(R.layout.persons_options, null)
 
             checkBoxes = arrayOf(
-                view.vcCheckbox,
-                view.vcsCheckbox,
-                view.eleElaCheckbox,
-                view.elesElasCheckbox,
-                view.senhorCheckbox,
-                view.senhoresCheckbox
+                view.findViewById(R.id.vcCheckbox),
+                view.findViewById(R.id.vcsCheckbox),
+                view.findViewById(R.id.eleElaCheckbox),
+                view.findViewById(R.id.elesElasCheckbox),
+                view.findViewById(R.id.senhorCheckbox),
+                view.findViewById(R.id.senhoresCheckbox)
             )
             listener.getPersons().forEachIndexed{ index, isSet -> checkBoxes[index].isChecked = isSet}
 

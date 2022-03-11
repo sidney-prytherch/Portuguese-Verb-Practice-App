@@ -15,13 +15,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
+import com.sid.app.verbpractice.databinding.FragmentPracticeBinding
 import com.sid.app.verbpractice.enums.Person
 import com.sid.app.verbpractice.helper.*
-import kotlinx.android.synthetic.main.conjugation_view.view.*
-import kotlinx.android.synthetic.main.fragment_practice.view.*
 
 
 class ConjugationViewerFragment : Fragment() {
+
+    private var _binding: FragmentPracticeBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var tenseTextView: TextView
     private lateinit var verbTextView: TextView
@@ -62,8 +64,10 @@ class ConjugationViewerFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_practice, container, false)
+    ): View {
+        _binding = FragmentPracticeBinding.inflate(inflater, container, false)
+        val view = binding.root
+        //val view = inflater.inflate(R.layout.fragment_practice, container, false)
 
         conjugationsArrayParcel = (arguments?.get("conjugations") as ConjugationArrayParcel)
         conjugations = conjugationsArrayParcel.conjugations.map { conjugationParcel ->
@@ -71,13 +75,7 @@ class ConjugationViewerFragment : Fragment() {
         }.toTypedArray()
 
         // get views and colors
-        conjugationTable = view.conjugationTable
-        tenseTextView = view.tenseTextView
-        verbTextView = view.verbTextView
-        englishVerbTextView = view.englishVerbTextView
         gray = ContextCompat.getColor(view.context, R.color.lightGray)
-        finishButton = view.finishButton
-        nextButton = view.nextButton
 
         // get preferences
         enabledThirdPersons = mContext.getThirdPersonSwitches()
@@ -94,11 +92,11 @@ class ConjugationViewerFragment : Fragment() {
             NavHostFragment.findNavController(parentFragmentManager.primaryNavigationFragment!!).navigate(R.id.action_conjugations_to_dictionary)
         }
 
-        view.timer.visibility = View.GONE
-        view.count.visibility = View.GONE
+        binding.timer.visibility = View.GONE
+        binding.count.visibility = View.GONE
 
-        view.checkButton.text = getString(R.string.previous)
-        view.checkButton.setOnClickListener {
+        binding.checkButton.text = getString(R.string.previous)
+        binding.checkButton.setOnClickListener {
             goToPrevious()
         }
 
@@ -200,8 +198,8 @@ class ConjugationViewerFragment : Fragment() {
                 engCong = engCong.replaceFirst("<", "").replaceFirst(">", "")
             }
 
-            view.portConj.text = portConj
-            view.englishVerb.text = formattedEnglishConjugation
+            view.findViewById<TextView>(R.id.portConj).text = portConj
+            view.findViewById<TextView>(R.id.englishVerb).text = formattedEnglishConjugation
         }
     }
 
@@ -235,6 +233,11 @@ class ConjugationViewerFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

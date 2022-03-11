@@ -30,14 +30,16 @@ import androidx.preference.PreferenceManager
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.VerbSettingsManager
-import kotlinx.android.synthetic.main.fragment_options.view.*
-import kotlinx.android.synthetic.main.fragment_options.view.timeSwitchOption
+import com.sid.app.verbpractice.databinding.FragmentOptionsBinding
 
 
 /**
  * Shows a register form to showcase UI state persistence. It has a button that goes to Registered
  */
 class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
+
+    private var _binding: FragmentOptionsBinding? = null
+    private val binding get() = _binding!!
 
     private var disabledColor: Int = 0
     private var enabledColor: Int = 0
@@ -49,14 +51,7 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         VerbSettingsManager.VOS_FREQUENCY,
         VerbSettingsManager.VCS_ELES_ELAS_FREQUENCY
     )
-    private val thirdPersonKeys = arrayOf(
-        VerbSettingsManager.VC_ENABLED,
-        VerbSettingsManager.ELE_ELA_ENABLED,
-        VerbSettingsManager.SENHOR_ENABLED,
-        VerbSettingsManager.VCS_ENABLED,
-        VerbSettingsManager.ELES_ELAS_ENABLED,
-        VerbSettingsManager.SENHORES_ENABLED
-    )
+
     var switches = arrayOf<SwitchCompat>()
 //    var thirdPersonSwitches = arrayOf<SwitchCompat>()
     private lateinit var conjugationsSwitch: SwitchCompat
@@ -96,7 +91,9 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        _binding = FragmentOptionsBinding.inflate(inflater, container, false)
+        val view = binding.root
         setHasOptionsMenu(true)
 
         indicatives = arrayOf(
@@ -145,22 +142,21 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             resources.getString(R.string.senhores)
         )
 
-        val view = inflater.inflate(R.layout.fragment_options, container, false)
 
         enabledVerbTypes = arrayOf(
-            view.arVerbType,
-            view.erVerbType,
-            view.irVerbType,
-            view.irregVerbType
+            binding.arVerbType,
+            binding.erVerbType,
+            binding.irVerbType,
+            binding.irregVerbType
         )
 
         switches = arrayOf(
-            view.findViewById(R.id.euSwitch),
-            view.findViewById(R.id.tuSwitch),
-            view.findViewById(R.id.vcEleElaSwitch),
-            view.findViewById(R.id.nosSwitch),
-            view.findViewById(R.id.vosSwitch),
-            view.findViewById(R.id.vcsElesElasSwitch)
+            binding.euSwitch,
+            binding.tuSwitch,
+            binding.vcEleElaSwitch,
+            binding.nosSwitch,
+            binding.vosSwitch,
+            binding.vcsElesElasSwitch
         )
 
 //        thirdPersonSwitches = arrayOf(
@@ -173,12 +169,12 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
 //        )
 
         bars = arrayOf(
-            view.findViewById(R.id.euBar),
-            view.findViewById(R.id.tuBar),
-            view.findViewById(R.id.vcEleElaBar),
-            view.findViewById(R.id.nosBar),
-            view.findViewById(R.id.vosBar),
-            view.findViewById(R.id.vcsElesElasBar)
+            binding.euBar,
+            binding.tuBar,
+            binding.vcEleElaBar,
+            binding.nosBar,
+            binding.vosBar,
+            binding.vcsElesElasBar
         )
 
         val enabledVerbTypeKeys = arrayOf(
@@ -198,13 +194,13 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         }
 
         tenseTextBoxes = arrayOf(
-            view.setSimpIndTenses,
-            view.setCompIndTenses,
-            view.setProgIndTenses,
-            view.setSubjTenses
+            binding.setSimpIndTenses,
+            binding.setCompIndTenses,
+            binding.setProgIndTenses,
+            binding.setSubjTenses
         )
 
-        personsTextView = view.setEnabledThirdPersons
+        personsTextView = binding.setEnabledThirdPersons
 
         resetSimpIndTextView()
         resetCompIndTextView()
@@ -214,17 +210,17 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
 
         disabledColor = ContextCompat.getColor(view.context, R.color.disabled)
         enabledColor = ContextCompat.getColor(view.context, R.color.black)
-        fullConjugations = view.fullConjugations
-        partialConjugations = view.partialConjugations
-        conjugationsSwitch = view.conjugationsSwitch
+        fullConjugations = binding.fullConjugations
+        partialConjugations = binding.partialConjugations
+        conjugationsSwitch = binding.conjugationsSwitch
 
         val isFullDefault =  mContext.getIsFullConjugation()
         setFullOrPartialConjugations(isFullDefault)
         conjugationsSwitch.isChecked = isFullDefault
 
-        portugalSwitch = view.portugalSwitch
-        brazil = view.brazil
-        portugal = view.portugal
+        portugalSwitch = binding.portugalSwitch
+        brazil = binding.brazil
+        portugal = binding.portugal
         val isPortugal =  mContext.getIsPortugal()
         setPortugalOrBrazil(isPortugal)
         portugalSwitch.isChecked = isPortugal
@@ -266,11 +262,11 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             bar.setOnSeekBarChangeListener(this)
         }
 
-        timeOption = view.timeSwitchOption
-        countOption = view.countSwitchOption
-        timeOptions = view.timeOptions
-        countOptions = view.countOptions
-        timeOrCountSwitch = view.timeOrCountSwitch
+        timeOption = binding.timeSwitchOption
+        countOption = binding.countSwitchOption
+        timeOptions = binding.timeOptions
+        countOptions = binding.countOptions
+        timeOrCountSwitch = binding.timeOrCountSwitch
 
 
         val isTimeDefault =  mContext.getIsCountSetting()
@@ -287,7 +283,7 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             mContext.onSetBooleanPreference(VerbSettingsManager.IS_COUNT, isChecked)
         }
 
-        val timeSpinner = view.timeSpinner
+        val timeSpinner = binding.timeSpinner
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -308,7 +304,7 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             }
         }
 
-        val countSpinner = view.countSpinner
+        val countSpinner = binding.countSpinner
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -329,7 +325,7 @@ class OptionsFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             }
         }
 
-        val gridSizeSpinner = view.wordsearchSpinner
+        val gridSizeSpinner = binding.wordsearchSpinner
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             requireContext(),

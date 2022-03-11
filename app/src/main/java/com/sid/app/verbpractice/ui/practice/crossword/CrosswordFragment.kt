@@ -14,31 +14,40 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
+import com.sid.app.verbpractice.databinding.FragmentCrosswordBinding
+import com.sid.app.verbpractice.databinding.FragmentCrosswordGridBinding
+import com.sid.app.verbpractice.databinding.FragmentWordsearchRowBinding
+import com.sid.app.verbpractice.databinding.KeyboardBinding
+import com.sid.app.verbpractice.databinding.PopupLettersABinding
+import com.sid.app.verbpractice.databinding.PopupLettersCBinding
+import com.sid.app.verbpractice.databinding.PopupLettersEBinding
+import com.sid.app.verbpractice.databinding.PopupLettersIBinding
+import com.sid.app.verbpractice.databinding.PopupLettersOBinding
+import com.sid.app.verbpractice.databinding.PopupLettersUBinding
+import com.sid.app.verbpractice.databinding.WordsearchHintBinding
 import com.sid.app.verbpractice.helper.*
-import kotlinx.android.synthetic.main.fragment_crossword.*
-import kotlinx.android.synthetic.main.fragment_crossword.view.*
-import kotlinx.android.synthetic.main.fragment_crossword_grid.view.*
-import kotlinx.android.synthetic.main.fragment_wordsearch_row.view.*
-import kotlinx.android.synthetic.main.keyboard.view.*
-import kotlinx.android.synthetic.main.popup_letters_a.view.*
-import kotlinx.android.synthetic.main.popup_letters_c.view.*
-import kotlinx.android.synthetic.main.popup_letters_e.view.*
-import kotlinx.android.synthetic.main.popup_letters_i.view.*
-import kotlinx.android.synthetic.main.popup_letters_o.view.*
-import kotlinx.android.synthetic.main.popup_letters_u.view.*
-import kotlinx.android.synthetic.main.wordsearch_hint.view.*
 
 /**
  * Shows the main title screen with a button that navigates to About
  */
 class CrosswordFragment : Fragment() {
 
-
+    private var _binding: FragmentCrosswordBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var keyboardBinding: KeyboardBinding
+    private lateinit var fragmentCrosswordGridBinding: FragmentCrosswordGridBinding
+    private lateinit var fragmentWordsearchRowBinding: FragmentWordsearchRowBinding
+//    private lateinit var popupLettersABinding: PopupLettersABinding
+//    private lateinit var popupLettersCBinding: PopupLettersCBinding
+//    private lateinit var popupLettersEBinding: PopupLettersEBinding
+//    private lateinit var popupLettersIBinding: PopupLettersIBinding
+//    private lateinit var popupLettersOBinding: PopupLettersOBinding
+//    private lateinit var popupLettersUBinding: PopupLettersUBinding
+//    private lateinit var wordsearchHintBinding: WordsearchHintBinding
     private lateinit var crosswordParcel: CrosswordParcel
     private lateinit var scrollView: ScrollView
     private lateinit var hintViews: Array<View>
     private lateinit var mContext: MainActivity
-    private lateinit var switchOrientationButton: ImageButton
     private lateinit var crosswordCells: Array<Array<CrosswordCell>>
     private lateinit var endButtons: Array<Button>
     private var focusedCell: CrosswordCell? = null
@@ -99,7 +108,7 @@ class CrosswordFragment : Fragment() {
         for (button in endButtons) {
             button.visibility = View.VISIBLE
         }
-        keyboard.visibility = View.GONE
+        keyboardBinding.root.visibility = View.GONE
     }
 
     override fun onResume() {
@@ -127,19 +136,23 @@ class CrosswordFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
-        val view = inflater.inflate(R.layout.fragment_crossword, container, false)
+        _binding = FragmentCrosswordBinding.inflate(inflater, container, false)
+        val view = binding.root
+        keyboardBinding = KeyboardBinding.bind(binding.root)
+        fragmentCrosswordGridBinding = FragmentCrosswordGridBinding.bind(binding.root)
+        fragmentWordsearchRowBinding = FragmentWordsearchRowBinding.bind(binding.root)
 
         (activity as MainActivity?)?.supportActionBar?.setTitle(R.string.title_crossword)
 
-        endButtons = arrayOf(view.returnHome, view.playAgain)
+        endButtons = arrayOf(binding.returnHome, binding.playAgain)
 
-        view.returnHome.setOnClickListener {
+        binding.returnHome.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_crossword_to_practice_start)
         }
 
-        view.playAgain.setOnClickListener {
+        binding.playAgain.setOnClickListener {
             val bundle = bundleOf("practiceMode" to 2)
             Navigation.findNavController(view)
                 .navigate(R.id.action_crossword_to_practice_loading, bundle)
@@ -156,23 +169,23 @@ class CrosswordFragment : Fragment() {
             else -> 12
         }
         val allCrosswordRows = arrayOf(
-            view.crossword.row0,
-            view.crossword.row1,
-            view.crossword.row2,
-            view.crossword.row3,
-            view.crossword.row4,
-            view.crossword.row5,
-            view.crossword.row6,
-            view.crossword.row7,
-            view.crossword.row8,
-            view.crossword.row9,
-            view.crossword.row10,
-            view.crossword.row11,
-            view.crossword.row12,
-            view.crossword.row13
+            fragmentCrosswordGridBinding.row0,
+            fragmentCrosswordGridBinding.row1,
+            fragmentCrosswordGridBinding.row2,
+            fragmentCrosswordGridBinding.row3,
+            fragmentCrosswordGridBinding.row4,
+            fragmentCrosswordGridBinding.row5,
+            fragmentCrosswordGridBinding.row6,
+            fragmentCrosswordGridBinding.row7,
+            fragmentCrosswordGridBinding.row8,
+            fragmentCrosswordGridBinding.row9,
+            fragmentCrosswordGridBinding.row10,
+            fragmentCrosswordGridBinding.row11,
+            fragmentCrosswordGridBinding.row12,
+            fragmentCrosswordGridBinding.row13
         )
         Array(14 - crosswordSize) { i -> allCrosswordRows[crosswordSize + i] }.forEach { row ->
-            row.visibility = View.GONE
+            row.root.visibility = View.GONE
         }
 
         val crosswordRows = Array(crosswordSize) {
@@ -221,12 +234,12 @@ class CrosswordFragment : Fragment() {
 
 
         val specialKeys = arrayOf(
-            view.keyboard.keyA,
-            view.keyboard.keyC,
-            view.keyboard.keyE,
-            view.keyboard.keyI,
-            view.keyboard.keyO,
-            view.keyboard.keyU
+            keyboardBinding.keyA,
+            keyboardBinding.keyC,
+            keyboardBinding.keyE,
+            keyboardBinding.keyI,
+            keyboardBinding.keyO,
+            keyboardBinding.keyU
         )
         val popUpResources = arrayOf(
             R.layout.popup_letters_a,
@@ -240,31 +253,31 @@ class CrosswordFragment : Fragment() {
             inflater.inflate(it, container, false)
         }
         val accentedLetters = arrayOf(
-            arrayOf(
-                popupViews[0].acuteA,
-                popupViews[0].circumflexA,
-                popupViews[0].graveA,
-                popupViews[0].tildeA
+            arrayOf<Button>(
+                popupViews[0].findViewById(R.id.acuteA),
+                popupViews[0].findViewById(R.id.circumflexA),
+                popupViews[0].findViewById(R.id.graveA),
+                popupViews[0].findViewById(R.id.tildeA)
             ),
-            arrayOf(popupViews[1].cadillaC),
+            arrayOf(popupViews[1].findViewById(R.id.cadillaC)),
             arrayOf(
-                popupViews[2].acuteE,
-                popupViews[2].circumflexE,
-                popupViews[2].graveE
-            ),
-            arrayOf(
-                popupViews[3].acuteI,
-                popupViews[3].graveI
+                popupViews[2].findViewById(R.id.acuteE),
+                popupViews[2].findViewById(R.id.circumflexE),
+                popupViews[2].findViewById(R.id.graveE)
             ),
             arrayOf(
-                popupViews[4].acuteO,
-                popupViews[4].circumflexO,
-                popupViews[4].graveO,
-                popupViews[4].tildeO
+                popupViews[3].findViewById(R.id.acuteI),
+                popupViews[3].findViewById(R.id.graveI)
             ),
             arrayOf(
-                popupViews[5].acuteU,
-                popupViews[5].graveU
+                popupViews[4].findViewById(R.id.acuteO),
+                popupViews[4].findViewById(R.id.circumflexO),
+                popupViews[4].findViewById(R.id.graveO),
+                popupViews[4].findViewById(R.id.tildeO)
+            ),
+            arrayOf(
+                popupViews[5].findViewById(R.id.acuteU),
+                popupViews[5].findViewById(R.id.graveU)
             )
         )
         val popupWindows = popupViews.map {
@@ -299,32 +312,32 @@ class CrosswordFragment : Fragment() {
         }
 
         val keys = arrayOf(
-            view.keyboard.keyA,
-            view.keyboard.keyB,
-            view.keyboard.keyC,
-            view.keyboard.keyD,
-            view.keyboard.keyE,
-            view.keyboard.keyF,
-            view.keyboard.keyG,
-            view.keyboard.keyH,
-            view.keyboard.keyI,
-            view.keyboard.keyJ,
-            view.keyboard.keyK,
-            view.keyboard.keyL,
-            view.keyboard.keyM,
-            view.keyboard.keyN,
-            view.keyboard.keyO,
-            view.keyboard.keyP,
-            view.keyboard.keyQ,
-            view.keyboard.keyR,
-            view.keyboard.keyS,
-            view.keyboard.keyT,
-            view.keyboard.keyU,
-            view.keyboard.keyV,
-            view.keyboard.keyW,
-            view.keyboard.keyX,
-            view.keyboard.keyY,
-            view.keyboard.keyZ
+            keyboardBinding.keyA,
+            keyboardBinding.keyB,
+            keyboardBinding.keyC,
+            keyboardBinding.keyD,
+            keyboardBinding.keyE,
+            keyboardBinding.keyF,
+            keyboardBinding.keyG,
+            keyboardBinding.keyH,
+            keyboardBinding.keyI,
+            keyboardBinding.keyJ,
+            keyboardBinding.keyK,
+            keyboardBinding.keyL,
+            keyboardBinding.keyM,
+            keyboardBinding.keyN,
+            keyboardBinding.keyO,
+            keyboardBinding.keyP,
+            keyboardBinding.keyQ,
+            keyboardBinding.keyR,
+            keyboardBinding.keyS,
+            keyboardBinding.keyT,
+            keyboardBinding.keyU,
+            keyboardBinding.keyV,
+            keyboardBinding.keyW,
+            keyboardBinding.keyX,
+            keyboardBinding.keyY,
+            keyboardBinding.keyZ
         )
         keys.forEach { key ->
             key.setOnClickListener {
@@ -333,7 +346,7 @@ class CrosswordFragment : Fragment() {
                 checkCrossword()
             }
         }
-        view.keyboard.backspace.setOnClickListener {
+        keyboardBinding.backspace.setOnClickListener {
             val selectedCell = focusedCell
             if (selectedCell !== null) {
                 if (selectedCell.view.text != " ") {
@@ -347,9 +360,7 @@ class CrosswordFragment : Fragment() {
             }
         }
 
-        switchOrientationButton = view.switchOrientation
-
-        scrollView = view.hintScrollView
+        scrollView = binding.hintScrollView
 
         hintViews = crosswordParcel.crosswordHints.mapIndexed { index, hint ->
             var finalHint = crosswordParcel.crosswordEnTranslations[index]
@@ -369,47 +380,49 @@ class CrosswordFragment : Fragment() {
                 )
                 finalHint = finalHint.replaceFirst("<", "").replaceFirst(">", "")
             }
-            hintView.english_verb_info.text = hint
-            hintView.portuguese_verb.text = crosswordParcel.crosswordPtInfinitives[index]
-            hintView.english_hint.text = formattedEnglishConjugation
-            hintView.answer_text.text = crosswordParcel.crosswordWords[index]
+            val hintViewPortVerb = hintView.findViewById<TextView>(R.id.portuguese_verb)
+            val hintViewAnswerText = hintView.findViewById<TextView>(R.id.answer_text)
+            hintView.findViewById<TextView>(R.id.english_verb_info).text = hint
+            hintViewPortVerb.text = crosswordParcel.crosswordPtInfinitives[index]
+            hintView.findViewById<TextView>(R.id.english_hint).text = formattedEnglishConjugation
+            hintViewAnswerText.text = crosswordParcel.crosswordWords[index]
 
-            hintView.answer_button.setOnClickListener {
+            hintView.findViewById<Button>(R.id.answer_button).setOnClickListener {
                 it.visibility = View.GONE
-                hintView.answer_text.visibility = View.VISIBLE
+                hintViewAnswerText.visibility = View.VISIBLE
             }
-            hintView.show_english_verb_info.setOnClickListener {
-                hintView.english_info.visibility = View.VISIBLE
+            hintView.findViewById<ImageButton>(R.id.show_english_verb_info).setOnClickListener {
+                hintView.findViewById<LinearLayout>(R.id.english_info).visibility = View.VISIBLE
                 it.visibility = View.GONE
-                hintView.hide_english_verb_info.visibility = View.VISIBLE
+                hintView.findViewById<ImageButton>(R.id.hide_english_verb_info).visibility = View.VISIBLE
             }
-            hintView.hide_english_verb_info.setOnClickListener {
-                hintView.portuguese_verb.visibility = View.GONE
+            hintView.findViewById<ImageButton>(R.id.hide_english_verb_info).setOnClickListener {
+                hintViewPortVerb.visibility = View.GONE
                 it.visibility = View.GONE
-                hintView.show_english_verb_info.visibility = View.VISIBLE
-                hintView.english_info.visibility = View.GONE
-                hintView.hide_portuguese_verb_info.visibility = View.GONE
-                hintView.show_portuguese_verb_info.visibility = View.VISIBLE
+                hintView.findViewById<ImageButton>(R.id.show_english_verb_info).visibility = View.VISIBLE
+                hintView.findViewById<LinearLayout>(R.id.english_info).visibility = View.GONE
+                hintView.findViewById<ImageButton>(R.id.hide_portuguese_verb_info).visibility = View.GONE
+                hintView.findViewById<ImageButton>(R.id.show_portuguese_verb_info).visibility = View.VISIBLE
             }
-            hintView.show_portuguese_verb_info.setOnClickListener {
-                hintView.portuguese_verb.visibility = View.VISIBLE
+            hintView.findViewById<ImageButton>(R.id.show_portuguese_verb_info).setOnClickListener {
+                hintViewPortVerb.visibility = View.VISIBLE
                 it.visibility = View.GONE
-                hintView.hide_portuguese_verb_info.visibility = View.VISIBLE
+                hintView.findViewById<ImageButton>(R.id.hide_portuguese_verb_info).visibility = View.VISIBLE
             }
-            hintView.hide_portuguese_verb_info.setOnClickListener {
-                hintView.portuguese_verb.visibility = View.GONE
+            hintView.findViewById<ImageButton>(R.id.hide_portuguese_verb_info).setOnClickListener {
+                hintViewPortVerb.visibility = View.GONE
                 it.visibility = View.GONE
-                hintView.show_portuguese_verb_info.visibility = View.VISIBLE
+                hintView.findViewById<ImageButton>(R.id.show_portuguese_verb_info).visibility = View.VISIBLE
 
             }
             hintView
         }.toTypedArray()
 
-        switchOrientationButton.setOnClickListener {
+        binding.switchOrientation.setOnClickListener {
             selectWord(focusedCell!!)
         }
 
-        view.nextButton.setOnClickListener {
+        binding.nextButton.setOnClickListener {
             val nextIndex =
                 orderedHintIndices[(orderedHintIndices.indexOf(currentHintIndex) + 1) % orderedHintIndices.size]
             val forceSwitch = isAcross != crosswordParcel.wordStartCoords[nextIndex].third
@@ -460,16 +473,16 @@ class CrosswordFragment : Fragment() {
     private fun onCellSelected(selectedCell: CrosswordCell, crosswordParcel: CrosswordParcel) {
         if (isAcross) {
             if (crosswordParcel.downRoots[(selectedCell.row) * crosswordSize + selectedCell.col] != -1) {
-                switchOrientationButton.isClickable = true
+                binding.switchOrientation.isClickable = true
                 return
             }
         } else {
             if (crosswordParcel.acrossRoots[(selectedCell.row) * crosswordSize + selectedCell.col] != -1) {
-                switchOrientationButton.isClickable = true
+                binding.switchOrientation.isClickable = true
                 return
             }
         }
-        switchOrientationButton.isClickable = false
+        binding.switchOrientation.isClickable = false
     }
 
     private fun moveToNextCell(crosswordParcel: CrosswordParcel) {
@@ -594,6 +607,11 @@ class CrosswordFragment : Fragment() {
             android.R.id.home -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

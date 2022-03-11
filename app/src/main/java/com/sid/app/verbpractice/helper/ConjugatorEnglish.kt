@@ -1,6 +1,5 @@
 package com.sid.app.verbpractice.helper
 
-import android.util.Log
 import com.sid.app.verbpractice.enums.EnglishHelper
 import com.sid.app.verbpractice.enums.Person
 import com.sid.app.verbpractice.enums.VerbForm

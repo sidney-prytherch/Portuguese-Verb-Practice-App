@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -14,7 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.ResultArrayParcel
-import kotlinx.android.synthetic.main.fragment_practice_results.view.*
+import com.sid.app.verbpractice.databinding.FragmentPracticeResultsBinding
+
 
 class PracticeResultsFragment : Fragment() {
 
@@ -29,7 +31,7 @@ class PracticeResultsFragment : Fragment() {
         val results = (arguments?.get("results") as ResultArrayParcel).results.toList()
         val singleVerb = (arguments?.getString("verb"))
 
-        val recyclerView: RecyclerView = view.resultsRecyclerView
+        val recyclerView: RecyclerView = view.findViewById(R.id.resultsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
 
@@ -37,7 +39,7 @@ class PracticeResultsFragment : Fragment() {
         recyclerView.adapter = adapter
         adapter.setResults(results)
 
-        view.restart.setOnClickListener {
+        view.findViewById<AppCompatButton>(R.id.restart).setOnClickListener {
             if (singleVerb == null) {
                 Navigation.findNavController(view).navigate(R.id.action_results_to_loading)
             } else {

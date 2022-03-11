@@ -39,6 +39,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.sid.app.verbpractice.databinding.ActivityMainBinding
 import com.sid.app.verbpractice.db.entity.PortugueseVerb
 import com.sid.app.verbpractice.enums.VerbForm
 import com.sid.app.verbpractice.helper.SwipelessDrawerLayout
@@ -46,7 +47,6 @@ import com.sid.app.verbpractice.helper.VerbSettingsManager
 import com.sid.app.verbpractice.ui.dictionary.WordFilterFragment
 import com.sid.app.verbpractice.ui.options.*
 import com.sid.app.verbpractice.viewmodel.PortugueseVerbViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * An activity that inflates a layout that has a [BottomNavigationView].
@@ -62,12 +62,18 @@ class MainActivity : AppCompatActivity(),
     private lateinit var mWordViewModel: PortugueseVerbViewModel
     private lateinit var verbSettingsManager: VerbSettingsManager
     private var mDrawerToggle: ActionBarDrawerToggle? = null
+    private lateinit var binding: ActivityMainBinding
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        mDrawerToggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.open, R.string.close)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        setSupportActionBar(binding.toolbar)
+        mDrawerToggle = ActionBarDrawerToggle(this, findViewById(R.id.drawer_layout), binding.toolbar, R.string.open, R.string.close)
         mDrawerToggle!!.setToolbarNavigationClickListener {
 
         }
@@ -80,12 +86,11 @@ class MainActivity : AppCompatActivity(),
 
         mWordViewModel = ViewModelProvider(this).get(PortugueseVerbViewModel::class.java)
 
+        setContentView(view)
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        if (savedInstanceState != null) {
-            super.onRestoreInstanceState(savedInstanceState)
-        }
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
         setupNavigation()
     }
 
@@ -94,11 +99,11 @@ class MainActivity : AppCompatActivity(),
      */
     private fun setupNavigation() {
         val navController = Navigation.findNavController(this, R.id.nav_host_container)
-        bottom_nav?.setupWithNavController(navController)
-        nav_view.setupWithNavController(navController)
+        binding.bottomNav.setupWithNavController(navController)
+        binding.navView.setupWithNavController(navController)
         val appBarConfiguration = AppBarConfiguration(
             setOf(R.id.practiceStart, R.id.wordsearch, R.id.crossword, R.id.practice_loading, R.id.conjugations_view, R.id.practice, R.id.practice_results, R.id.dictionary, R.id.options),
-            drawer_layout
+            binding.drawerLayout
         )
         setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
@@ -108,15 +113,15 @@ class MainActivity : AppCompatActivity(),
     }
 
     fun setNavBarToPractice() {
-        bottom_nav.menu.findItem(R.id.practiceStart).isChecked = true
+        binding.bottomNav.menu.findItem(R.id.practiceStart).isChecked = true
     }
 
     fun hideNavBar() {
-        bottom_nav.visibility = View.GONE
+        binding.bottomNav.visibility = View.GONE
     }
 
     fun showNavBar() {
-        bottom_nav.visibility = View.VISIBLE
+        binding.bottomNav.visibility = View.VISIBLE
     }
 
     override fun onSetSimpIndTenses(dialog: DialogFragment, result: BooleanArray) {
@@ -374,12 +379,19 @@ class MainActivity : AppCompatActivity(),
     }
 
     fun getVerbTypes(): List<Int> {
+
         return listOf(
             if (verbSettingsManager.getBool(VerbSettingsManager.AR_ENABLED, true)) 1 else 0,
             if (verbSettingsManager.getBool(VerbSettingsManager.ER_ENABLED, true)) 2 else 0,
             if (verbSettingsManager.getBool(VerbSettingsManager.IR_ENABLED, true)) 3 else 0,
             if (verbSettingsManager.getBool(VerbSettingsManager.IRREG_ENABLED, true)) 4 else 0
         ).filter { it != 0 }
+    }
+
+    fun checkInitialization() {
+        if (!(::verbSettingsManager.isInitialized)) {
+            verbSettingsManager = VerbSettingsManager(PreferenceManager.getDefaultSharedPreferences(this))
+        }
     }
 
     fun getVerbSubtypes(): List<Int> {

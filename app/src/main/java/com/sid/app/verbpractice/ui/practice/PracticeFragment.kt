@@ -24,8 +24,7 @@ import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.enums.Person
 import com.sid.app.verbpractice.helper.*
-import kotlinx.android.synthetic.main.conjugation_cell_view.view.*
-import kotlinx.android.synthetic.main.fragment_practice.view.*
+import com.sid.app.verbpractice.databinding.FragmentPracticeBinding
 import java.util.*
 import kotlin.math.max
 import kotlin.collections.mutableListOf as mutableListOf
@@ -33,6 +32,8 @@ import kotlin.collections.mutableListOf as mutableListOf
 
 class PracticeFragment : Fragment() {
 
+    private var _binding: FragmentPracticeBinding? = null
+    private val binding get() = _binding!!
     private lateinit var countDownTimer:CountDownTimer
     lateinit var barTimer: ProgressBar
     lateinit var textTimer: TextView
@@ -83,7 +84,8 @@ class PracticeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        val view = inflater.inflate(R.layout.fragment_practice, container, false)
+        _binding = FragmentPracticeBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         conjugationsArrayParcel = (arguments?.get("conjugations") as ConjugationArrayParcel)
         val singleVerb = (arguments?.get("verb") as String?)
@@ -92,17 +94,17 @@ class PracticeFragment : Fragment() {
         }.toTypedArray()
 
         // get views and colors
-        barTimer = view.barTimer
-        textTimer = view.textTimer
-        conjugationTable = view.conjugationTable
-        tenseTextView = view.tenseTextView
-        verbTextView = view.verbTextView
-        englishVerbTextView = view.englishVerbTextView
+        barTimer = binding.barTimer
+        textTimer = binding.textTimer
+        conjugationTable = binding.conjugationTable
+        tenseTextView = binding.tenseTextView
+        verbTextView = binding.verbTextView
+        englishVerbTextView = binding.englishVerbTextView
         gray = ContextCompat.getColor(view.context, R.color.lightGray)
-        val timer = view.timer
-        val count = view.count
-        finishButton = view.finishButton
-        nextButton = view.nextButton
+        val timer = binding.timer
+        val count = binding.count
+        finishButton = binding.finishButton
+        nextButton = binding.nextButton
 
         // get preferences
         isFullConjugation = mContext.getIsFullConjugation()
@@ -140,15 +142,15 @@ class PracticeFragment : Fragment() {
         }
 
         // set up check button
-        view.checkButton.setOnClickListener {
+        binding.checkButton.setOnClickListener {
             val conjugation = conjugations[currentConjugation]
 
             if (isFullConjugation) {
                 conjugationViewsPersons.forEachIndexed { i, person ->
-                    checkAnswer(conjugation.personMap[allPersons[person]] ?: "", conjugationViews[i].ptVerbInput)
+                    checkAnswer(conjugation.personMap[allPersons[person]] ?: "", conjugationViews[i].findViewById(R.id.ptVerbInput))
                 }
             } else {
-                checkAnswer(conjugation.personMap[allPersons[conjugation.person]] ?: "", conjugationViews[0].ptVerbInput)
+                checkAnswer(conjugation.personMap[allPersons[conjugation.person]] ?: "", conjugationViews[0].findViewById(R.id.ptVerbInput))
             }
             if (nextButton.visibility == View.VISIBLE) {
                 nextButton.requestFocus()
@@ -168,9 +170,9 @@ class PracticeFragment : Fragment() {
             }
             soFarCount = totalCount
             val totalCountStr = totalCount.toString()
-            textCount = view.textCount
+            textCount = binding.textCount
             textCount.text = totalCountStr
-            view.textCountTotal.text = totalCountStr
+            binding.textCountTotal.text = totalCountStr
             count.visibility = View.VISIBLE
             timer.visibility = View.GONE
             nextButton.setOnClickListener {
@@ -179,7 +181,7 @@ class PracticeFragment : Fragment() {
                     val imm = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
                     imm?.hideSoftInputFromWindow(v.windowToken, 0)
                 }
-                view.conjugationScrollView.scrollTo(0, 0)
+                binding.conjugationScrollView.scrollTo(0, 0)
                 goToNext()
             }
         } else {
@@ -306,7 +308,7 @@ class PracticeFragment : Fragment() {
                 nextButton.visibility = View.VISIBLE
             }
         }
-        conjugationViews[0].ptVerbInput.requestFocus()
+        conjugationViews[0].findViewById<EditText>(R.id.ptVerbInput).requestFocus()
 
         if (results.size == (currentPage - 1) * rowCount) {
             val conjugation = conjugations[currentConjugation]
@@ -356,7 +358,7 @@ class PracticeFragment : Fragment() {
         verbTextView.text = verb
         englishVerbTextView.text = StringHelper.capitalize(conjugation.enVerb.split("~")[0])
         for (i in 0 until rowCount) {
-            val view = conjugationViews[i]
+            val conjView = conjugationViews[i]
             val result = results[i + startIndex]
 
             var engCong = englishConjugations[i]
@@ -368,15 +370,15 @@ class PracticeFragment : Fragment() {
                 engCong = engCong.replaceFirst("<", "").replaceFirst(">", "")
             }
 
-            view.ptVerbInput.setText(result.input)
-            view.ptSubject.text = result.personsString
-            view.englishVerb.text = formattedEnglishConjugation
+            conjView.findViewById<EditText>(R.id.ptVerbInput).setText(result.input)
+            conjView.findViewById<TextView>(R.id.ptSubject).text = result.personsString
+            conjView.findViewById<TextView>(R.id.englishVerb).text = formattedEnglishConjugation
         }
     }
     private fun updateResults() {
         val startIndex = (currentPage - 1) * rowCount
         for (i in 0 until rowCount) {
-            updateResult(i + startIndex, conjugationViews[i].ptVerbInput, false)
+            updateResult(i + startIndex, conjugationViews[i].findViewById(R.id.ptVerbInput), false)
         }
     }
 
@@ -400,13 +402,13 @@ class PracticeFragment : Fragment() {
                 if (rowsEnabled[i]) {
                     val index = i - missingRows
                     val cellLayout = getDefaultCellLayout()
-                    cellLayout.showAnswer.setOnClickListener {
+                    cellLayout.findViewById<TextView>(R.id.showAnswer).setOnClickListener {
                         val answer =
                             getDefaultAnswerFromConjugation(
                                 conjugations[currentConjugation].personMap[allPersons[i]] ?: ""
                             )
-                        updateResult((currentPage - 1) * rowCount + index, cellLayout.ptVerbInput, true)
-                        cellLayout.ptVerbInput.setText(answer)
+                        updateResult((currentPage - 1) * rowCount + index, cellLayout.findViewById(R.id.ptVerbInput), true)
+                        cellLayout.findViewById<TextView>(R.id.ptVerbInput).text = answer
                     }
                     conjugationViews[index] = cellLayout
                     conjugationViewsPersons[index] = i
@@ -417,14 +419,14 @@ class PracticeFragment : Fragment() {
             }
         } else {
             val cellLayout = getDefaultCellLayout()
-            cellLayout.showAnswer.setOnClickListener {
+            cellLayout.findViewById<TextView>(R.id.showAnswer).setOnClickListener {
                 val conjugation = conjugations[currentConjugation]
                 val answer =
                     getDefaultAnswerFromConjugation(
                         conjugation.personMap[allPersons[conjugation.person]] ?: ""
                     )
-                updateResult(currentPage - 1, cellLayout.ptVerbInput, true)
-                cellLayout.ptVerbInput.setText(answer)
+                updateResult(currentPage - 1, cellLayout.findViewById(R.id.ptVerbInput), true)
+                cellLayout.findViewById<EditText>(R.id.ptVerbInput).setText(answer)
             }
             conjugationViews[0] = cellLayout
             conjugationTable.addView(cellLayout)
@@ -433,8 +435,8 @@ class PracticeFragment : Fragment() {
 
     private fun getDefaultCellLayout(): LinearLayout {
         val cellLayout: LinearLayout =  View.inflate(context, R.layout.conjugation_cell_view, null) as LinearLayout // layoutInflater.inflate(R.layout.conjugation_cell_view, null) as LinearLayout
-        cellLayout.ptVerbInput.addTextChangedListener {
-            cellLayout.ptVerbInput.setBackgroundResource(R.drawable.verb_input_edittext)
+        cellLayout.findViewById<EditText>(R.id.ptVerbInput).addTextChangedListener {
+            cellLayout.findViewById<EditText>(R.id.ptVerbInput).setBackgroundResource(R.drawable.verb_input_edittext)
         }
         return cellLayout
     }
@@ -453,8 +455,8 @@ class PracticeFragment : Fragment() {
                         getDefaultAnswerFromConjugation(
                             conjugation.personMap[allPersons[person]] ?: ""
                         )
-                    updateResult((currentPage - 1) * rowCount + i, conjugationViews[i].ptVerbInput, true)
-                    conjugationViews[i].ptVerbInput.setText(answer)
+                    updateResult((currentPage - 1) * rowCount + i, conjugationViews[i].findViewById(R.id.ptVerbInput), true)
+                    conjugationViews[i].findViewById<EditText>(R.id.ptVerbInput).setText(answer)
                 }
                 return true
             }

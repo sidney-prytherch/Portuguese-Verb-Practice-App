@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -33,8 +34,8 @@ import com.sid.app.verbpractice.db.entity.PortugueseVerb
 import com.sid.app.verbpractice.enums.Person
 import com.sid.app.verbpractice.enums.VerbForm
 import com.sid.app.verbpractice.helper.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_practice_loading.view.*
+import com.sid.app.verbpractice.databinding.ActivityMainBinding
+import com.sid.app.verbpractice.databinding.FragmentPracticeLoadingBinding
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -96,8 +97,9 @@ class PracticeLoadingFragment : Fragment(), CoroutineScope {
             (activity as MainActivity?)?.supportActionBar?.setTitle(R.string.title_crossword)
         }
 
-        val rotate = AnimationUtils.loadAnimation(view.imageView.context, R.anim.rotate_animation)
-        view.imageView.animation = rotate
+        val imgView = view.findViewById<ImageView>(R.id.imageView)
+        val rotate = AnimationUtils.loadAnimation(imgView.context, R.anim.rotate_animation)
+        imgView.animation = rotate
 
         enabledThirdPersons = mContext.getThirdPersonSwitches()
 

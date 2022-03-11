@@ -3,11 +3,14 @@ package com.sid.app.verbpractice.ui.dictionary
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.widget.CheckBox
 import android.widget.SeekBar
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.fragment.app.DialogFragment
 import com.sid.app.verbpractice.R
-import kotlinx.android.synthetic.main.filter_words.view.*
+
 
 class WordFilterFragment : DialogFragment() {
 
@@ -36,20 +39,22 @@ class WordFilterFragment : DialogFragment() {
             val inflater = requireActivity().layoutInflater
             val view = inflater.inflate(R.layout.filter_words, null)
 
-            val checkBoxes = arrayOf(view.selected, view.unselected)
+            val checkBoxes = arrayOf(view.findViewById<CheckBox>(R.id.selected), view.findViewById(R.id.unselected))
             listener.getFilterSettings()
                 .forEachIndexed { index, isSet -> checkBoxes[index].isChecked = isSet }
-            view.commonalitySlider.progress = listener.getCommonVerbValue()
-            view.commonLabel.text = getString(when (view.commonalitySlider.progress) {
+            val commonalitySlider = view.findViewById<AppCompatSeekBar>(R.id.commonalitySlider)
+            val commonLabel = view.findViewById<TextView>(R.id.commonLabel)
+            commonalitySlider.progress = listener.getCommonVerbValue()
+            commonLabel.text = getString(when (commonalitySlider.progress) {
                 0 -> R.string.uncommon
                 1 -> R.string.somewhat_common
                 2 -> R.string.common
                 else -> R.string.very_common
             })
 
-            view.commonalitySlider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            commonalitySlider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                    view.commonLabel.text = getString(when (i) {
+                    commonLabel.text = getString(when (i) {
                         0 -> R.string.uncommon
                         1 -> R.string.somewhat_common
                         2 -> R.string.common
@@ -70,9 +75,9 @@ class WordFilterFragment : DialogFragment() {
                 .setPositiveButton(R.string.ok) { _, _ ->
                     val filterResults = checkBoxes.map { checkBox -> checkBox.isChecked }.toBooleanArray()
                     listener.onSetFilterSettings(filterResults)
-                    listener.onSetCommonVerbValue(view.commonalitySlider.progress)
+                    listener.onSetCommonVerbValue(commonalitySlider.progress)
                     val parent = (parentFragmentManager.primaryNavigationFragment!! as DictionaryFragment)
-                    parent.resetFilter(filterResults, view.commonalitySlider.progress)
+                    parent.resetFilter(filterResults, commonalitySlider.progress)
                 }
                 .setNegativeButton(
                     R.string.cancel

@@ -11,9 +11,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -23,16 +21,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
+import com.sid.app.verbpractice.databinding.*
 import com.sid.app.verbpractice.helper.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.conjugation_cell_view.view.*
-import kotlinx.android.synthetic.main.fragment_practice_start.view.*
-import kotlinx.android.synthetic.main.fragment_wordsearch.*
-import kotlinx.android.synthetic.main.fragment_wordsearch.view.*
-import kotlinx.android.synthetic.main.wordsearch_hint.view.*
-import kotlinx.android.synthetic.main.fragment_wordsearch_grid.view.*
-import kotlinx.android.synthetic.main.fragment_wordsearch_row.view.*
-import kotlinx.android.synthetic.main.wordsearch_hint.*
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.pow
@@ -43,6 +33,8 @@ import kotlin.math.sqrt
  */
 class WordsearchFragment : Fragment() {
 
+    private var _binding: FragmentWordsearchBinding? = null
+    private val binding get() = _binding!!
     private lateinit var mContext: MainActivity
     private lateinit var hintsLinearLayout: LinearLayout
     private lateinit var canvas: ImageView
@@ -115,10 +107,11 @@ class WordsearchFragment : Fragment() {
     }
 
     private fun placeWord(index: Int) {
+        val answerTextView = hintViews[index].findViewById<TextView>(R.id.answer_text)
         wordAtIndexIsPlaced[index] = ++placedWordsCount
-        hintViews[index].answer_button.visibility = View.GONE
-        hintViews[index].answer_text.visibility = View.VISIBLE
-        hintViews[index].answer_text.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+        hintViews[index].findViewById<Button>(R.id.answer_button).visibility = View.GONE
+        answerTextView.visibility = View.VISIBLE
+        answerTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
         hintViews[index].setBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),
@@ -139,14 +132,18 @@ class WordsearchFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
+        _binding = FragmentWordsearchBinding.inflate(inflater, container, false)
+        val view = binding.root
+
         var previouslyClickedCell: WordsearchCell? = null
-        val view = inflater.inflate(R.layout.fragment_wordsearch, container, false)
 
         (activity as MainActivity?)?.supportActionBar?.setTitle(R.string.title_wordsearch)
 
-        hintsLinearLayout = view.wordsearch_hints
+        //hintsLinearLayout = view.findViewById(R.id.wordsearch_hints)
+        hintsLinearLayout = binding.wordsearchHints
+
 
         val wordsearchParcel = (arguments?.get("wordsearch") as WordsearchParcel)
         val hints = wordsearchParcel.wordsearchHints
@@ -160,8 +157,8 @@ class WordsearchFragment : Fragment() {
         val defaultView = View(context)
         hintViews = Array(hints.size) { defaultView }
         separationViews = Array(hints.size) { defaultView }
-        continueButtons = arrayOf(view.play_again, view.return_home)
-        buttonDivider = view.button_divider
+        continueButtons = arrayOf(binding.playAgain, binding.returnHome)
+        buttonDivider = binding.buttonDivider
 
         wordCoordinates = coordinates.chunked(4)
             .map { (startX, startY, endX, endY) -> (startX to startY) to (endX to endY) }
@@ -191,52 +188,55 @@ class WordsearchFragment : Fragment() {
                 )
                 finalHint = finalHint.replaceFirst("<", "").replaceFirst(">", "")
             }
-            hintView.english_verb_info.text = hints[index]
-            hintView.portuguese_verb.text = ptInfinitives[index]
-            hintView.english_hint.text = formattedEnglishConjugation
-            hintView.answer_text.text = answers[index]
 
-            hintView.answer_button.setOnClickListener {
+            val hintViewAnswerText = hintView.findViewById<TextView>(R.id.answer_text)
+            val hintViewPortugueseVerb = hintView.findViewById<TextView>(R.id.portuguese_verb)
+            hintView.findViewById<TextView>(R.id.english_verb_info).text = hints[index]
+            hintViewPortugueseVerb.text = ptInfinitives[index]
+            hintView.findViewById<TextView>(R.id.english_hint).text = formattedEnglishConjugation
+            hintViewAnswerText.text = answers[index]
+
+            hintView.findViewById<Button>(R.id.answer_button).setOnClickListener {
                 it.visibility = View.GONE
-                hintView.answer_text.visibility = View.VISIBLE
+                hintViewAnswerText.visibility = View.VISIBLE
             }
-            hintView.show_english_verb_info.setOnClickListener {
-                hintView.english_info.visibility = View.VISIBLE
+            hintView.findViewById<ImageButton>(R.id.show_english_verb_info).setOnClickListener {
+                hintView.findViewById<LinearLayout>(R.id.english_info).visibility = View.VISIBLE
                 it.visibility = View.GONE
-                hintView.hide_english_verb_info.visibility = View.VISIBLE
+                hintView.findViewById<ImageButton>(R.id.hide_english_verb_info).visibility = View.VISIBLE
             }
-            hintView.hide_english_verb_info.setOnClickListener {
-                hintView.portuguese_verb.visibility = View.GONE
+            hintView.findViewById<ImageButton>(R.id.hide_english_verb_info).setOnClickListener {
+                hintViewPortugueseVerb.visibility = View.GONE
                 it.visibility = View.GONE
-                hintView.show_english_verb_info.visibility = View.VISIBLE
-                hintView.english_info.visibility = View.GONE
-                hintView.hide_portuguese_verb_info.visibility = View.GONE
-                hintView.show_portuguese_verb_info.visibility = View.VISIBLE
+                hintView.findViewById<ImageButton>(R.id.show_english_verb_info).visibility = View.VISIBLE
+                hintView.findViewById<LinearLayout>(R.id.english_info).visibility = View.GONE
+                hintView.findViewById<ImageButton>(R.id.hide_portuguese_verb_info).visibility = View.GONE
+                hintView.findViewById<ImageButton>(R.id.show_portuguese_verb_info).visibility = View.VISIBLE
             }
-            hintView.show_portuguese_verb_info.setOnClickListener {
-                hintView.portuguese_verb.visibility = View.VISIBLE
+            hintView.findViewById<ImageButton>(R.id.show_portuguese_verb_info).setOnClickListener {
+                hintViewPortugueseVerb.visibility = View.VISIBLE
                 it.visibility = View.GONE
-                hintView.hide_portuguese_verb_info.visibility = View.VISIBLE
+                hintView.findViewById<ImageButton>(R.id.hide_portuguese_verb_info).visibility = View.VISIBLE
             }
-            hintView.hide_portuguese_verb_info.setOnClickListener {
-                hintView.portuguese_verb.visibility = View.GONE
+            hintView.findViewById<ImageButton>(R.id.hide_portuguese_verb_info).setOnClickListener {
+                hintViewPortugueseVerb.visibility = View.GONE
                 it.visibility = View.GONE
-                hintView.show_portuguese_verb_info.visibility = View.VISIBLE
+                hintView.findViewById<ImageButton>(R.id.show_portuguese_verb_info).visibility = View.VISIBLE
 
             }
-            view.wordsearch_hints.addView(hintView)
+            binding.wordsearchHints.addView(hintView)
 
             val divider = View.inflate(context, R.layout.wordsearch_hint_divider_view, null)
-            view.wordsearch_hints.addView(divider)
+            binding.wordsearchHints.addView(divider)
             separationViews[index] = divider
             if (index == hints.size - 1) {
                 divider.visibility = View.GONE
             }
         }
 
-        canvas = view.canvas
+        canvas = binding.canvas
 
-        constraintLayout = view.container
+        constraintLayout = binding.container
 
         wordsearchSize = when (mContext.getGridSizePreference()) {
             0 -> 8
@@ -246,23 +246,23 @@ class WordsearchFragment : Fragment() {
         }
 
         val allWordsearchRows = arrayOf(
-            view.wordsearch.row0,
-            view.wordsearch.row1,
-            view.wordsearch.row2,
-            view.wordsearch.row3,
-            view.wordsearch.row4,
-            view.wordsearch.row5,
-            view.wordsearch.row6,
-            view.wordsearch.row7,
-            view.wordsearch.row8,
-            view.wordsearch.row9,
-            view.wordsearch.row10,
-            view.wordsearch.row11,
-            view.wordsearch.row12,
-            view.wordsearch.row13
+            binding.wordsearch.row0,
+            binding.wordsearch.row1,
+            binding.wordsearch.row2,
+            binding.wordsearch.row3,
+            binding.wordsearch.row4,
+            binding.wordsearch.row5,
+            binding.wordsearch.row6,
+            binding.wordsearch.row7,
+            binding.wordsearch.row8,
+            binding.wordsearch.row9,
+            binding.wordsearch.row10,
+            binding.wordsearch.row11,
+            binding.wordsearch.row12,
+            binding.wordsearch.row13
         )
         Array(14 - wordsearchSize) { i -> allWordsearchRows[wordsearchSize + i] }.forEach { row ->
-            row.visibility = View.GONE
+            row.root.visibility = View.GONE
         }
 
         val wordsearchRows = Array(wordsearchSize) {
@@ -300,11 +300,11 @@ class WordsearchFragment : Fragment() {
 
         //val wordsearch = Wordsearch(14, arrayOf(""))
 
-        view.return_home.setOnClickListener {
+        binding.returnHome.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_wordsearch_to_practice_start)
         }
 
-        view.play_again.setOnClickListener {
+        binding.playAgain.setOnClickListener {
             val bundle = bundleOf("practiceMode" to 1)
             Navigation.findNavController(view)
                 .navigate(R.id.action_wordsearch_to_practice_loading, bundle)

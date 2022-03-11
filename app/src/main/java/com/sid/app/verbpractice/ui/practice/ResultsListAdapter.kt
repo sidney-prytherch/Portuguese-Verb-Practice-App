@@ -7,6 +7,7 @@ import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -16,7 +17,8 @@ import com.sid.app.verbpractice.helper.ConjugatorPortuguese
 import com.sid.app.verbpractice.helper.ResultParcel
 import com.sid.app.verbpractice.helper.StringHelper
 import com.sid.app.verbpractice.ui.practice.PracticeFragment.Companion.getDefaultAnswerFromConjugation
-import kotlinx.android.synthetic.main.recyclerview_results.view.*
+import com.sid.app.verbpractice.databinding.RecyclerviewResultsBinding
+
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,8 +33,8 @@ class ResultsListAdapter(private val context: Context?) : RecyclerView.Adapter<R
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val resultsRows: LinearLayout = itemView.resultRows
-        val numberTextView: TextView = itemView.number
+        val resultsRows: LinearLayout = itemView.findViewById(R.id.resultRows)
+        val numberTextView: TextView = itemView.findViewById(R.id.number)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,19 +48,22 @@ class ResultsListAdapter(private val context: Context?) : RecyclerView.Adapter<R
         val result = results[position]
         val wasCorrect = result.input == getDefaultAnswerFromConjugation(result.verbConjugation)
         val input = """${result.personsString} ${result.input}""".trim()
+        val correctionTextView = holder.resultsRows.findViewById<TextView>(R.id.correction)
+        val inputTextView = holder.resultsRows.findViewById<TextView>(R.id.input)
+        val verbInfoTextView = holder.resultsRows.findViewById<TextView>(R.id.verbInfo)
         val inputString = if (wasCorrect) {
-            holder.resultsRows.correction.visibility = View.GONE
-            holder.resultsRows.input.setBackgroundColor(ContextCompat.getColor(context!!, R.color.correct))
+            correctionTextView.visibility = View.GONE
+            inputTextView.setBackgroundColor(ContextCompat.getColor(context!!, R.color.correct))
             "You were correct: $input"
         } else {
-            holder.resultsRows.correction.visibility = View.VISIBLE
+            correctionTextView.visibility = View.VISIBLE
             val correctAnswer = """${result.personsString} ${getDefaultAnswerFromConjugation(result.verbConjugation)}"""
             val correctionString = """The correct answer is: $correctAnswer"""
             val formattedCorrectionString = SpannableString(correctionString)
             formattedCorrectionString.setSpan(UnderlineSpan(), correctionString.length - correctAnswer.length, correctionString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            holder.resultsRows.correction.text = formattedCorrectionString
-            holder.resultsRows.input.setBackgroundColor(ContextCompat.getColor(context!!, R.color.incorrect))
-            holder.resultsRows.correction.setBackgroundColor(ContextCompat.getColor(context, R.color.incorrect))
+            correctionTextView.text = formattedCorrectionString
+            inputTextView.setBackgroundColor(ContextCompat.getColor(context!!, R.color.incorrect))
+            correctionTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.incorrect))
             if (result.input.isBlank()) {
                 "You left this blank."
             } else {
@@ -69,18 +74,18 @@ class ResultsListAdapter(private val context: Context?) : RecyclerView.Adapter<R
         if (result.input.isNotBlank()) {
             formattedInputString.setSpan(UnderlineSpan(), inputString.length - input.length, inputString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
-        holder.resultsRows.input.text = formattedInputString
+        inputTextView.text = formattedInputString
         if (result.isFirst) {
             val verbInfoString = """${StringHelper.capitalize(result.verb)} in the ${ConjugatorPortuguese.getVerbFormString(result.tense, context.resources)
                 .toLowerCase(Locale.ROOT)} tense"""
             holder.numberTextView.text = result.count.toString()
-            holder.resultsRows.verbInfo.text = verbInfoString
-            holder.resultsRows.verbInfo.visibility = View.VISIBLE
+            verbInfoTextView.text = verbInfoString
+            verbInfoTextView.visibility = View.VISIBLE
             holder.numberTextView.visibility = View.VISIBLE
         } else {
             holder.numberTextView.text = ""
-            holder.resultsRows.verbInfo.text = ""
-            holder.resultsRows.verbInfo.visibility = View.GONE
+            verbInfoTextView.text = ""
+            verbInfoTextView.visibility = View.GONE
             holder.numberTextView.visibility = View.INVISIBLE
         }
     }

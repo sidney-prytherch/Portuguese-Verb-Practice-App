@@ -1,11 +1,9 @@
 package com.sid.app.verbpractice.helper
 
 import android.content.res.Resources
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.UnderlineSpan
 import android.util.Log
 import com.sid.app.verbpractice.enums.Person
+import java.util.*
 
 class Wordsearch(
     val size: Int,
@@ -21,7 +19,7 @@ class Wordsearch(
     private lateinit var wordsearchCoordinates: IntArray
     private lateinit var wordsearchLetters: CharArray
     private val maxWordLength = 3
-    private val maxFailedWordLimit = 10
+//    private val maxFailedWordLimit = 10
     private val allPersons = arrayOf(
         Person.FIRST_SING,
         Person.SECOND_SING,
@@ -151,7 +149,7 @@ class Wordsearch(
         wordLoop@ for (conjugation in conjugations.shuffled()) {
             val ptWord =
                 (conjugation.personMap[allPersons[conjugation.person]] ?: "").replace(" ", "")
-                    .split("/")[0].toUpperCase()
+                    .split("/")[0].toUpperCase(Locale.ROOT)
             if (ptWord.length !in maxWordLength..size) continue
             //Log.v("wordsearch", "new word:" + conjugation[0]  )
             // if the word is invalid, continue (if it contains or is contained by an already used word)

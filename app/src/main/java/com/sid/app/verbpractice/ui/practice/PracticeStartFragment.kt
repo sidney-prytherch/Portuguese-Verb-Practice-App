@@ -30,13 +30,16 @@ import androidx.navigation.Navigation
 import com.sid.app.verbpractice.MainActivity
 import com.sid.app.verbpractice.R
 import com.sid.app.verbpractice.helper.VerbSettingsManager
-import kotlinx.android.synthetic.main.fragment_practice_start.view.*
+import com.sid.app.verbpractice.databinding.FragmentPracticeStartBinding
+
 
 /**
  * Shows the main title screen with a button that navigates to About
  */
 class PracticeStartFragment : Fragment() {
 
+    private var _binding: FragmentPracticeStartBinding? = null
+    private val binding get() = _binding!!
     private lateinit var mContext: MainActivity
     private lateinit var verbPools: Array<RadioButton>
 
@@ -58,16 +61,20 @@ class PracticeStartFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_practice_start, container, false)
+    ): View {
+        _binding = FragmentPracticeStartBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         verbPools = arrayOf(
-            view.rbSelectedVerbs,
-            view.rbTop100, // > 2
-            view.rbTop500, // > 1
-            view.rbTop2000, // > 0
-            view.rbAllVerbs // > -1
+            binding.rbSelectedVerbs,
+            binding.rbTop100, // > 2
+            binding.rbTop500, // > 1
+            binding.rbTop2000, // > 0
+            binding.rbAllVerbs // > -1
         )
+
+        //TODO why was this necessary?
+        mContext.checkInitialization()
 
         val defaultTypes = mContext.getVerbTypes()
         val defaultSubtypes = mContext.getVerbSubtypes()
@@ -75,14 +82,14 @@ class PracticeStartFragment : Fragment() {
 
         Log.v("default", defaultPracticeMode.toString())
 
-        setPrefListener(view.cbArVerbs, VerbSettingsManager.AR_ENABLED, defaultTypes.contains(1))
-        setPrefListener(view.cbErVerbs, VerbSettingsManager.ER_ENABLED, defaultTypes.contains(2))
-        setPrefListener(view.cbIrVerbs, VerbSettingsManager.IR_ENABLED, defaultTypes.contains(3))
-        setPrefListener(view.cbIrregVerbs, VerbSettingsManager.IRREG_ENABLED, defaultTypes.contains(4))
+        setPrefListener(binding.cbArVerbs, VerbSettingsManager.AR_ENABLED, defaultTypes.contains(1))
+        setPrefListener(binding.cbErVerbs, VerbSettingsManager.ER_ENABLED, defaultTypes.contains(2))
+        setPrefListener(binding.cbIrVerbs, VerbSettingsManager.IR_ENABLED, defaultTypes.contains(3))
+        setPrefListener(binding.cbIrregVerbs, VerbSettingsManager.IRREG_ENABLED, defaultTypes.contains(4))
 
-        setPrefListener(view.cbRegVerbs, VerbSettingsManager.REG_SUBTYPE, defaultSubtypes.contains(1))
-        setPrefListener(view.cbRadical, VerbSettingsManager.RADICAL_SUBTYPE, defaultSubtypes.contains(2))
-        setPrefListener(view.cbOrthographic, VerbSettingsManager.ORTHOGRAPHIC_SUBTYPE, defaultSubtypes.contains(3))
+        setPrefListener(binding.cbRegVerbs, VerbSettingsManager.REG_SUBTYPE, defaultSubtypes.contains(1))
+        setPrefListener(binding.cbRadical, VerbSettingsManager.RADICAL_SUBTYPE, defaultSubtypes.contains(2))
+        setPrefListener(binding.cbOrthographic, VerbSettingsManager.ORTHOGRAPHIC_SUBTYPE, defaultSubtypes.contains(3))
 
         verbPools.forEachIndexed { index, radioButton ->
             radioButton.isChecked = false
@@ -94,38 +101,38 @@ class PracticeStartFragment : Fragment() {
 
         verbPools[mContext.getVerbPool()].isChecked = true
 
-        view.rbQuiz.setOnCheckedChangeListener { _, isChecked ->
+        binding.rbQuiz.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 mContext.setDefaultPracticeMode(0)
-                view.rbWordsearch.isChecked = false
-                view.rbCrossword.isChecked = false
+                binding.rbWordsearch.isChecked = false
+                binding.rbCrossword.isChecked = false
             }
         }
 
-        view.rbWordsearch.setOnCheckedChangeListener { _, isChecked ->
+        binding.rbWordsearch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 mContext.setDefaultPracticeMode(1)
-                view.rbQuiz.isChecked = false
-                view.rbCrossword.isChecked = false
+                binding.rbQuiz.isChecked = false
+                binding.rbCrossword.isChecked = false
             }
         }
 
-        view.rbCrossword.setOnCheckedChangeListener { _, isChecked ->
+        binding.rbCrossword.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 mContext.setDefaultPracticeMode(2)
-                view.rbQuiz.isChecked = false
-                view.rbWordsearch.isChecked = false
+                binding.rbQuiz.isChecked = false
+                binding.rbWordsearch.isChecked = false
             }
         }
 
-        view.rbQuiz.isChecked = defaultPracticeMode == 0
-        view.rbWordsearch.isChecked = defaultPracticeMode == 1
-        view.rbCrossword.isChecked = defaultPracticeMode == 2
+        binding.rbQuiz.isChecked = defaultPracticeMode == 0
+        binding.rbWordsearch.isChecked = defaultPracticeMode == 1
+        binding.rbCrossword.isChecked = defaultPracticeMode == 2
 
-        view.startButton.setOnClickListener {
+        binding.startButton.setOnClickListener {
             val practiceMode = when {
-                view.rbQuiz.isChecked -> 0
-                view.rbWordsearch.isChecked -> 1
+                binding.rbQuiz.isChecked -> 0
+                binding.rbWordsearch.isChecked -> 1
                 else -> 2
             }
             val bundle = bundleOf("practiceMode" to practiceMode)
