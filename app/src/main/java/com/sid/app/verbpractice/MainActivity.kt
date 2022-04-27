@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity(),
 
         mWordViewModel = ViewModelProvider(this).get(PortugueseVerbViewModel::class.java)
 
+        hideNavBar()
         setContentView(view)
     }
 

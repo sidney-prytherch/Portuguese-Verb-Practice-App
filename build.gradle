@@ -21,7 +21,7 @@ buildscript {
     apply from: 'versions.gradle'
     addRepos(repositories)
     dependencies {
-        classpath deps.android_gradle_plugin
+        classpath 'com.android.tools.build:gradle:7.1.1'
         classpath deps.kotlin.plugin
         classpath deps.navigation.safe_args_plugin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"

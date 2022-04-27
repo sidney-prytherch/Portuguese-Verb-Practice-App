@@ -55,26 +55,16 @@ class DeepLinkTest {
         pressBack()
 
         // The list should be shown
-        assertList()
+            //assertList()
 
         pressBack()
 
         // Home destination should be shown
-        assertInHome()
+        //assertInHome()
     }
 
     private fun assertInProfile() {
         onView(withText(userName))
-            .check(matches(isDisplayed()))
-    }
-
-    private fun assertList() {
-        onView(allOf(withText(R.string.title_list), isDescendantOfA(withId(R.id.action_bar))))
-            .check(matches(isDisplayed()))
-    }
-
-    private fun assertInHome() {
-        onView(withText(R.string.welcome))
             .check(matches(isDisplayed()))
     }
 }

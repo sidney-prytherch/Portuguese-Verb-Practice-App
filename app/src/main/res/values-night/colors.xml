@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="correct">#043200</color>
-    <color name="incorrect">#3C0000</color>
-    <color name="transparentBackground">#80303030</color>
+<!--    <color name="correct">#043200</color>-->
+<!--    <color name="incorrect">#3C0000</color>-->
+<!--    <color name="transparentBackground">#80303030</color>-->
+<!--    <color name="lightGray">#444444</color>-->
+<!--    <color name="black">#CCCCCC</color>-->
+<!--    <color name="background">#303030</color>-->
     <color name="darkGray">#888</color>
-    <color name="lightGray">#444444</color>
-    <color name="black">#CCCCCC</color>
-    <color name="background">#303030</color>
+
+    <color name="correct">#E6FFE4</color>
+    <color name="incorrect">#FDF1F1</color>
+    <color name="transparentBackground">#80FAFAFA</color>
+    <color name="background">#FAFAFA</color>
+    <color name="lightGray">#EEEEEE</color>
+    <color name="black">#000</color>
 
     <color name="button_material">#ff5a595b</color>
 

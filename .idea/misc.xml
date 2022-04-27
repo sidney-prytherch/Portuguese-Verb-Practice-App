@@ -9,6 +9,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/layout-land/activity_main.xml" value="0.10846560846560846" />
+        <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/layout-land/fragment_crossword.xml" value="0.13177083333333334" />
         <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/layout-land/fragment_practice_loading.xml" value="0.11354166666666667" />
         <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/layout/activity_main.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/layout/conjugation_cell_view.xml" value="0.8790322580645161" />
@@ -26,6 +27,10 @@
         <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/layout/popup_letters_a.xml" value="0.1" />
         <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/layout/recyclerview_results.xml" value="0.1" />
         <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/layout/wordsearch_hint.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/menu/bottom_nav.xml" value="0.23425925925925925" />
+        <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/menu/dictionary_menu.xml" value="0.23425925925925925" />
+        <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/menu/options_menu.xml" value="0.23425925925925925" />
+        <entry key="..\:/Users/prytherchs/AndroidStudioProjects/VerbPracticeNEW/app/src/main/res/menu/practice_menu.xml" value="0.23425925925925925" />
       </map>
     </option>
   </component>

@@ -30,10 +30,10 @@
         android:layout_height="0dp"
         android:contentDescription="@string/go_to_next_hint"
         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-        android:tint="@color/black"
         app:layout_constraintBottom_toTopOf="@id/switchOrientation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/crossword" />
+        app:layout_constraintTop_toBottomOf="@id/crossword"
+        app:tint="@color/black" />
 
     <ImageButton
         android:id="@+id/switchOrientation"
@@ -41,10 +41,10 @@
         android:layout_height="0dp"
         android:contentDescription="@string/switch_orientation"
         android:src="@drawable/ic_switch_orientation_24dp"
-        android:tint="@color/black"
         app:layout_constraintBottom_toTopOf="@id/keyboard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nextButton" />
+        app:layout_constraintTop_toBottomOf="@id/nextButton"
+        app:tint="@color/black" />
 
     <include
         android:id="@+id/keyboard"
